@@ -5,7 +5,20 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Game hub</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Russo+One&family=Comfortaa:wght@700&family=Nunito:wght@600;800&family=Oswald:wght@500;700&family=Exo+2:wght@600;800&family=Rubik+Mono+One&family=Rubik:ital,wght@1,800&family=Forum&family=Philosopher:wght@700&display=swap">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@500;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;800&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@600;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@600;800&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Exo+2:wght@500;600;800&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fira+Sans+Extra+Condensed:wght@600;900&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@600;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@1,900&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Jost:wght@600;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+SC:wght@700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fira+Sans:wght@600;800&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@500;700;800&display=swap">
 <style>
 :root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);color-scheme:dark;
 --bg:#2b1d12;--card:#4a3322;--ink:#f4efe2;--muted:#c9bba1;--accent:#5b8c2a;--ai:#fff;--line:#1a110a;--ok:#7bc043;--warn:#f1c232;
@@ -175,6 +188,25 @@ button.avb .pav{width:100%;height:100%;border:0;background:none}
 .rpsb{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;max-width:320px;margin:14px auto}
 .rpsb button{aspect-ratio:1;min-height:0;font-size:40px;padding:0;background:rgba(0,0,0,.25);border:1px solid var(--line)}
 .rpsv{display:flex;justify-content:center;align-items:center;gap:18px;font-size:54px;margin:12px 0}.rpsv small{font-size:13px;display:block;text-align:center;color:var(--muted)}
+/* ===== Шрифты в духе каждой игры (бесплатные похожие шрифты с кириллицей) ===== */
+:root{--fhw:400}
+:root[data-game=minecraft]{--fh:"Pixelify Sans","Courier New",monospace;--fb:"Pixelify Sans","Courier New",monospace;--fhw:700;--hs:28px}
+:root[data-game=roblox]{--fh:Montserrat,Verdana,sans-serif;--fb:Montserrat,Verdana,sans-serif;--fhw:800}
+:root[data-game=sky]{--fh:Comfortaa,sans-serif;--fb:Comfortaa,sans-serif;--fhw:700}
+:root[data-game=cs16]{--fh:Tahoma,Verdana,sans-serif;--fb:Tahoma,Verdana,sans-serif;--fhw:700}
+:root[data-game=csgo],:root[data-game=cs2]{--fh:"Exo 2",sans-serif;--fb:"Exo 2",sans-serif;--fhw:800}
+:root[data-game=fortnite]{--fh:"Fira Sans Extra Condensed",Impact,sans-serif;--fb:"Fira Sans Extra Condensed",sans-serif;--fhw:900;--hs:30px}
+:root[data-game=valorant]{--fh:Oswald,Impact,sans-serif;--fb:"Roboto Condensed",sans-serif;--fhw:700}
+:root[data-game=gta]{--fh:Rubik,Impact,sans-serif;--fb:Jost,sans-serif;--fhw:900}
+:root[data-game=dota]{--fh:"Cormorant SC",Georgia,serif;--fb:"Fira Sans",sans-serif;--fhw:700}
+:root[data-game=genshin]{--fh:"M PLUS Rounded 1c",sans-serif;--fb:"M PLUS Rounded 1c",sans-serif;--fhw:800}
+h1,h2,.dh{font-weight:var(--fhw)}
+:root[data-game=minecraft] .big{font:700 26px/1.3 var(--fh)}
+:root[data-game=minecraft] body{font-weight:500}
+:root[data-game=fortnite] :is(h1,h2,button,.ds){text-transform:uppercase;letter-spacing:.5px}
+:root[data-game=fortnite] button{font-style:normal;font-weight:900;font-size:17px}
+:root[data-game=csgo] button{font-weight:600}
+:root[data-game=dota] :is(h1,h2){letter-spacing:1.5px}
 </style>
 </head>
 <body>
