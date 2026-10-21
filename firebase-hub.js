@@ -51,7 +51,7 @@
       Object.keys(docs).forEach(function (id) {
         var d = docs[id];
         if (id === me || now - ms(d.t) < ONLINE_MS) {
-          var pr = { nick: d.nick, st: d.st, game: d.game, c: d.c, vote: d.vote, av: d.av, fav: d.fav, sd: d.sd, br: d.br, ba: d.ba };
+          var pr = { nick: d.nick, st: d.st, game: d.game, c: d.c, vote: d.vote, av: d.av, fav: d.fav, sd: d.sd, br: d.br, ba: d.ba, cl: d.cl, ct: d.ct, xp: d.xp, ach: d.ach };
           if (id === me) Object.keys(mine).forEach(function (k) { pr[k] = mine[k]; });
           out.push({ peer: id, by: id, isMe: id === me, sameTab: id === me, kind: 'viewer', guest: false, presence: pr, updatedAt: ms(d.t) });
         }
@@ -66,7 +66,8 @@
         nick: str(mine.nick, 16), st: str(mine.st, 2) || '1', game: str(mine.game, 20),
         c: (mine.c >= 0 && mine.c < 32 && mine.c % 1 === 0) ? mine.c : 0,
         vote: str(mine.vote, 40), t: FV.serverTimestamp(),
-        av: int(mine.av, 0, 23), fav: str(mine.fav, 60),
+        av: int(mine.av, 0, 199), fav: str(mine.fav, 60),
+        cl: str(mine.cl, 24), ct: str(mine.ct, 4), xp: int(mine.xp, 0, 9999999), ach: int(mine.ach, 0, 1048575),
         sd: int(mine.sd, 0, 9999), br: int(mine.br, 0, 99999), ba: int(mine.ba, 0, 999)
       };
       d.nl = d.nick.toLowerCase();

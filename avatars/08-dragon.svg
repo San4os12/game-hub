@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96" width="96" height="96"><defs><radialGradient id="b" cx="35%" cy="30%" r="80%"><stop offset="0" stop-color="#b8f2a0"/><stop offset="1" stop-color="#14532d"/></radialGradient></defs><circle cx="48" cy="48" r="48" fill="url(#b)"/>
+<path d="M26 30L14 8l20 16zM70 30L82 8 62 24z" fill="#f6d365"/>
+<path d="M18 50c0-18 14-28 30-28s30 10 30 28c0 10-4 16-8 20H26c-4-4-8-10-8-20z" fill="#2fa45a"/>
+<path d="M30 70c4 10 10 16 18 16s14-6 18-16z" fill="#2fa45a"/><path d="M34 74c4 6 8 8 14 8s10-2 14-8z" fill="#f6e7a1"/>
+<path d="M22 50l-8-4 6-4zM74 50l8-4-6-4z" fill="#1f7a40"/>
+<ellipse cx="36" cy="48" rx="7" ry="6" fill="#ffd23f"/><ellipse cx="60" cy="48" rx="7" ry="6" fill="#ffd23f"/>
+<rect x="34.5" y="43" width="3" height="10" rx="1.5" fill="#1b1b1b"/><rect x="58.5" y="43" width="3" height="10" rx="1.5" fill="#1b1b1b"/>
+<circle cx="42" cy="64" r="2" fill="#14532d"/><circle cx="54" cy="64" r="2" fill="#14532d"/>
+<path d="M40 30l4 6 4-7 4 7 4-6" stroke="#1f7a40" stroke-width="2.6" fill="none" stroke-linejoin="round"/></svg>
