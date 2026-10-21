@@ -35,6 +35,7 @@
 
   function ms(ts) { return ts && ts.toMillis ? ts.toMillis() : Date.now(); }
   function str(v, n) { return typeof v === 'string' ? v.slice(0, n) : ''; }
+  function int(v, lo, hi) { return (typeof v === 'number' && v % 1 === 0 && v >= lo && v <= hi) ? v : lo; }
 
   /* ---------- room: кто онлайн, чат, приглашения ---------- */
   function makeRoom(ctx) {
@@ -47,8 +48,9 @@
       Object.keys(docs).forEach(function (id) {
         var d = docs[id];
         if (id === me || now - ms(d.t) < ONLINE_MS) {
-          out.push({ peer: id, by: id, isMe: id === me, sameTab: id === me, kind: 'viewer', guest: false,
-            presence: { nick: d.nick, st: d.st, game: d.game, c: d.c, vote: d.vote }, updatedAt: ms(d.t) });
+          var pr = { nick: d.nick, st: d.st, game: d.game, c: d.c, vote: d.vote, av: d.av, fav: d.fav, sd: d.sd, br: d.br, ba: d.ba };
+          if (id === me) Object.keys(mine).forEach(function (k) { pr[k] = mine[k]; });
+          out.push({ peer: id, by: id, isMe: id === me, sameTab: id === me, kind: 'viewer', guest: false, presence: pr, updatedAt: ms(d.t) });
         }
       });
       if (!docs[me]) out.push({ peer: me, by: me, isMe: true, sameTab: true, kind: 'viewer', guest: false, presence: mine, updatedAt: Date.now() });
@@ -60,7 +62,9 @@
       var d = {
         nick: str(mine.nick, 16), st: str(mine.st, 2) || '1', game: str(mine.game, 20),
         c: (mine.c >= 0 && mine.c < 32 && mine.c % 1 === 0) ? mine.c : 0,
-        vote: str(mine.vote, 40), t: FV.serverTimestamp()
+        vote: str(mine.vote, 40), t: FV.serverTimestamp(),
+        av: int(mine.av, 0, 23), fav: str(mine.fav, 60),
+        sd: int(mine.sd, 0, 9999), br: int(mine.br, 0, 99999), ba: int(mine.ba, 0, 999)
       };
       d.nl = d.nick.toLowerCase();
       fs.collection('presence').doc(me).set(d).catch(function () {});
@@ -154,6 +158,9 @@
       }
     };
   }
+
+  /* прямой доступ для новых функций: рекорды, личка, тиммейты, крестики-нолики */
+  window.hubFirebase = start;
 
   var cache = {};
   window.claude = {

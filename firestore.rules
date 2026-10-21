@@ -2,32 +2,99 @@ rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
 
+    function signedIn() { return request.auth != null; }
+    function d() { return request.resource.data; }
+
     // Профиль и статус «в сети»: читают все, пишет только сам человек
     match /presence/{uid} {
       allow read: if true;
-      allow write: if request.auth != null && request.auth.uid == uid
-        && request.resource.data.keys().hasOnly(['nick', 'nl', 'st', 'game', 'c', 'vote', 't'])
-        && request.resource.data.nick is string && request.resource.data.nick.size() <= 16
-        && request.resource.data.vote is string && request.resource.data.vote.size() <= 40
-        && request.resource.data.t == request.time;
+      allow write: if signedIn() && request.auth.uid == uid
+        && d().keys().hasOnly(['nick', 'nl', 'st', 'game', 'c', 'vote', 't', 'av', 'fav', 'sd', 'br', 'ba'])
+        && d().nick is string && d().nick.size() <= 16
+        && d().vote is string && d().vote.size() <= 40
+        && (!('fav' in d()) || (d().fav is string && d().fav.size() <= 60))
+        && d().t == request.time;
     }
 
-    // Чат и приглашения «Кто в игру?»: читают все, писать можно только от своего имени
+    // Общий чат и «Кто в игру?»
     match /messages/{id} {
       allow read: if true;
-      allow create: if request.auth != null
-        && request.resource.data.keys().hasOnly(['topic', 'uid', 'n', 'm', 'c', 't'])
-        && request.resource.data.uid == request.auth.uid
-        && request.resource.data.topic in ['chat', 'ping']
-        && request.resource.data.n is string && request.resource.data.n.size() <= 16
-        && request.resource.data.m is string && request.resource.data.m.size() <= 200
-        && request.resource.data.t == request.time;
+      allow create: if signedIn()
+        && d().keys().hasOnly(['topic', 'uid', 'n', 'm', 'c', 't'])
+        && d().uid == request.auth.uid
+        && d().topic in ['chat', 'ping']
+        && d().n is string && d().n.size() <= 16
+        && d().m is string && d().m.size() <= 200
+        && d().t == request.time;
       allow update, delete: if false;
     }
 
     // Личный список друзей: видит и меняет только владелец
     match /friends/{uid} {
-      allow read, write: if request.auth != null && request.auth.uid == uid;
+      allow read, write: if signedIn() && request.auth.uid == uid;
+    }
+
+    // Таблица рекордов
+    match /scores/{uid} {
+      allow read: if true;
+      allow write: if signedIn() && request.auth.uid == uid
+        && d().keys().hasOnly(['nick', 'c', 'av', 'r', 'a'])
+        && d().nick is string && d().nick.size() <= 16
+        && d().r is int && (d().r == 0 || (d().r >= 100 && d().r <= 5000))
+        && d().a is int && d().a >= 0 && d().a <= 60;
+    }
+
+    // Объявления «Ищу тиммейта»: одно на человека
+    match /lfg/{uid} {
+      allow read: if true;
+      allow create, update: if signedIn() && request.auth.uid == uid
+        && d().keys().hasOnly(['nick', 'c', 'av', 'game', 'text', 't'])
+        && d().nick is string && d().nick.size() <= 16
+        && d().game is string && d().game.size() <= 20
+        && d().text is string && d().text.size() > 0 && d().text.size() <= 120
+        && d().t == request.time;
+      allow delete: if signedIn() && request.auth.uid == uid;
+    }
+
+    // Личные сообщения: видят только отправитель и получатель
+    match /dms/{id} {
+      allow read: if signedIn()
+        && (request.auth.uid == resource.data.from || request.auth.uid == resource.data.to);
+      allow create: if signedIn()
+        && d().keys().hasOnly(['from', 'to', 'n', 'c', 'm', 't'])
+        && d().from == request.auth.uid
+        && d().to is string && d().to != d().from
+        && d().n is string && d().n.size() <= 16
+        && d().m is string && d().m.size() > 0 && d().m.size() <= 300
+        && d().t == request.time;
+      allow update, delete: if false;
+    }
+
+    // Крестики-нолики: играют и видят только двое участников
+    match /xo/{id} {
+      function player() {
+        return signedIn() && (request.auth.uid == resource.data.x || request.auth.uid == resource.data.o);
+      }
+      allow read, delete: if player();
+      allow create: if signedIn()
+        && d().keys().hasOnly(['x', 'o', 'xn', 'on', 'b', 'turn', 'w', 't'])
+        && d().x == request.auth.uid
+        && d().o is string && d().o != d().x
+        && d().xn is string && d().xn.size() <= 16
+        && d().on is string && d().on.size() <= 16
+        && d().b == '---------' && d().turn == 'x' && d().w == ''
+        && d().t == request.time;
+      allow update: if player()
+        && resource.data.w == ''
+        && ((resource.data.turn == 'x' && request.auth.uid == resource.data.x)
+            || (resource.data.turn == 'o' && request.auth.uid == resource.data.o))
+        && d().keys().hasOnly(['x', 'o', 'xn', 'on', 'b', 'turn', 'w', 't'])
+        && d().x == resource.data.x && d().o == resource.data.o
+        && d().xn == resource.data.xn && d().on == resource.data.on
+        && d().b is string && d().b.matches('[-xo]{9}')
+        && d().turn in ['x', 'o'] && d().turn != resource.data.turn
+        && d().w in ['', 'x', 'o', 'd']
+        && d().t == request.time;
     }
   }
 }
