@@ -259,6 +259,53 @@ h1,h2,.dh{font-weight:var(--fhw)}
 .btnlink{display:flex;align-items:center;justify-content:center;text-decoration:none;min-height:46px;margin-top:10px;border:1px solid var(--line);border-radius:var(--r);color:var(--ink);font:800 15px var(--fb)}
 .mi.btnlink{justify-content:flex-start;margin-top:0}
 button.danger{background:#c0392b;color:#fff}
+.brand{display:none}
+/* ===== Удобство на компьютере ===== */
+@media (hover:hover) and (pointer:fine){
+  button:not(:disabled):hover,.btnlink:hover{filter:brightness(1.1)}
+  .item.click:hover,.op:hover{outline:2px solid var(--accent);outline-offset:-2px}
+  .mi:not(.on):hover{background:rgba(255,255,255,.06)}
+}
+/* планшет */
+@media (min-width:700px){
+  .wrap{max-width:760px}
+  .achg{grid-template-columns:repeat(3,1fr)}
+}
+/* компьютер: меню всегда слева, контент в две колонки */
+@media (min-width:1024px){
+  .dr{transform:none;visibility:visible;transition:none;width:280px;z-index:20;padding-top:18px}
+  .ov,#menub,#dx{display:none!important}
+  #dtitle{display:none}
+  .brand{display:flex;align-items:center;gap:10px;font:800 22px var(--fb);color:var(--ink)}
+  .brand img{width:36px;height:36px}
+  .wrap{max-width:none;margin:0 0 0 280px;padding:18px 32px 48px}
+  .wrap>*{max-width:1180px}
+  .top{justify-content:flex-end}
+  #cur{font-size:calc(var(--hs) + 2px);margin-top:4px}
+  #s-home.on,#s-me.on,#s-friends.on,#s-clan.on,#s-react.on,#s-tools.on,#s-calc.on,#s-lfg.on{columns:2;column-gap:18px}
+  #s-prog.on{display:grid;grid-template-columns:1fr 1fr;gap:18px;align-items:start}
+  #s-prog .box{margin:0}#s-prog .box:last-child{grid-column:1/-1}
+  .sec .box,#clin,.sec>.qa{break-inside:avoid;-webkit-column-break-inside:avoid}
+  #hm1,#s-home .qa,#mehead,#clinv{column-span:all;-webkit-column-span:all}
+  #s-home .qa{grid-template-columns:repeat(4,1fr)}
+  .achg{grid-template-columns:repeat(4,1fr)}
+  #mgxo,#mgrps{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:18px;align-items:start}
+  #mgxo[hidden],#mgrps[hidden]{display:none}
+  #mgxo .box,#mgrps .box{margin:0}
+  #s-xo .tabs2{max-width:560px}
+  #s-back.on,#s-guide.on,#s-diary.on,#s-vote.on{max-width:760px}
+  .dmv{max-height:420px}
+  /* карточка игрока и личка — окно по центру, а не снизу */
+  .sh{top:50%;bottom:auto;left:50%;right:auto;width:560px;max-height:84vh;border-radius:18px;border:1px solid var(--line);
+      transform:translate(-50%,-46%);opacity:0;transition:transform .2s,opacity .2s,visibility 0s .2s}
+  body.sheet .sh{transform:translate(-50%,-50%);opacity:1;transition:transform .2s,opacity .2s}
+  .onbc{max-width:640px}
+}
+@media (min-width:1400px){
+  .dr{width:300px}.wrap{margin-left:300px}
+  #s-home.on,#s-friends.on,#s-react.on,#s-tools.on{columns:3}
+  #s-home .qa{grid-template-columns:repeat(4,1fr)}
+}
 </style>
 </head>
 <body>
@@ -396,7 +443,7 @@ button.danger{background:#c0392b;color:#fff}
 
 <div class="ov" id="ov"></div>
 <aside class="dr" id="dr">
-  <div class="dh"><b id="dtitle"></b><button class="g ib" id="dx" type="button"></button></div>
+  <div class="dh"><span class="brand"><img src="favicon.svg" alt="">Game Hub</span><b id="dtitle"></b><button class="g ib" id="dx" type="button"></button></div>
   <div class="ds" data-i="m_sec"></div><div id="mi"></div>
   <div class="ds" data-i="m_style"></div><div class="grid" id="ms"></div>
   <div class="ds" data-i="m_lang"></div><div class="seg" id="ml"></div>
