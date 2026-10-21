@@ -70,6 +70,12 @@ service cloud.firestore {
       allow update, delete: if false;
     }
 
+    // Облачное сохранение бэклога, гайда, дневника и профиля: только владелец, вошедший через Google
+    match /users/{uid} {
+      allow read, write: if signedIn() && request.auth.uid == uid
+        && request.auth.token.firebase.sign_in_provider != 'anonymous';
+    }
+
     // Крестики-нолики: играют и видят только двое участников
     match /xo/{id} {
       function player() {

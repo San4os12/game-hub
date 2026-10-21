@@ -25,8 +25,11 @@
         if (!window.firebase) { resolve(null); return; }
         var app = firebase.apps.length ? firebase.app() : firebase.initializeApp(firebaseConfig);
         var auth = firebase.auth(app), fs = firebase.firestore(app);
-        auth.onAuthStateChanged(function (u) { if (u) resolve({ fs: fs, uid: u.uid }); });
-        auth.signInAnonymously().catch(function () { resolve(null); });
+        // Анонимный вход только если никто не вошёл: иначе вход через Google слетел бы
+        auth.onAuthStateChanged(function (u) {
+          if (u) resolve({ fs: fs, uid: u.uid, auth: auth });
+          else auth.signInAnonymously().catch(function () { resolve(null); });
+        });
         setTimeout(function () { resolve(null); }, 15000);
       } catch (e) { resolve(null); }
     });
