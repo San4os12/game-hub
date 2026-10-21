@@ -9,6 +9,11 @@
 <link rel="canonical" href="https://san4os12.github.io/game-hub/">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Game Hub">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Game Hub">
 <meta property="og:title" content="Game Hub — тиммейты, кланы и мини-игры">
@@ -248,6 +253,9 @@ h1,h2,.dh{font-weight:var(--fhw)}
 #wnick{width:100%}
 .mebtn{width:44px;height:44px;min-height:0;padding:0;margin-right:8px;flex:none;border-radius:50%!important;background:transparent!important;border:2px solid var(--accent)!important;box-shadow:none!important;clip-path:none!important;overflow:hidden;display:grid;place-items:center}
 .mebtn .pav{width:100%;height:100%;border:0;font-size:22px}
+.cpsb{width:100%;height:150px;margin-top:10px;font-size:22px;touch-action:manipulation;user-select:none;-webkit-user-select:none}
+.cpsb.go{background:var(--ok);color:#06140c}
+.strk{display:inline-block;margin-left:6px;color:var(--warn);font-weight:800}
 </style>
 </head>
 <body>
@@ -263,6 +271,7 @@ h1,h2,.dh{font-weight:var(--fhw)}
   <div class="sec" id="s-home">
     <div class="box" id="hm1"></div>
     <div class="qa" id="hmq"></div>
+    <div class="box"><b data-i="sh_t"></b><div class="muted" data-i="sh_hint"></div><button class="w" id="shb" type="button" data-i="sh_btn"></button></div>
     <div class="box"><b data-i="h_online"></b><div class="avrow" id="hmon"></div></div>
     <div class="box"><b data-i="lfg_list"></b><div id="hmlfg" style="margin-top:8px"></div><button class="g w" type="button" data-go="lfg" data-i="h_all"></button></div>
     <div class="box"><b data-i="cl_top"></b><div id="hmcl" style="margin-top:8px"></div><button class="g w" type="button" data-go="clan" data-i="h_all"></button></div>
@@ -277,6 +286,9 @@ h1,h2,.dh{font-weight:var(--fhw)}
       <div class="muted" data-i="me_color" style="margin-top:12px"></div><div id="fcol" class="row" style="margin-top:6px;gap:8px"></div></div>
     <div class="box"><b data-i="w_av"></b><div class="avr" id="favr"></div></div>
     <div class="box"><b data-i="p_fav"></b><input id="ffav" data-p="p_fav_ph" maxlength="60" style="width:100%;margin-top:8px"><div class="muted" id="fstat" style="margin-top:8px"></div></div>
+    <div class="box"><b data-i="nt_t"></b><div class="muted" data-i="nt_hint"></div><div id="ntb" style="margin-top:8px"></div></div>
+    <div class="box"><b data-i="app_t"></b><div class="muted" id="appi"></div><div id="appb"></div></div>
+    <div class="box"><b data-i="mu_t"></b><div id="mul" style="margin-top:8px"></div></div>
     <div class="box"><b data-i="acc"></b><div id="acc2" style="margin-top:8px"></div></div>
     <div class="box"><b data-i="sup"></b><div class="muted" data-i="sup_hint"></div><div id="supm" style="margin-top:8px"></div></div>
   </div>
@@ -306,10 +318,12 @@ h1,h2,.dh{font-weight:var(--fhw)}
   <div class="sec" id="s-react">
     <div class="box"><div id="rx"></div><div class="big" id="rt"></div><div class="muted" style="text-align:center" id="rb"></div></div>
     <div class="box"><b data-i="aim_t"></b><div id="aim" style="position:relative;height:260px;margin-top:10px;border:1px solid var(--line);border-radius:var(--r);overflow:hidden;touch-action:manipulation"></div><div class="muted" style="text-align:center;margin-top:8px" id="aimi"></div><button class="w" id="aimb" type="button" data-i="aim_start"></button></div>
+    <div class="box"><b data-i="cps_t"></b><div class="muted" data-i="cps_hint"></div><button id="cpsb" class="cpsb" type="button"></button><div class="muted" id="cpsi" style="text-align:center;margin-top:8px"></div></div>
     <div class="box"><b data-i="lb_t"></b><div class="tabs2"><button class="g" id="lbr" type="button" data-i="lb_r"></button><button class="g" id="lba" type="button" data-i="lb_a"></button></div><div id="lbl"></div></div>
   </div>
 
   <div class="sec" id="s-clan">
+    <div class="box" id="clinv" hidden></div>
     <div class="box" id="clnew"><b data-i="cl_new"></b>
       <div class="row" style="margin-top:8px"><input id="cln" data-p="cl_name" maxlength="20"><input id="clt" data-p="cl_tag" maxlength="4" style="flex:0 1 110px;text-transform:uppercase"></div>
       <div class="muted" data-i="cl_emb" style="margin-top:10px"></div><div class="cle" id="cle"></div>
@@ -464,7 +478,31 @@ xo_games:['Мои партии','My games','Moje hry'],xo_none:['Партий п
 xo_my:['Твой ход','Your turn','Jsi na tahu'],xo_their:['Ход соперника',"Opponent's turn",'Na tahu je soupeř'],
 xo_win:['Победа!','You won!','Výhra!'],xo_lose:['Поражение','You lost','Prohra'],xo_draw:['Ничья','Draw','Remíza'],
 xo_again:['Ещё раз','Rematch','Odveta'],xo_vs:['против ','vs ','proti '],xo_pick:['Выбери партию или вызови игрока ниже','Pick a game or challenge a player below','Vyber hru nebo vyzvi hráče níže'],
-ff_addf:['Добавить в друзья','Add friend','Přidat do přátel'],acc:['Аккаунт','Account','Účet'],acc_login:['Войти через Google','Sign in with Google','Přihlásit přes Google'],acc_hint:['Бэклог, гайд, дневник, рекорды и профиль будут сохраняться на всех твоих устройствах','Your backlog, guide, diary, records and profile will be saved on all your devices','Seznam her, průvodce, deník, rekordy a profil se uloží na všech tvých zařízeních'],acc_on:['Синхронизация включена','Sync is on','Synchronizace zapnuta'],acc_sync:['Синхронизация…','Syncing…','Synchronizace…'],acc_out:['Выйти','Sign out','Odhlásit se'],acc_err:['Не удалось войти','Sign-in failed','Přihlášení selhalo'],home:['Главная','Home','Domů'],sup:['Поддержка','Support','Podpora'],sup_btn:['Написать в поддержку','Contact support','Napsat podpoře'],sup_hint:['Нашёл ошибку или есть идея? Напиши нам в Telegram','Found a bug or have an idea? Message us on Telegram','Našel jsi chybu nebo máš nápad? Napiš nám na Telegram'],sup_msg:['Привет! Я с сайта Game Hub, мой ник на сайте: ','Hi! I am writing from Game Hub, my nickname: ','Ahoj! Píšu z Game Hub, moje přezdívka: '],me:['Профиль','Profile','Profil'],me_nick:['Ник и статус','Nickname and status','Přezdívka a stav'],me_color:['Цвет ника','Nickname colour','Barva přezdívky'],me_edit:['Настроить профиль','Edit profile','Upravit profil'],me_prog:['Мой прогресс','My progress','Můj postup'],h_hi:['Привет, ','Hi, ','Ahoj, '],h_online:['Сейчас на сайте','Online now','Právě online'],
+ff_addf:['Добавить в друзья','Add friend','Přidat do přátel'],acc:['Аккаунт','Account','Účet'],acc_login:['Войти через Google','Sign in with Google','Přihlásit přes Google'],acc_hint:['Бэклог, гайд, дневник, рекорды и профиль будут сохраняться на всех твоих устройствах','Your backlog, guide, diary, records and profile will be saved on all your devices','Seznam her, průvodce, deník, rekordy a profil se uloží na všech tvých zařízeních'],acc_on:['Синхронизация включена','Sync is on','Synchronizace zapnuta'],acc_sync:['Синхронизация…','Syncing…','Synchronizace…'],acc_out:['Выйти','Sign out','Odhlásit se'],acc_err:['Не удалось войти','Sign-in failed','Přihlášení selhalo'],home:['Главная','Home','Domů'],
+nt_t:['Уведомления','Notifications','Oznámení'],nt_hint:['Сообщим о личных сообщениях, вызовах в игры и твоём ходе, когда сайт свёрнут','We will tell you about messages, game invites and your turn when the site is in the background','Dáme vědět o zprávách, výzvách do her a tvém tahu, když je web na pozadí'],
+nt_on:['Включить уведомления','Turn on notifications','Zapnout oznámení'],nt_off:['Выключить','Turn off','Vypnout'],nt_ok:['✓ Уведомления включены','✓ Notifications are on','✓ Oznámení zapnuta'],
+nt_denied:['Уведомления запрещены в настройках браузера','Notifications are blocked in browser settings','Oznámení jsou zakázána v nastavení prohlížeče'],
+nt_ios:['На iPhone уведомления работают, если добавить сайт на экран «Домой» (ниже)','On iPhone notifications work after adding the site to the Home Screen (below)','Na iPhonu oznámení fungují po přidání webu na plochu (níže)'],
+n_dm:['Новое сообщение','New message','Nová zpráva'],n_xo:[' вызывает тебя в крестики-нолики',' challenges you to tic-tac-toe',' tě vyzývá na piškvorky'],
+n_rps:[' вызывает тебя в камень-ножницы-бумагу',' challenges you to rock-paper-scissors',' tě vyzývá na kámen-nůžky-papír'],n_turn:['Твой ход против ','Your turn vs ','Jsi na tahu proti '],
+app_t:['Приложение','App','Aplikace'],app_btn:['Установить Game Hub','Install Game Hub','Nainstalovat Game Hub'],
+app_ios:['iPhone: в Safari нажми «Поделиться» → «На экран Домой»','iPhone: in Safari tap Share → Add to Home Screen','iPhone: v Safari klepni Sdílet → Přidat na plochu'],
+app_and:['Android: меню браузера ⋮ → «Установить приложение» или «Добавить на главный экран»','Android: browser menu ⋮ → Install app or Add to Home screen','Android: menu prohlížeče ⋮ → Instalovat aplikaci'],
+app_done:['✓ Game Hub установлен как приложение','✓ Game Hub is installed as an app','✓ Game Hub je nainstalován jako aplikace'],
+mu_t:['Скрытые игроки','Hidden players','Skrytí hráči'],mu_none:['Никого не скрыто. Скрыть можно в карточке игрока.','Nobody hidden. You can hide someone from their player card.','Nikdo není skrytý. Skrýt lze v kartě hráče.'],
+mu_do:['Скрыть игрока','Hide player','Skrýt hráče'],mu_un:['Показать','Unhide','Zobrazit'],mu_done:['Игрок скрыт: его сообщения и объявления не видны','Player hidden: their messages and posts are not shown','Hráč skryt: jeho zprávy a inzeráty nejsou vidět'],
+sh_t:['Позови друзей','Invite friends','Pozvi přátele'],sh_hint:['Чем больше людей, тем веселее кланы и мини-игры','The more people, the more fun clans and mini-games are','Čím víc lidí, tím větší zábava'],
+sh_btn:['Поделиться сайтом','Share the site','Sdílet web'],sh_text:['Залетай в Game Hub: тиммейты, кланы и мини-игры!','Join me on Game Hub: teammates, clans and mini-games!','Přidej se do Game Hub: spoluhráči, klany a minihry!'],
+sh_copied:['Ссылка скопирована','Link copied','Odkaz zkopírován'],
+cl_inv:['Пригласить в клан','Invite to clan','Pozvat do klanu'],cl_inv_text:['Вступай в мой клан в Game Hub: ','Join my clan on Game Hub: ','Přidej se k mému klanu v Game Hub: '],
+cl_invited:['Тебя пригласили в клан','You have been invited to a clan','Byl jsi pozván do klanu'],cl_leave_first:['Сначала выйди из своего клана','Leave your clan first','Nejdřív opusť svůj klan'],
+cps_t:['Тест скорости кликов','Click speed test','Test rychlosti klikání'],cps_hint:['Жми как можно быстрее 5 секунд','Tap as fast as you can for 5 seconds','Klikej co nejrychleji 5 sekund'],
+cps_start:['Нажми, чтобы начать','Tap to start','Klepni pro start'],cps_res:[' кликов в секунду',' clicks per second',' kliků za sekundu'],cps_best:['Рекорд: ','Record: ','Rekord: '],
+q_cps:['Пройди тест скорости кликов','Do the click speed test','Udělej test rychlosti klikání'],
+st_day:['Серия входов: дней','Login streak: days','Série přihlášení: dní'],st_short:['дн. подряд','days in a row','dní v řadě'],
+ls_was:['был(а) ','seen ','naposledy '],d_ago:[' дн. назад',' d ago',' d'],
+a_cps:['Пулемёт','Machine gun','Kulomet'],a_cps_d:['8 кликов в секунду','8 clicks per second','8 kliků za sekundu'],
+a_streak:['Постоянный','Regular','Stálice'],a_streak_d:['Заходи 7 дней подряд','Visit 7 days in a row','Přijď 7 dní v řadě'],sup:['Поддержка','Support','Podpora'],sup_btn:['Написать в поддержку','Contact support','Napsat podpoře'],sup_hint:['Нашёл ошибку или есть идея? Напиши нам в Telegram','Found a bug or have an idea? Message us on Telegram','Našel jsi chybu nebo máš nápad? Napiš nám na Telegram'],sup_msg:['Привет! Я с сайта Game Hub, мой ник на сайте: ','Hi! I am writing from Game Hub, my nickname: ','Ahoj! Píšu z Game Hub, moje přezdívka: '],me:['Профиль','Profile','Profil'],me_nick:['Ник и статус','Nickname and status','Přezdívka a stav'],me_color:['Цвет ника','Nickname colour','Barva přezdívky'],me_edit:['Настроить профиль','Edit profile','Upravit profil'],me_prog:['Мой прогресс','My progress','Můj postup'],h_hi:['Привет, ','Hi, ','Ahoj, '],h_online:['Сейчас на сайте','Online now','Právě online'],
 h_all:['Смотреть все','See all','Zobrazit vše'],h_top:['Лучшая реакция','Fastest reaction','Nejrychlejší reakce'],
 h_quests:['Задания дня: ','Daily quests: ','Denní úkoly: '],h_clan:['Клан: ','Clan: ','Klan: '],h_noclan:['Ты пока без клана','No clan yet','Zatím bez klanu'],
 h_alone:['Пока здесь только ты. Скинь ссылку друзьям!','Only you are here. Share the link with friends!','Zatím jsi tu jen ty. Pošli odkaz přátelům!'],
@@ -567,6 +605,8 @@ user:'<circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7"/>'
 users:'<circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c0-3.6 3-6 6.5-6s6.5 2.4 6.5 6"/><path d="M16 4.6a3.5 3.5 0 0 1 0 6.8M18.5 14.3c2 .6 3.5 2.4 3.5 5.7"/>'};
 function ico(n){var s=document.createElement('span');s.innerHTML='<svg class="i" viewBox="0 0 24 24">'+IC[n]+'</svg>';return s.firstChild;}
 var SEC=[['home','home'],['me','user'],['back','gamepad'],['guide','list'],['calc','calc'],['react','bolt'],['tools','dice'],['prog','star'],['friends','users'],['clan','shield'],['lfg','mega'],['xo','grid'],['vote','poll'],['diary','book']];
+var INV=(/^#clan=([A-Za-z0-9_-]{1,40})$/.exec(location.hash||'')||[])[1]||null,invClan=null;
+if(INV)cur='clan';
 if(!SEC.some(function(s){return s[0]===cur;}))cur='home';
 
 function openD(){document.body.classList.add('open');}
@@ -664,8 +704,8 @@ function setup(){
     r.onPeers(function(){var c=0;r.peers().forEach(function(p){if(p.kind==='viewer')c++;});$('n').textContent=Math.max(1,c);rVote();rFriends();rMine();rXo();rRps();checkAch();},function(){room=null;$('dot').classList.add('off');});
     r.onConnection(function(ok){$('dot').classList.toggle('off',!ok);},function(){});
     r.presence({here:true}).catch(function(){});pushProf();
-    r.on('chat',function(m){var d=m.data;if(d&&typeof d.m==='string')addMsg(typeof d.n==='string'?d.n.slice(0,16):'',d.m.slice(0,200),m.isMe,d.c);});
-    r.on('ping',function(m){var d=m.data;if(d&&typeof d.n==='string')addMsg('',d.n.slice(0,16)+t('f_pingmsg'),false,0,true);});
+    r.on('chat',function(m){var d=m.data;if(isMuted(m.by))return;if(d&&typeof d.m==='string')addMsg(typeof d.n==='string'?d.n.slice(0,16):'',d.m.slice(0,200),m.isMe,d.c);});
+    r.on('ping',function(m){var d=m.data;if(isMuted(m.by))return;if(d&&typeof d.n==='string'){addMsg('',d.n.slice(0,16)+t('f_pingmsg'),false,0,true);if(!m.isMe&&Date.now()-LOADT>4000)notify(d.n.slice(0,16)+t('f_pingmsg'),'','friends');}});
   }).catch(function(){});
 }
 
@@ -745,7 +785,8 @@ function rMine(){var l=$('fmine'),tok=++mineTok;
     myFr.forEach(function(id){var p=ps[id],nm=(p&&p.name)||'…';
       var pe=peers.filter(function(x){return x.kind==='viewer'&&x.by===id;})[0],pr=(pe&&pe.presence)||{};
       var r=el('div','item'),x=el('div','t');x.appendChild(el('b',null,nm));
-      x.appendChild(el('small',null,pe?t('ff_online')+(typeof pr.game==='string'&&pr.game?' · '+pr.game.slice(0,20):''):t('ff_off')));
+      var sm=el('small',null,pe?t('ff_online')+(typeof pr.game==='string'&&pr.game?' · '+pr.game.slice(0,20):''):t('ff_off'));x.appendChild(sm);
+      if(!pe)getProf(id).then(function(d){if(d&&d.t&&d.t.toMillis)sm.textContent=t('ls_was')+ago(d.t.toMillis());});
       var d=el('button','x','×');d.type='button';d.onclick=function(e){e.stopPropagation();myFr=myFr.filter(function(i){return i!==id;});saveFr();rMine();};
       r.className='item click';r.onclick=function(){showProfile(id);};
       r.appendChild(el('span','dot'+(pe?'':' off')));r.appendChild(x);r.appendChild(d);l.appendChild(r);});
@@ -782,7 +823,7 @@ function fbReady(){return window.hubFirebase?window.hubFirebase():Promise.resolv
 function TS(){return firebase.firestore.FieldValue.serverTimestamp();}
 function tms(x){return x&&x.toMillis?x.toMillis():Date.now();}
 function s16(v){return typeof v==='string'?v.slice(0,16):'';}
-function ago(m){var d=Math.floor((Date.now()-m)/60000);return d<1?t('now'):d<60?d+t('min_ago'):Math.floor(d/60)+t('h_ago');}
+function ago(m){var d=Math.floor((Date.now()-m)/60000);return d<1?t('now'):d<60?d+t('min_ago'):d<1440?Math.floor(d/60)+t('h_ago'):Math.floor(d/1440)+t('d_ago');}
 function hhmm(m){var d=new Date(m);return ('0'+d.getHours()).slice(-2)+':'+('0'+d.getMinutes()).slice(-2);}
 var pcache={};
 function getProf(uid){var c=pcache[uid];if(c&&Date.now()-c.at<30000)return Promise.resolve(c.d);if(!FB)return Promise.resolve(null);
@@ -790,7 +831,7 @@ function getProf(uid){var c=pcache[uid];if(c&&Date.now()-c.at<30000)return Promi
 function isOnline(uid){return room?room.peers().some(function(p){return p.by===uid&&!p.isMe;}):false;}
 function badge(){
   var me=FB&&FB.uid,unread=0,cv=convs();
-  Object.keys(cv).forEach(function(k){if(k===dmWith)return;var seen=dmSeen[k]||0;cv[k].forEach(function(m){if(m.from!==me&&tms(m.t)>seen)unread++;});});
+  Object.keys(cv).forEach(function(k){if(k===dmWith||isMuted(k))return;var seen=dmSeen[k]||0;cv[k].forEach(function(m){if(m.from!==me&&tms(m.t)>seen)unread++;});});
   var turns=0;Object.keys(xos).forEach(function(id){var g=xos[id];if(!g.w&&g.turn===myMark(g))turns++;});
   if(rpss)Object.keys(rpss).forEach(function(id){if(!rpsMy(rpss[id]))turns++;});
   BADGE.friends=unread;BADGE.xo=turns;$('menub').classList.toggle('has',unread+turns>0);buildDrawer();}
@@ -816,6 +857,7 @@ function showProfile(uid){
     var x=el('button','g',t('mg_xo'));x.type='button';x.style.flex='1';x.onclick=function(){newXo(uid,d.nick);mgMode='xo';closeSheet();show('xo');rMg();};row.appendChild(x);
     var kp=el('button','g','✊✋✌️');kp.type='button';kp.style.flex='1';kp.setAttribute('aria-label',t('rps_play'));kp.onclick=function(){newRps(uid,d.nick);mgMode='rps';closeSheet();show('xo');rMg();};row.appendChild(kp);
     sb.appendChild(row);
+    var mu=el('button','g w',isMuted(uid)?t('mu_un'):'🚫 '+t('mu_do'));mu.type='button';mu.onclick=function(){toggleMute(uid);mu.textContent=isMuted(uid)?t('mu_un'):'🚫 '+t('mu_do');};sb.appendChild(mu);
     if(myFr.indexOf(uid)<0&&U&&DB&&myId){var f=el('button','g w','+ '+t('ff_addf'));f.type='button';f.onclick=function(){if(myFr.indexOf(uid)<0&&myFr.length<100)myFr.push(uid);saveFr();rMine();f.remove();};sb.appendChild(f);}
   });}
 
@@ -823,13 +865,14 @@ function showProfile(uid){
 var dms={},dmSeen=ld('hub.dmseen',{});
 function startDm(){var box={};
   ['to','from'].forEach(function(f){FB.fs.collection('dms').where(f,'==',FB.uid).onSnapshot(function(s){
-    s.docChanges().forEach(function(c){if(c.type==='removed')delete box[c.doc.id];else box[c.doc.id]=c.doc.data();});dms=box;rDm();},function(){});});}
+    s.docChanges().forEach(function(c){if(c.type==='removed'){delete box[c.doc.id];return;}var d=c.doc.data();box[c.doc.id]=d;
+      if(c.type==='added'&&d.from!==FB.uid&&d.to===FB.uid&&!isMuted(d.from)&&tms(d.t)>LOADT&&d.from!==dmWith)notify(s16(d.n)||t('n_dm'),String(d.m||'').slice(0,80),'friends');});dms=box;rDm();},function(){});});}
 function convs(){var by={},me=FB&&FB.uid;Object.keys(dms).forEach(function(id){var m=dms[id];var k=m.from===me?m.to:m.from;if(typeof k!=='string')return;(by[k]=by[k]||[]).push(m);});
   Object.keys(by).forEach(function(k){by[k].sort(function(a,b){return tms(a.t)-tms(b.t);});});return by;}
 function rDm(){
   var l=$('dml');l.innerHTML='';
   if(!FB){l.appendChild(el('div','muted',t('off_srv')));return;}
-  var cv=convs(),keys=Object.keys(cv).sort(function(a,b){var x=cv[a],y=cv[b];return tms(y[y.length-1].t)-tms(x[x.length-1].t);});
+  var cv=convs(),keys=Object.keys(cv).filter(function(k){return !isMuted(k);}).sort(function(a,b){var x=cv[a],y=cv[b];return tms(y[y.length-1].t)-tms(x[x.length-1].t);});
   if(dmWith){dmSeen[dmWith]=Date.now();sv('hub.dmseen',dmSeen);}
   if(!keys.length)l.appendChild(el('div','muted',t('dm_empty')));
   keys.forEach(function(k){var list=cv[k],last=list[list.length-1],seen=dmSeen[k]||0;
@@ -893,7 +936,7 @@ function rLfg(){
   var mine=FB&&lfg.some(function(x){return x.id===FB.uid;});
   $('lfgb').textContent=t(mine?'lfg_upd':'lfg_post');
   if(!FB){l.appendChild(el('div','muted',t('off_srv')));return;}
-  var list=lfg.filter(function(x){return Date.now()-tms(x.t)<3*3600000;});
+  var list=lfg.filter(function(x){return Date.now()-tms(x.t)<3*3600000&&!isMuted(x.id);});
   if(!list.length){l.appendChild(el('div','muted',t('lfg_empty')));return;}
   list.forEach(function(x){var me=x.id===FB.uid,r=el('div','item click'+(me?' mine':''));
     r.appendChild(avNode(x.av,'pav sm'));
@@ -915,7 +958,10 @@ function myMark(g){return FB&&g.x===FB.uid?'x':'o';}
 function opp(g){return myMark(g)==='x'?{id:g.o,n:g.on}:{id:g.x,n:g.xn};}
 function startXo(){var box={};
   ['x','o'].forEach(function(f){FB.fs.collection('xo').where(f,'==',FB.uid).onSnapshot(function(s){
-    s.docChanges().forEach(function(c){if(c.type==='removed')delete box[c.doc.id];else box[c.doc.id]=c.doc.data();});xos=box;rXo();},function(){});});}
+    s.docChanges().forEach(function(c){if(c.type==='removed'){delete box[c.doc.id];return;}var d=c.doc.data(),old=box[c.doc.id];box[c.doc.id]=d;
+      if(tms(d.t)<=LOADT||d.w)return;var me=d.x===FB.uid?'x':'o',op=me==='x'?{id:d.o,n:d.on}:{id:d.x,n:d.xn};if(isMuted(op.id))return;
+      if(c.type==='added'&&d.o===FB.uid)notify((s16(d.xn)||'…')+t('n_xo'),'','xo');
+      else if(c.type==='modified'&&d.turn===me&&(!old||old.turn!==me))notify(t('n_turn')+(s16(op.n)||'…'),'','xo');});xos=box;rXo();},function(){});});}
 function newXo(uid,nick){if(!FB||!uid||uid===FB.uid)return;
   FB.fs.collection('xo').add({x:FB.uid,o:uid,xn:(prof.nick||'').slice(0,16),on:s16(nick),b:'---------',turn:'x',w:'',t:TS()})
     .then(function(r){xoCur=r.id;rXo();}).catch(function(){});}
@@ -957,7 +1003,7 @@ function rXo(){
 
 /* ===== Аккаунт Google и синхронизация ===== */
 var STEPK=['mc','rb','sk','cs','fn','va','gt','do','gi'];
-var SYNC_KEYS=['hub.games','hub.diary','hub.best','hub.aim','hub.prof','hub.cnt'].concat(STEPK.map(function(k){return 'hub.st3.'+k;}));
+var SYNC_KEYS=['hub.games','hub.diary','hub.best','hub.aim','hub.prof','hub.cnt','hub.mute'].concat(STEPK.map(function(k){return 'hub.st3.'+k;}));
 var syncOn=false,syncBusy=false,cloudT=null;
 function onSaved(k){if(syncOn&&SYNC_KEYS.indexOf(k)>=0)cloudSave();}
 function isGoogle(){var u=FB&&FB.auth&&FB.auth.currentUser;return !!(u&&!u.isAnonymous);}
@@ -965,7 +1011,7 @@ function clean(v){return JSON.parse(JSON.stringify(v==null?null:v));}
 function cloudSave(){clearTimeout(cloudT);cloudT=setTimeout(function(){if(!syncOn||!FB)return;
   var st={};STEPK.forEach(function(k){st[k]=ld('hub.st3.'+k,[]);});
   FB.fs.collection('users').doc(FB.uid).set(clean({games:games,diary:diary,steps:st,best:best||0,aim:aimBest||0,
-    cnt:ld('hub.cnt',{}),prof:{nick:prof.nick||'',st:prof.st||'1',c:prof.c,av:prof.av,fav:prof.fav||'',xp:prof.xp||0,ach:prof.ach||0,cl:prof.cl||'',ct:prof.ct||''}})).catch(function(){});},1500);}
+    cnt:ld('hub.cnt',{}),mute:ld('hub.mute',[]),prof:{nick:prof.nick||'',st:prof.st||'1',c:prof.c,av:prof.av,fav:prof.fav||'',xp:prof.xp||0,ach:prof.ach||0,cl:prof.cl||'',ct:prof.ct||''}})).catch(function(){});},1500);}
 function mergeList(a,b,key){var seen={},out=[];[].concat(Array.isArray(a)?a:[],Array.isArray(b)?b:[]).forEach(function(x){
   if(!x||typeof x!=='object')return;var k=key(x);if(seen[k])return;seen[k]=1;out.push(x);});return out;}
 function doSync(){
@@ -979,6 +1025,7 @@ function doSync(){
     if(typeof c.best==='number'&&c.best>0&&(!best||c.best<best))best=c.best;
     if(typeof c.aim==='number'&&c.aim>aimBest)aimBest=c.aim;
     if(c.prof&&typeof c.prof==='object'&&c.prof.nick){['nick','st','c','av','fav','cl','ct'].forEach(function(k){if(c.prof[k]!=null)prof[k]=c.prof[k];});if(typeof c.prof.xp==='number'&&c.prof.xp>(prof.xp||0))prof.xp=c.prof.xp;if(typeof c.prof.ach==='number')prof.ach=(prof.ach||0)|c.prof.ach;}
+    if(Array.isArray(c.mute)){var lm=ld('hub.mute',[]);c.mute.forEach(function(u){if(typeof u==='string'&&lm.indexOf(u)<0)lm.push(u);});try{localStorage.setItem('hub.mute',JSON.stringify(lm.slice(-200)));}catch(e){}}
     if(c.cnt&&typeof c.cnt==='object'){var lc=ld('hub.cnt',{});Object.keys(c.cnt).forEach(function(k){var a=lc[k],b=c.cnt[k];if(typeof b==='number')lc[k]=Math.max(typeof a==='number'?a:0,b);else if(Array.isArray(b))lc[k]=mergeList(Array.isArray(a)?a.map(function(z){return {v:z};}):[],b.map(function(z){return {v:z};}),function(z){return String(z.v);}).map(function(z){return z.v;}).slice(-200);});try{localStorage.setItem('hub.cnt',JSON.stringify(lc));}catch(e){}}
     try{localStorage.setItem('hub.games',JSON.stringify(games));localStorage.setItem('hub.diary',JSON.stringify(diary));
       localStorage.setItem('hub.best',JSON.stringify(best));localStorage.setItem('hub.aim',JSON.stringify(aimBest));localStorage.setItem('hub.prof',JSON.stringify(prof));}catch(e){}
@@ -1020,7 +1067,7 @@ var toastT=null;
 function toast(msg){var e=$('toast');e.textContent=msg;e.classList.add('on');clearTimeout(toastT);toastT=setTimeout(function(){e.classList.remove('on');},2800);}
 
 /* ===== Опыт, задания дня ===== */
-var QPOOL=['react','aim','chat','dm','back','guide','diary','xo','rps','lfg'];
+var QPOOL=['react','aim','chat','dm','back','guide','diary','xo','rps','lfg','cps'];
 function lvl(x){return Math.floor((typeof x==='number'&&x>0?x:0)/100)+1;}
 function today(){var d=new Date();return d.getFullYear()+'-'+(d.getMonth()+1)+'-'+d.getDate();}
 function qState(){var q=ld('hub.quest',null),d=today();
@@ -1052,7 +1099,9 @@ var ACH=[
  ['quest','🔥',function(){return cntv('qdays')>=3;}],
  ['lvl5','⭐',function(){return lvl(prof.xp)>=5;}],
  ['fr','🤝',function(){return myFr.length>=3;}],
- ['diary','📖',function(){return diary.length>=5;}]];
+ ['diary','📖',function(){return diary.length>=5;}],
+ ['cps','🖱️',function(){return cntv('cps')>=80;}],
+ ['streak','📅',function(){return cntv('streak')>=7;}]];
 function checkAch(){
   if(!prof)return;var have=prof.ach||0,m=have;
   ACH.forEach(function(a,i){try{if(a[2]())m|=(1<<i);}catch(e){}});
@@ -1065,7 +1114,7 @@ function achIcons(mask){if(typeof mask!=='number'||!mask)return null;var r=el('d
 function rProg(){
   var x=prof.xp||0,L=lvl(x),b=$('lvlb');b.innerHTML='';
   var h=el('div','ph');h.appendChild(avNode(prof.av,'pav','div'));var c=el('div');
-  var nb=el('b',null,t('lvl')+' '+L);c.appendChild(nb);c.appendChild(el('small',null,x+' XP · '+t('lvl_next')+': '+(L*100-x)+' XP'));h.appendChild(c);b.appendChild(h);
+  var nb=el('b',null,t('lvl')+' '+L);c.appendChild(nb);c.appendChild(el('small',null,x+' XP · '+t('lvl_next')+': '+(L*100-x)+' XP'));var sk=ld('hub.streak',null);if(sk&&sk.n)c.appendChild(el('span','strk','🔥 '+sk.n+' '+t('st_short')));h.appendChild(c);b.appendChild(h);
   var bar=el('div','xpb'),f=el('div','pb');f.style.width=(x%100)+'%';bar.appendChild(f);b.appendChild(bar);
   var q=qState(),l=$('ql');l.innerHTML='';
   q.ids.forEach(function(id){var dn=q.done.indexOf(id)>=0,r=el('div','qi'+(dn?' done':''));
@@ -1085,7 +1134,8 @@ function countWins(){if(!FB)return;var c=ld('hub.cnt',{}),ch=false;
 var rpss={},rpsCur=null,mgMode='xo',RPSI={r:'✊',p:'✋',s:'✌️'};
 function startRps(){var box={};
   ['a','b'].forEach(function(f){FB.fs.collection('rps').where(f,'==',FB.uid).onSnapshot(function(s){
-    s.docChanges().forEach(function(c){if(c.type==='removed')delete box[c.doc.id];else box[c.doc.id]=c.doc.data();});rpss=box;rRps();},function(){});});}
+    s.docChanges().forEach(function(c){if(c.type==='removed'){delete box[c.doc.id];return;}var d=c.doc.data();box[c.doc.id]=d;
+      if(c.type==='added'&&d.b===FB.uid&&tms(d.t)>LOADT&&!isMuted(d.a))notify((s16(d.an)||'…')+t('n_rps'),'','xo');});rpss=box;rRps();},function(){});});}
 function rpsMe(g){return FB&&g.a===FB.uid?'a':'b';}
 function rpsMy(g){return rpsMe(g)==='a'?g.ma:g.mb;}
 function rpsTheir(g){return rpsMe(g)==='a'?g.mb:g.ma;}
@@ -1137,6 +1187,7 @@ function embNode(i,cls,tag){var e=el(tag||'span',cls);if(typeof i==='number'&&i>
 function emb(i){return CLEMB[(typeof i==='number'&&i>=0&&i<CLEMB.length&&i%1===0)?i:0];}
 function rCle(){var b=$('cle');b.innerHTML='';EMBIMG.map(function(_,k){return 100+k;}).concat(CLEMB.map(function(_,k){return k;})).forEach(function(i){var s=el('button','avb'+(clEmb===i?' on':''));s.type='button';s.appendChild(embNode(i,'pav sm'));s.onclick=function(){clEmb=i;rCle();};b.appendChild(s);});}
 function startClans(){
+  if(INV)FB.fs.collection('clans').doc(INV).get().then(function(s){if(s.exists){invClan=s.data();invClan.id=INV;show('clan');rClan();}}).catch(function(){});
   FB.fs.collection('clans').orderBy('mn','desc').limit(20).onSnapshot(function(s){clTop=[];s.forEach(function(d){var x=d.data();x.id=d.id;clTop.push(x);});rClan();},function(){});
   watchClan();}
 function setClan(c){prof.cl=c?c.id:'';prof.ct=c?String(c.tag||'').slice(0,4):'';sv('hub.prof',prof);pushProf();checkAch();watchClan();}
@@ -1159,6 +1210,14 @@ function rClanChat(){var c=$('clmsgs');c.innerHTML='';
     b.appendChild(el('span',null,String(m.m||'').slice(0,200)));b.appendChild(el('span','bt',hhmm(tms(m.t))));w.appendChild(b);c.appendChild(w);});
   c.scrollTop=c.scrollHeight;}
 function rClan(){
+  var iv=$('clinv');iv.innerHTML='';iv.hidden=true;
+  if(FB&&invClan&&!(myClan&&myClan.id===invClan.id)){iv.hidden=false;var c=invClan;iv.appendChild(el('b',null,t('cl_invited')));
+    var top=el('div','clh');top.style.marginTop='10px';top.appendChild(embNode(c.emb,'em','div'));
+    var x=el('div');x.appendChild(el('b',null,'['+String(c.tag||'').slice(0,4)+'] '+String(c.name||'').slice(0,20)));
+    x.appendChild(el('small',null,(Array.isArray(c.members)?c.members.length:0)+t('cl_members')));top.appendChild(x);iv.appendChild(top);
+    if(myClan)iv.appendChild(el('div','muted',t('cl_leave_first')));
+    else{var jb=el('button','w',t('cl_join'));jb.type='button';jb.onclick=function(){var FV=firebase.firestore.FieldValue;
+      FB.fs.collection('clans').doc(c.id).update({members:FV.arrayUnion(FB.uid),mn:FV.increment(1)}).then(function(){invClan=null;setClan({id:c.id,tag:c.tag});}).catch(function(){toast(t('cl_full'));});};iv.appendChild(jb);}}
   var inC=!!(FB&&myClan);$('clnew').hidden=inC||!FB;$('clin').hidden=!inC;
   if(inC){var h=$('clhead');h.innerHTML='';var top=el('div','clh');top.appendChild(embNode(myClan.emb,'em','div'));
     var x=el('div');x.appendChild(el('b',null,'['+String(myClan.tag||'').slice(0,4)+'] '+String(myClan.name||'').slice(0,20)));
@@ -1168,6 +1227,7 @@ function rClan(){
       var nb=el('b','t',(s16(p.nick)||'…')+(u===myClan.owner?' 👑':''));nb.style.color=col(p.c);r.appendChild(nb);
       r.onclick=function(){showProfile(u);};ml.appendChild(r);});
     h.appendChild(ml);
+    var ib=el('button','w','📨 '+t('cl_inv'));ib.type='button';var cid=myClan.id,cname=String(myClan.name||'');ib.onclick=function(){shareLink(baseUrl()+'#clan='+cid,t('cl_inv_text')+cname);};h.appendChild(ib);
     var own=myClan.owner===FB.uid,lb=el('button','g w',t(own?'cl_del':'cl_leave'));lb.type='button';
     lb.onclick=function(){var id=myClan.id;var FV=firebase.firestore.FieldValue;
       var pr=own?FB.fs.collection('clans').doc(id).delete():FB.fs.collection('clans').doc(id).update({members:FV.arrayRemove(FB.uid),mn:FV.increment(-1)});
@@ -1200,7 +1260,7 @@ function rHomeNow(){
   var h=$('hm1');h.innerHTML='';var hero=el('div','hero');hero.appendChild(avNode(prof.av,'pav','div'));
   var x=el('div');var nb=el('b',null,t('h_hi')+(prof.nick||'…')+'!');nb.style.color=col(prof.c);x.appendChild(nb);
   var q=qState();x.appendChild(el('small',null,t('lvl')+' '+lvl(prof.xp)+' · '+t('h_quests')+q.done.length+'/'+q.ids.length));
-  x.appendChild(el('small',null,' · '+(prof.ct?t('h_clan')+'['+prof.ct+']':t('h_noclan'))));
+  x.appendChild(el('small',null,' · '+(prof.ct?t('h_clan')+'['+prof.ct+']':t('h_noclan'))));var sk=ld('hub.streak',null);if(sk&&sk.n)x.appendChild(el('span','strk','🔥 '+sk.n));
   hero.appendChild(x);h.appendChild(hero);
   var bar=el('div','xpb'),f=el('div','pb');f.style.width=((prof.xp||0)%100)+'%';bar.appendChild(f);h.appendChild(bar);
   var qa=$('hmq');qa.innerHTML='';
@@ -1210,7 +1270,7 @@ function rHomeNow(){
   if(!others.length)on.appendChild(el('div','muted',t('h_alone')));
   others.slice(0,20).forEach(function(p){var pr=p.presence||{},o=el('div','op');o.appendChild(avNode(pr.av,'pav'));var n=el('span',null,s16(pr.nick)||'…');n.style.color=col(pr.c);o.appendChild(n);
     o.onclick=function(){showProfile(p.by);};on.appendChild(o);});
-  var l=$('hmlfg');l.innerHTML='';var posts=lfg.filter(function(z){return Date.now()-tms(z.t)<3*3600000;}).slice(0,3);
+  var l=$('hmlfg');l.innerHTML='';var posts=lfg.filter(function(z){return Date.now()-tms(z.t)<3*3600000&&!isMuted(z.id);}).slice(0,3);
   if(!posts.length)l.appendChild(el('div','muted',t('lfg_empty')));
   posts.forEach(function(z){var r=el('div','item click');r.appendChild(avNode(z.av,'pav sm'));var c=el('div','t'),b=el('b',null,s16(z.nick)||'…');b.style.color=col(z.c);c.appendChild(b);
     c.appendChild(el('small',null,String(z.text||'').slice(0,80)));r.appendChild(c);r.onclick=function(){if(FB&&z.id===FB.uid)show('lfg');else showProfile(z.id);};l.appendChild(r);});
@@ -1227,6 +1287,74 @@ Array.prototype.forEach.call(document.querySelectorAll('[data-go]'),function(b){
 // главная обновляется вместе с данными
 (function(){var w=function(f){return function(){var r=f.apply(this,arguments);rHome();return r;};};
   rLfg=w(rLfg);rClan=w(rClan);rLb=w(rLb);rProg=w(rProg);rFriends=w(rFriends);})();
+
+/* ===== Уведомления ===== */
+var LOADT=Date.now(),unseen=0,swReg=null;
+function notifOn(){return ld('hub.notif',false)&&'Notification' in window&&Notification.permission==='granted';}
+function notify(title,body,sec){
+  if(!document.hidden)return;
+  unseen++;document.title='('+unseen+') Game Hub';
+  if(!notifOn())return;
+  var opt={body:body||'',icon:'apple-touch-icon.png',badge:'apple-touch-icon.png',tag:'gh-'+sec,data:{sec:sec}};
+  if(swReg&&swReg.showNotification){swReg.showNotification(title,opt).catch(function(){});return;}
+  try{var n=new Notification(title,opt);n.onclick=function(){window.focus();show(sec);n.close();};}catch(e){}}
+document.addEventListener('visibilitychange',function(){if(!document.hidden&&unseen){unseen=0;updTitle();}});
+if('serviceWorker' in navigator&&location.protocol==='https:'){navigator.serviceWorker.register('sw.js').then(function(r){swReg=r;}).catch(function(){});
+  navigator.serviceWorker.addEventListener('message',function(e){if(e.data&&e.data.sec)show(String(e.data.sec));});}
+function rNt(){var b=$('ntb');b.innerHTML='';
+  var ios=/iPad|iPhone|iPod/.test(navigator.userAgent),standalone=window.matchMedia&&matchMedia('(display-mode: standalone)').matches||navigator.standalone;
+  if(!('Notification' in window)){b.appendChild(el('div','muted',ios&&!standalone?t('nt_ios'):t('nt_denied')));return;}
+  if(Notification.permission==='denied'){b.appendChild(el('div','muted',t('nt_denied')));return;}
+  if(notifOn()){b.appendChild(el('div',null,t('nt_ok')));var o=el('button','g w',t('nt_off'));o.type='button';o.onclick=function(){sv('hub.notif',false);rNt();};b.appendChild(o);return;}
+  var on=el('button','w',t('nt_on'));on.type='button';on.style.marginTop='0';
+  on.onclick=function(){Notification.requestPermission().then(function(r){sv('hub.notif',r==='granted');rNt();});};b.appendChild(on);}
+
+/* ===== Установка как приложение ===== */
+var instEv=null;
+window.addEventListener('beforeinstallprompt',function(e){e.preventDefault();instEv=e;rApp();});
+window.addEventListener('appinstalled',function(){instEv=null;rApp();});
+function rApp(){var i=$('appi'),b=$('appb');b.innerHTML='';
+  var standalone=window.matchMedia&&matchMedia('(display-mode: standalone)').matches||navigator.standalone;
+  if(standalone){i.textContent=t('app_done');return;}
+  var ios=/iPad|iPhone|iPod/.test(navigator.userAgent);i.textContent=ios?t('app_ios'):t('app_and');
+  if(instEv){var x=el('button','w',t('app_btn'));x.type='button';x.onclick=function(){instEv.prompt();instEv.userChoice.then(function(){instEv=null;rApp();});};b.appendChild(x);}}
+
+/* ===== Скрытые игроки ===== */
+function isMuted(u){return typeof u==='string'&&ld('hub.mute',[]).indexOf(u)>=0;}
+function toggleMute(u){var l=ld('hub.mute',[]),i=l.indexOf(u);if(i>=0)l.splice(i,1);else{l.push(u);toast(t('mu_done'));}sv('hub.mute',l.slice(-200));rMute();rDm();rLfg();}
+function rMute(){var c=$('mul');c.innerHTML='';var l=ld('hub.mute',[]);
+  if(!l.length){c.appendChild(el('div','muted',t('mu_none')));return;}
+  l.forEach(function(u){var r=el('div','item'),nb=el('b','t','…');r.appendChild(nb);getProf(u).then(function(d){if(d){nb.textContent=s16(d.nick)||'…';nb.style.color=col(d.c);}});
+    var b=el('button','pill',t('mu_un'));b.type='button';b.onclick=function(){toggleMute(u);};r.appendChild(b);c.appendChild(r);});}
+
+/* ===== Поделиться ===== */
+function baseUrl(){return location.origin+location.pathname;}
+function shareLink(url,text){
+  if(navigator.share){navigator.share({title:'Game Hub',text:text,url:url}).catch(function(){});return;}
+  var done=function(){toast(t('sh_copied'));};
+  if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(text+' '+url).then(done,function(){prompt('',url);});
+  else prompt('',url);}
+$('shb').onclick=function(){shareLink(baseUrl(),t('sh_text'));};
+
+/* ===== Тест скорости кликов ===== */
+var cpsN=0,cpsOn=false,cpsEnd=0,cpsT=null;
+function cpsBest(){return cntv('cps')/10;}
+function cpsLbl(){var b=$('cpsb');if(!cpsOn){b.classList.remove('go');b.textContent=t('cps_start');}
+  $('cpsi').textContent=cpsBest()?t('cps_best')+cpsBest().toFixed(1)+t('cps_res'):'';}
+$('cpsb').addEventListener('pointerdown',function(e){e.preventDefault();
+  if(!cpsOn){if(Date.now()<cpsEnd+800)return;cpsOn=true;cpsN=0;cpsEnd=Date.now()+5000;$('cpsb').classList.add('go');
+    clearInterval(cpsT);cpsT=setInterval(function(){var left=Math.max(0,(cpsEnd-Date.now())/1000);$('cpsb').textContent=cpsN+' · '+left.toFixed(1)+'s';
+      if(left<=0){clearInterval(cpsT);cpsOn=false;var v=Math.round(cpsN/5*10);var c=ld('hub.cnt',{});
+        if(v>(c.cps||0)){c.cps=v;sv('hub.cnt',c);}$('cpsb').classList.remove('go');$('cpsb').textContent=(v/10).toFixed(1)+t('cps_res');
+        $('cpsi').textContent=cpsBest()?t('cps_best')+cpsBest().toFixed(1)+t('cps_res'):'';quest('cps');checkAch();}},100);}
+  cpsN++;});
+
+/* ===== Серия входов ===== */
+function doStreak(){var st=ld('hub.streak',{d:'',n:0}),d=today();if(st.d===d)return;
+  var y=new Date();y.setDate(y.getDate()-1);var yd=y.getFullYear()+'-'+(y.getMonth()+1)+'-'+y.getDate();
+  st.n=(st.d===yd)?(st.n||0)+1:1;st.d=d;sv('hub.streak',st);
+  var bonus=Math.min(st.n,7)*5;addXp(bonus);var c=ld('hub.cnt',{});c.streak=Math.max(c.streak||0,st.n);sv('hub.cnt',c);
+  toast('🔥 '+t('st_day')+' '+st.n+' · +'+bonus+' XP');checkAch();pushProf();rProg();}
 
 /* ===== Поддержка (Telegram) ===== */
 var SUPPORT_TG='M1_M0_1';
@@ -1261,8 +1389,8 @@ function rOnb(){
 function openOnb(){$('onb').hidden=false;$('wnick').value=prof.nick||'';document.body.style.overflow='hidden';rOnb();}
 function closeOnb(){$('onb').hidden=true;document.body.style.overflow='';sv('hub.onb',1);}
 $('wgo').onclick=function(){var n=$('wnick').value.trim().slice(0,16);if(n){prof.nick=n;$('fnick').value=n;}sv('hub.prof',prof);
-  closeOnb();sv('hub.lang',lang);onStats();rAv();show('home');toast(t('w_hi')+(prof.nick||'')+'! 🎮');};
-$('wlog').onclick=function(){closeOnb();sv('hub.lang',lang);show('home');login();};
+  closeOnb();sv('hub.lang',lang);onStats();rAv();show(INV?'clan':'home');toast(t('w_hi')+(prof.nick||'')+'! 🎮');};
+$('wlog').onclick=function(){closeOnb();sv('hub.lang',lang);show(INV?'clan':'home');login();};
 
 /* Язык и стиль */
 function applyLang(){
@@ -1270,13 +1398,14 @@ function applyLang(){
   Array.prototype.forEach.call(document.querySelectorAll('[data-i]'),function(e){e.textContent=t(e.dataset.i);});
   Array.prototype.forEach.call(document.querySelectorAll('[data-p]'),function(e){e.placeholder=t(e.dataset.p);});
   $('menub').setAttribute('aria-label',t('menu'));$('dx').setAttribute('aria-label',t('menu'));
-  setRx(rxk);rbest();ttLbl();aimLbl();updTitle();hdr();rBack();rGuide();rDiary();rVote();rFriends();rMine();rAv();rStat();rLb();rLfg();lfgOpts();rDm();rXo();rAcc();rProg();rMg();rClan();rCle();rHome();rOnb();rSup();
+  setRx(rxk);rbest();ttLbl();aimLbl();updTitle();hdr();rBack();rGuide();rDiary();rVote();rFriends();rMine();rAv();rStat();rLb();rLfg();lfgOpts();rDm();rXo();rAcc();rProg();rMg();rClan();rCle();rHome();rOnb();rSup();rNt();rApp();rMute();cpsLbl();
 }
 function applyGame(k){game=k;sv('hub.game',k);document.documentElement.dataset.game=k;loadSteps();updTitle();rGuide();buildDrawer();pushProf();}
 
 document.documentElement.dataset.game=game;
 loadSteps();applyLang();setup();
 if(FIRST)openOnb();
+setTimeout(doStreak,FIRST?3500:1200);
 })();
 </script>
 </body>
