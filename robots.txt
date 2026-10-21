@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://san4os12.github.io/game-hub/sitemap.xml

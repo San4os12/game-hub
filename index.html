@@ -3,7 +3,24 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Game hub</title>
+<title>Game Hub — тиммейты, кланы и мини-игры для геймеров</title>
+<meta name="description" content="Game Hub — бесплатный сайт для геймеров: находи тиммейтов, вступай в кланы, играй с друзьями в мини-игры, ставь рекорды и веди список игр. Стили Minecraft, Roblox, CS2, Fortnite, Valorant и других.">
+<meta name="theme-color" content="#2b1d12">
+<link rel="canonical" href="https://san4os12.github.io/game-hub/">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Game Hub">
+<meta property="og:title" content="Game Hub — тиммейты, кланы и мини-игры">
+<meta property="og:description" content="Находи тиммейтов, вступай в кланы, играй с друзьями и ставь рекорды. Бесплатно, без регистрации.">
+<meta property="og:url" content="https://san4os12.github.io/game-hub/">
+<meta property="og:image" content="https://san4os12.github.io/game-hub/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Game Hub — тиммейты, кланы и мини-игры">
+<meta name="twitter:description" content="Находи тиммейтов, вступай в кланы, играй с друзьями и ставь рекорды.">
+<meta name="twitter:image" content="https://san4os12.github.io/game-hub/og.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@500;700&display=swap">
@@ -207,6 +224,27 @@ h1,h2,.dh{font-weight:var(--fhw)}
 :root[data-game=fortnite] button{font-style:normal;font-weight:900;font-size:17px}
 :root[data-game=csgo] button{font-weight:600}
 :root[data-game=dota] :is(h1,h2){letter-spacing:1.5px}
+/* главная */
+.hero{display:flex;align-items:center;gap:14px}.hero .pav{width:64px;height:64px;font-size:34px}.hero b{display:block;font-size:20px;overflow-wrap:anywhere}.hero small{color:var(--muted)}
+.qa{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px}
+.qa button{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;padding:16px 8px;min-height:92px;text-align:center}
+.qa svg.i{width:28px;height:28px}
+.avrow{display:flex;gap:12px;overflow-x:auto;padding:10px 0 2px}
+.avrow .op{display:flex;flex-direction:column;align-items:center;gap:4px;font-size:12px;cursor:pointer;width:60px;flex:none;text-align:center}
+.avrow .op span:last-child{max-width:60px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.avrow .pav{width:48px;height:48px;font-size:26px}
+/* приветственный экран */
+.onb{position:fixed;inset:0;z-index:70;background:var(--bg);overflow-y:auto}
+:root[data-game=sky] .onb{background:linear-gradient(180deg,#1f2a5a,#6a4a8c 48%,#f0a27a)}
+:root[data-game=fortnite] .onb{background:linear-gradient(180deg,#2a1b7a,#3b6fe0 62%,#7fd3ff)}
+:root[data-game=genshin] .onb{background:linear-gradient(180deg,#1c2541,#3a506b 55%,#5b7db1)}
+:root[data-game=gta] .onb{background:linear-gradient(180deg,#141a24,#2b1d3a 60%,#5a2a3a)}
+.onbc{max-width:520px;margin:0 auto;padding:calc(24px + env(safe-area-inset-top,0px)) 18px calc(40px + env(safe-area-inset-bottom,0px))}
+.onbh{display:flex;justify-content:center;gap:6px;margin-bottom:8px}.onbh .pav{width:52px;height:52px}
+.onbt{text-align:center;font-size:calc(var(--hs) + 2px)!important;margin:6px 0 8px!important;flex:none!important}
+.onbs{text-align:center;color:var(--muted);margin:0 0 14px}
+.onbl{list-style:none;margin:0 0 6px;padding:0}.onbl li{display:flex;gap:10px;align-items:flex-start;padding:6px 0}.onbl li::before{content:'✓';color:var(--ok);font-weight:800}
+#wnick{width:100%}
 </style>
 </head>
 <body>
@@ -217,6 +255,15 @@ h1,h2,.dh{font-weight:var(--fhw)}
     <span class="live"><span class="dot off" id="dot"></span><b id="n">1</b><span data-i="online"></span></span>
   </div>
   <h2 id="cur"></h2>
+
+  <div class="sec" id="s-home">
+    <div class="box" id="hm1"></div>
+    <div class="qa" id="hmq"></div>
+    <div class="box"><b data-i="h_online"></b><div class="avrow" id="hmon"></div></div>
+    <div class="box"><b data-i="lfg_list"></b><div id="hmlfg" style="margin-top:8px"></div><button class="g w" type="button" data-go="lfg" data-i="h_all"></button></div>
+    <div class="box"><b data-i="cl_top"></b><div id="hmcl" style="margin-top:8px"></div><button class="g w" type="button" data-go="clan" data-i="h_all"></button></div>
+    <div class="box"><b data-i="h_top"></b><div id="hmlb" style="margin-top:8px"></div><button class="g w" type="button" data-go="react" data-i="h_all"></button></div>
+  </div>
 
   <div class="sec" id="s-back">
     <div class="box"><div class="row"><input id="bn" data-p="bn_ph" maxlength="60"><select id="bp"><option value="PC">PC</option><option value="PlayStation">PlayStation</option><option value="Xbox">Xbox</option><option value="Switch">Switch</option><option value="mobile" data-i="pm"></option></select><button id="ba" type="button" data-i="add"></button></div>
@@ -323,6 +370,20 @@ h1,h2,.dh{font-weight:var(--fhw)}
 </aside>
 
 <div class="toast" id="toast"></div>
+<div class="onb" id="onb" hidden role="dialog" aria-modal="true">
+  <div class="onbc">
+    <div class="onbh" id="wpics"></div>
+    <h1 class="onbt" data-i="w_title"></h1>
+    <p class="onbs" data-i="w_sub"></p>
+    <ul class="onbl"><li data-i="w_f1"></li><li data-i="w_f2"></li><li data-i="w_f3"></li><li data-i="w_f4"></li></ul>
+    <div class="ds" data-i="m_lang"></div><div class="seg" id="wlang"></div>
+    <div class="ds" data-i="w_nick"></div><input id="wnick" maxlength="16" autocomplete="nickname">
+    <div class="ds" data-i="w_av"></div><div class="avr" id="wav"></div>
+    <div class="ds" data-i="w_game"></div><div class="grid" id="wgame"></div>
+    <button class="w" id="wgo" type="button" data-i="w_go" style="margin-top:18px"></button>
+    <button class="g w" id="wlog" type="button" data-i="w_login"></button>
+  </div>
+</div>
 <div class="ov2" id="sov"></div>
 <div class="sh" id="sheet" role="dialog"><div class="shh"><button class="g ib" id="sx" type="button">×</button></div><div id="sbody"></div></div>
 
@@ -336,6 +397,9 @@ function $(i){return document.getElementById(i);}
 function el(tg,c,x){var e=document.createElement(tg);if(c)e.className=c;if(x!=null)e.textContent=x;return e;}
 function ld(k,d){try{var r=localStorage.getItem(k);return r?JSON.parse(r):d;}catch(e){return d;}}
 function sv(k,v){try{localStorage.setItem(k,JSON.stringify(v));}catch(e){}onSaved(k);}
+var FIRST=(function(){try{return !localStorage.getItem('hub.prof')&&!localStorage.getItem('hub.onb');}catch(e){return false;}})();
+function autoLang(){var ls=(navigator.languages&&navigator.languages.length?navigator.languages:[navigator.language||'']);
+  for(var i=0;i<ls.length;i++){var c=String(ls[i]||'').toLowerCase().slice(0,2);if(c==='ru'||c==='be'||c==='kk')return 'ru';if(c==='cs'||c==='sk')return 'cs';if(c==='en')return 'en';}return 'en';}
 
 var T={
 hub:['хаб','hub','hub'],online:[' онлайн',' online',' online'],menu:['Меню','Menu','Menu'],
@@ -383,7 +447,21 @@ xo_games:['Мои партии','My games','Moje hry'],xo_none:['Партий п
 xo_my:['Твой ход','Your turn','Jsi na tahu'],xo_their:['Ход соперника',"Opponent's turn",'Na tahu je soupeř'],
 xo_win:['Победа!','You won!','Výhra!'],xo_lose:['Поражение','You lost','Prohra'],xo_draw:['Ничья','Draw','Remíza'],
 xo_again:['Ещё раз','Rematch','Odveta'],xo_vs:['против ','vs ','proti '],xo_pick:['Выбери партию или вызови игрока ниже','Pick a game or challenge a player below','Vyber hru nebo vyzvi hráče níže'],
-ff_addf:['Добавить в друзья','Add friend','Přidat do přátel'],acc:['Аккаунт','Account','Účet'],acc_login:['Войти через Google','Sign in with Google','Přihlásit přes Google'],acc_hint:['Бэклог, гайд, дневник, рекорды и профиль будут сохраняться на всех твоих устройствах','Your backlog, guide, diary, records and profile will be saved on all your devices','Seznam her, průvodce, deník, rekordy a profil se uloží na všech tvých zařízeních'],acc_on:['Синхронизация включена','Sync is on','Synchronizace zapnuta'],acc_sync:['Синхронизация…','Syncing…','Synchronizace…'],acc_out:['Выйти','Sign out','Odhlásit se'],acc_err:['Не удалось войти','Sign-in failed','Přihlášení selhalo'],prog:['Прогресс','Progress','Postup'],clan:['Клан','Clan','Klan'],
+ff_addf:['Добавить в друзья','Add friend','Přidat do přátel'],acc:['Аккаунт','Account','Účet'],acc_login:['Войти через Google','Sign in with Google','Přihlásit přes Google'],acc_hint:['Бэклог, гайд, дневник, рекорды и профиль будут сохраняться на всех твоих устройствах','Your backlog, guide, diary, records and profile will be saved on all your devices','Seznam her, průvodce, deník, rekordy a profil se uloží na všech tvých zařízeních'],acc_on:['Синхронизация включена','Sync is on','Synchronizace zapnuta'],acc_sync:['Синхронизация…','Syncing…','Synchronizace…'],acc_out:['Выйти','Sign out','Odhlásit se'],acc_err:['Не удалось войти','Sign-in failed','Přihlášení selhalo'],home:['Главная','Home','Domů'],h_hi:['Привет, ','Hi, ','Ahoj, '],h_online:['Сейчас на сайте','Online now','Právě online'],
+h_all:['Смотреть все','See all','Zobrazit vše'],h_top:['Лучшая реакция','Fastest reaction','Nejrychlejší reakce'],
+h_quests:['Задания дня: ','Daily quests: ','Denní úkoly: '],h_clan:['Клан: ','Clan: ','Klan: '],h_noclan:['Ты пока без клана','No clan yet','Zatím bez klanu'],
+h_alone:['Пока здесь только ты. Скинь ссылку друзьям!','Only you are here. Share the link with friends!','Zatím jsi tu jen ty. Pošli odkaz přátelům!'],
+w_title:['Добро пожаловать в Game Hub','Welcome to Game Hub','Vítej v Game Hub'],
+w_sub:['Место для геймеров: друзья, кланы, мини-игры и твой список игр. Бесплатно и без регистрации.','A place for gamers: friends, clans, mini-games and your game list. Free, no sign-up needed.','Místo pro hráče: přátelé, klany, minihry a tvůj seznam her. Zdarma a bez registrace.'],
+w_f1:['Находи тиммейтов и общайся в чате','Find teammates and chat','Hledej spoluhráče a chatuj'],
+w_f2:['Вступай в кланы и соревнуйся в рекордах','Join clans and compete for records','Přidej se ke klanům a soutěž o rekordy'],
+w_f3:['Играй с друзьями в мини-игры','Play mini-games with friends','Hraj minihry s přáteli'],
+w_f4:['Выполняй задания и прокачивай уровень','Complete quests and level up','Plň úkoly a zvyšuj úroveň'],
+w_nick:['Твой ник','Your nickname','Tvoje přezdívka'],w_av:['Аватар','Avatar','Avatar'],
+w_game:['Любимая игра — от неё зависит стиль сайта','Favourite game — it sets the site style','Oblíbená hra — určuje styl webu'],
+w_go:['Начать','Start','Začít'],w_login:['Уже был здесь? Войти через Google','Been here before? Sign in with Google','Už jsi tu byl? Přihlas se přes Google'],
+w_hi:['Добро пожаловать, ','Welcome, ','Vítej, '],
+prog:['Прогресс','Progress','Postup'],clan:['Клан','Clan','Klan'],
 lvl:['Уровень','Level','Úroveň'],lvl_next:['до следующего','to next level','do další úrovně'],
 q_t:['Задания дня','Daily quests','Denní úkoly'],q_hint:['Новые задания каждый день. За все три +20 XP бонус','New quests every day. +20 XP bonus for all three','Nové úkoly každý den. Za všechny tři bonus +20 XP'],
 q_react:['Пройди тест реакции','Do the reaction test','Udělej test reakce'],q_aim:['Сыграй в тренажёр аима','Play the aim trainer','Zahraj si aim trenér'],
@@ -450,13 +528,13 @@ cs3:['Выучить закупку на раунд','Learn the round buy routin
 cs4:['Выучить позиции на карте','Learn map positions','Naučit se pozice na mapě'],
 cs5:['Сыграть соревновательный матч','Play a competitive match','Odehrát zápas']
 };
-var L={ru:0,en:1,cs:2},lang=ld('hub.lang','ru'),game=ld('hub.game','minecraft'),cur=(location.hash||'').slice(1);
+var L={ru:0,en:1,cs:2},lang=ld('hub.lang',null)||autoLang(),game=ld('hub.game','minecraft'),cur=(location.hash||'').slice(1);
 if(!(lang in L))lang='ru';
 function t(k){var a=T[k];return a?a[L[lang]]:k;}
 var GAMES={minecraft:{n:'Minecraft',c:'#5b8c2a',s:'mc'},roblox:{n:'Roblox',c:'#00a2ff',s:'rb'},sky:{n:'Sky',c:'#f6c667',s:'sk'},cs16:{n:'CS 1.6',c:'#ffb000',s:'cs'},csgo:{n:'CS:GO',c:'#de9b35',s:'cs'},cs2:{n:'CS2',c:'#4aa3ff',s:'cs'},fortnite:{n:'Fortnite',c:'#9d4dff',s:'fn'},valorant:{n:'Valorant',c:'#ff4655',s:'va'},gta:{n:'GTA',c:'#2fbf71',s:'gt'},dota:{n:'Dota 2',c:'#c23c2a',s:'do'},genshin:{n:'Genshin',c:'#e9c46a',s:'gi'}};
 if(!GAMES[game])game='minecraft';
 var IC={
-menu:'<path d="M4 6h16M4 12h16M4 18h16"/>',x:'<path d="M6 6l12 12M18 6 6 18"/>',
+menu:'<path d="M4 6h16M4 12h16M4 18h16"/>',home:'<path d="M3 11 12 4l9 7"/><path d="M5 10v10h5v-6h4v6h5V10"/>',x:'<path d="M6 6l12 12M18 6 6 18"/>',
 gamepad:'<rect x="2" y="7" width="20" height="11" rx="5"/><path d="M7 10.5v4M5 12.5h4"/><circle cx="15.5" cy="11.5" r=".6"/><circle cx="18" cy="13.5" r=".6"/>',
 list:'<path d="M10 6h10M10 12h10M10 18h10"/><path d="m3.5 6 1.2 1.2L7 5M3.5 12l1.2 1.2L7 11M3.5 18l1.2 1.2L7 17"/>',
 calc:'<rect x="5" y="3" width="14" height="18" rx="2"/><path d="M8 7h8M8 12h1M12 12h1M16 12h0M8 16h1M12 16h1M16 16h0"/>',
@@ -469,8 +547,8 @@ mega:'<path d="M3 11v2a1 1 0 0 0 1 1h2l5 4V6l-5 4H4a1 1 0 0 0-1 1z"/><path d="M1
 grid:'<path d="M9 3v18M15 3v18M3 9h18M3 15h18"/>',
 users:'<circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c0-3.6 3-6 6.5-6s6.5 2.4 6.5 6"/><path d="M16 4.6a3.5 3.5 0 0 1 0 6.8M18.5 14.3c2 .6 3.5 2.4 3.5 5.7"/>'};
 function ico(n){var s=document.createElement('span');s.innerHTML='<svg class="i" viewBox="0 0 24 24">'+IC[n]+'</svg>';return s.firstChild;}
-var SEC=[['back','gamepad'],['guide','list'],['calc','calc'],['react','bolt'],['tools','dice'],['prog','star'],['friends','users'],['clan','shield'],['lfg','mega'],['xo','grid'],['vote','poll'],['diary','book']];
-if(!SEC.some(function(s){return s[0]===cur;}))cur='back';
+var SEC=[['home','home'],['back','gamepad'],['guide','list'],['calc','calc'],['react','bolt'],['tools','dice'],['prog','star'],['friends','users'],['clan','shield'],['lfg','mega'],['xo','grid'],['vote','poll'],['diary','book']];
+if(!SEC.some(function(s){return s[0]===cur;}))cur='home';
 
 function openD(){document.body.classList.add('open');}
 function closeD(){document.body.classList.remove('open');}
@@ -493,7 +571,7 @@ function hdr(){
   buildDrawer();
 }
 function show(id){cur=id;hdr();try{history.replaceState(null,'','#'+id);}catch(e){}window.scrollTo(0,0);}
-function updTitle(){var n=GAMES[game].n;$('gt').textContent=n+t('g_title');document.title=n+' '+t('hub');$('dtitle').textContent=t('menu');}
+function updTitle(){var n=GAMES[game].n;$('gt').textContent=n+t('g_title');document.title='Game Hub · '+n;$('dtitle').textContent=t('menu');}
 
 /* Бэклог */
 var games=ld('hub.games',[]),ST=['want','play','done'];
@@ -1093,18 +1171,71 @@ function sendClan(){var v=$('clm').value.trim();if(!v||!FB||!myClan)return;$('cl
   FB.fs.collection('clanmsg').add({clan:myClan.id,uid:FB.uid,n:(prof.nick||'').slice(0,16),c:prof.c,m:v.slice(0,200),t:TS()}).catch(function(){});}
 $('cls').onclick=sendClan;$('clm').addEventListener('keydown',function(e){if(e.key==='Enter')sendClan();});
 
+/* ===== Главная ===== */
+var homeT=null;
+function rHome(){clearTimeout(homeT);homeT=setTimeout(rHomeNow,30);}
+function rHomeNow(){
+  var h=$('hm1');h.innerHTML='';var hero=el('div','hero');hero.appendChild(avNode(prof.av,'pav','div'));
+  var x=el('div');var nb=el('b',null,t('h_hi')+(prof.nick||'…')+'!');nb.style.color=col(prof.c);x.appendChild(nb);
+  var q=qState();x.appendChild(el('small',null,t('lvl')+' '+lvl(prof.xp)+' · '+t('h_quests')+q.done.length+'/'+q.ids.length));
+  x.appendChild(el('small',null,' · '+(prof.ct?t('h_clan')+'['+prof.ct+']':t('h_noclan'))));
+  hero.appendChild(x);h.appendChild(hero);
+  var bar=el('div','xpb'),f=el('div','pb');f.style.width=((prof.xp||0)%100)+'%';bar.appendChild(f);h.appendChild(bar);
+  var qa=$('hmq');qa.innerHTML='';
+  [['lfg','mega'],['xo','grid'],['clan','shield'],['prog','star']].forEach(function(z){var b=el('button','g');b.type='button';b.appendChild(ico(z[1]));b.appendChild(el('span',null,t(z[0])));b.onclick=function(){show(z[0]);};qa.appendChild(b);});
+  var on=$('hmon');on.innerHTML='';
+  var others=room?room.peers().filter(function(p){return p.kind==='viewer'&&!p.isMe&&p.by;}):[];
+  if(!others.length)on.appendChild(el('div','muted',t('h_alone')));
+  others.slice(0,20).forEach(function(p){var pr=p.presence||{},o=el('div','op');o.appendChild(avNode(pr.av,'pav'));var n=el('span',null,s16(pr.nick)||'…');n.style.color=col(pr.c);o.appendChild(n);
+    o.onclick=function(){showProfile(p.by);};on.appendChild(o);});
+  var l=$('hmlfg');l.innerHTML='';var posts=lfg.filter(function(z){return Date.now()-tms(z.t)<3*3600000;}).slice(0,3);
+  if(!posts.length)l.appendChild(el('div','muted',t('lfg_empty')));
+  posts.forEach(function(z){var r=el('div','item click');r.appendChild(avNode(z.av,'pav sm'));var c=el('div','t'),b=el('b',null,s16(z.nick)||'…');b.style.color=col(z.c);c.appendChild(b);
+    c.appendChild(el('small',null,String(z.text||'').slice(0,80)));r.appendChild(c);r.onclick=function(){if(FB&&z.id===FB.uid)show('lfg');else showProfile(z.id);};l.appendChild(r);});
+  var cl=$('hmcl');cl.innerHTML='';
+  if(!clTop.length)cl.appendChild(el('div','muted',t('cl_none')));
+  clTop.slice(0,3).forEach(function(c,i){var r=el('div','item');r.appendChild(el('span','rk',['🥇','🥈','🥉'][i]));r.appendChild(el('span','pav sm',emb(c.emb)));
+    var z=el('div','t');z.appendChild(el('b',null,'['+String(c.tag||'').slice(0,4)+'] '+String(c.name||'').slice(0,20)));z.appendChild(el('small',null,(Array.isArray(c.members)?c.members.length:0)+t('cl_members')));r.appendChild(z);cl.appendChild(r);});
+  var lb=$('hmlb');lb.innerHTML='';
+  if(!lbR.length)lb.appendChild(el('div','muted',t('lb_empty')));
+  lbR.slice(0,3).forEach(function(z,i){var r=el('div','item click');r.appendChild(el('span','rk',['🥇','🥈','🥉'][i]));r.appendChild(avNode(z.av,'pav sm'));
+    var b=el('b','t',s16(z.nick)||'…');b.style.color=col(z.c);r.appendChild(b);r.appendChild(el('span','val',z.r+t('ms')));r.onclick=function(){showProfile(z.id);};lb.appendChild(r);});}
+Array.prototype.forEach.call(document.querySelectorAll('[data-go]'),function(b){b.onclick=function(){show(b.dataset.go);};});
+// главная обновляется вместе с данными
+(function(){var w=function(f){return function(){var r=f.apply(this,arguments);rHome();return r;};};
+  rLfg=w(rLfg);rClan=w(rClan);rLb=w(rLb);rProg=w(rProg);rFriends=w(rFriends);})();
+
+/* ===== Приветственный экран ===== */
+var onbGame=game;
+function rOnb(){
+  if($('onb').hidden)return;
+  var pics=$('wpics');pics.innerHTML='';[100,102,105,107,115].forEach(function(i){pics.appendChild(avNode(i,'pav'));});
+  var wl=$('wlang');wl.innerHTML='';
+  [['ru','Русский'],['en','English'],['cs','Čeština']].forEach(function(p){var b=el('button','mi'+(lang===p[0]?' on':''),p[1]);b.type='button';b.onclick=function(){lang=p[0];sv('hub.lang',lang);applyLang();};wl.appendChild(b);});
+  var wa=$('wav');wa.innerHTML='';
+  AVIMG.forEach(function(_,k){var i=100+k,b=el('button','avb'+(prof.av===i?' on':''));b.type='button';b.appendChild(avNode(i,'pav sm'));b.onclick=function(){prof.av=i;sv('hub.prof',prof);rOnb();};wa.appendChild(b);});
+  var wg=$('wgame');wg.innerHTML='';
+  Object.keys(GAMES).forEach(function(k){var b=el('button','mi'+(onbGame===k?' on':''));b.type='button';var sw=el('i','sw');sw.style.background=GAMES[k].c;b.appendChild(sw);b.appendChild(el('span',null,GAMES[k].n));
+    b.onclick=function(){onbGame=k;applyGame(k);rOnb();};wg.appendChild(b);});}
+function openOnb(){$('onb').hidden=false;$('wnick').value=prof.nick||'';document.body.style.overflow='hidden';rOnb();}
+function closeOnb(){$('onb').hidden=true;document.body.style.overflow='';sv('hub.onb',1);}
+$('wgo').onclick=function(){var n=$('wnick').value.trim().slice(0,16);if(n){prof.nick=n;$('fnick').value=n;}sv('hub.prof',prof);
+  closeOnb();sv('hub.lang',lang);onStats();rAv();show('home');toast(t('w_hi')+(prof.nick||'')+'! 🎮');};
+$('wlog').onclick=function(){closeOnb();sv('hub.lang',lang);show('home');login();};
+
 /* Язык и стиль */
 function applyLang(){
   document.documentElement.lang=lang;
   Array.prototype.forEach.call(document.querySelectorAll('[data-i]'),function(e){e.textContent=t(e.dataset.i);});
   Array.prototype.forEach.call(document.querySelectorAll('[data-p]'),function(e){e.placeholder=t(e.dataset.p);});
   $('menub').setAttribute('aria-label',t('menu'));$('dx').setAttribute('aria-label',t('menu'));
-  setRx(rxk);rbest();ttLbl();aimLbl();updTitle();hdr();rBack();rGuide();rDiary();rVote();rFriends();rMine();rAv();rStat();rLb();rLfg();lfgOpts();rDm();rXo();rAcc();rProg();rMg();rClan();rCle();
+  setRx(rxk);rbest();ttLbl();aimLbl();updTitle();hdr();rBack();rGuide();rDiary();rVote();rFriends();rMine();rAv();rStat();rLb();rLfg();lfgOpts();rDm();rXo();rAcc();rProg();rMg();rClan();rCle();rHome();rOnb();
 }
 function applyGame(k){game=k;sv('hub.game',k);document.documentElement.dataset.game=k;loadSteps();updTitle();rGuide();buildDrawer();pushProf();}
 
 document.documentElement.dataset.game=game;
 loadSteps();applyLang();setup();
+if(FIRST)openOnb();
 })();
 </script>
 </body>
