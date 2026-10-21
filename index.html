@@ -357,17 +357,88 @@ body.chatopen .chv{display:flex;flex-direction:column;position:fixed;inset:0;z-i
 .invc .clh b{font-size:16px}
 .invc button{min-height:40px;margin:0}
 .invc .muted{font-size:12px}
+/* ================= Полировка дизайна ================= */
+:root{--gap:12px}
+body{-webkit-tap-highlight-color:transparent;text-rendering:optimizeLegibility}
+/* липкая верхняя панель с названием раздела */
+.top{position:sticky;top:0;z-index:15;margin:-12px -14px 12px;padding:calc(8px + env(safe-area-inset-top,0px)) 14px 8px;gap:8px;
+  background:var(--bg);background:color-mix(in srgb,var(--bg) 84%,transparent);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);border-bottom:1px solid transparent;transition:border-color .2s}
+body.scrolled .top{border-bottom-color:var(--line)}
+:root{padding-top:0}
+#cur{flex:1;min-width:0;margin:0;font-size:min(22px,calc(var(--hs) - 2px));line-height:1.15;gap:8px}
+#cur span{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+#cur svg.i{flex:none}
+.top .live{flex:none;padding:5px 9px}
+.top .live [data-i=online]{display:none}
+#cur svg.i{width:20px;height:20px}
+.top .live{order:0}
+.mebtn{margin:0 0 0 2px;width:40px;height:40px}
+/* нижняя панель вкладок (телефон) */
+.tabbar{position:fixed;left:0;right:0;bottom:0;z-index:25;display:grid;grid-template-columns:repeat(5,1fr);
+  padding:6px 6px calc(6px + env(safe-area-inset-bottom,0px));background:var(--bg);background:color-mix(in srgb,var(--bg) 90%,transparent);
+  -webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);border-top:1px solid var(--line)}
+.tab{position:relative;display:flex;flex-direction:column;align-items:center;gap:3px;min-height:54px;padding:6px 2px 4px;
+  background:transparent!important;color:var(--muted)!important;border:0!important;box-shadow:none!important;clip-path:none!important;font:700 11px var(--fb)!important;text-transform:none!important;letter-spacing:0!important}
+.tab .tic{display:grid;place-items:center;width:52px;height:30px;border-radius:999px;transition:background .2s}
+.tab .tic svg.i{width:22px;height:22px}
+.tab .tic .pav{width:26px;height:26px;font-size:15px;border:2px solid transparent}
+.tab.on{color:var(--ink)!important}
+.tab.on .tic{background:color-mix(in srgb,var(--accent) 26%,transparent)}
+.tab.on .tic .pav{border-color:var(--accent)}
+.tab .tlb{max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.tab .bdg{position:absolute;top:2px;left:calc(50% + 8px);margin:0;min-width:18px;text-align:center;padding:1px 5px;font-size:11px}
+.wrap{padding-bottom:calc(96px + env(safe-area-inset-bottom,0px))}
+body.chatopen .tabbar,body.sheet .tabbar{display:none}
+.onb:not([hidden])~.tabbar{display:none}
+/* меню: группы вместо одного длинного списка */
+.mg{font:700 13px var(--fb);color:var(--muted);margin:18px 6px 8px;text-transform:none;letter-spacing:0}
+.mg:first-child{margin-top:6px}
+.ds[data-i=m_sec]{display:none}
+.ds{text-transform:none;letter-spacing:.2px;font-size:13px}
+/* карточки и списки */
+.box{padding:16px;margin-bottom:var(--gap)}
+.box>b:first-child{font-size:17px}
+.item{min-height:56px}
+.item.click:not(:has(button))::after{content:'';flex:none;width:8px;height:8px;margin:0 4px 0 2px;border-right:2px solid var(--muted);border-top:2px solid var(--muted);transform:rotate(45deg);opacity:.7}
+.item.click .bdg{margin-left:auto}
+/* отклик на нажатие и фокус */
+button{transition:filter .15s,transform .08s,background-color .15s}
+button:active:not(:disabled){transform:translateY(1px) scale(.985)}
+button:disabled{cursor:default}
+:is(button,input,select,textarea,.item.click):focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+input::placeholder,textarea::placeholder{color:var(--muted);opacity:.8}
+/* переход между разделами в ответ на нажатие */
+.sec.on{animation:secIn .18s ease-out}
+@keyframes secIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+/* уведомление ниже панели */
+.toast{top:calc(64px + env(safe-area-inset-top,0px));font-size:14px;line-height:1.35;transform:translate(-50%,calc(-100% - 90px))}
+.toast.on{transform:translate(-50%,0)}
+/* читаемость в светлых стилях */
+:root[data-game=sky] .box .item,:root[data-game=sky] .chl .item{background:rgba(24,18,66,.42);border-color:rgba(255,255,255,.22)}
+:root[data-game=sky] .chip,:root[data-game=sky] .stc{background:rgba(24,18,66,.42)}
+:root[data-game=genshin] .box .item{background:rgba(10,18,40,.38)}
+:root[data-game=fortnite] .box .item{background:rgba(14,10,60,.45)}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+@media (min-width:1024px){
+  .tabbar{display:none}
+  .wrap{padding-bottom:48px}
+  .top{margin:-18px -32px 18px;padding:14px 32px}
+  #cur{font-size:min(30px,calc(var(--hs) + 2px))}
+  #cur svg.i{width:24px;height:24px}
+  .mebtn{width:44px;height:44px}
+  .toast{top:20px}
+  .top .live [data-i=online]{display:inline}
+}
 </style>
 </head>
 <body>
 <div class="wrap">
   <div class="top">
     <button class="g ib" id="menub" type="button"></button>
-    <div style="flex:1"></div>
-    <button class="mebtn" id="meb" type="button"></button>
+    <h2 id="cur"></h2>
     <span class="live"><span class="dot off" id="dot"></span><b id="n">1</b><span data-i="online"></span></span>
+    <button class="mebtn" id="meb" type="button"></button>
   </div>
-  <h2 id="cur"></h2>
 
   <div class="sec" id="s-home">
     <div class="box" id="hm1"></div>
@@ -514,6 +585,7 @@ body.chatopen .chv{display:flex;flex-direction:column;position:fixed;inset:0;z-i
   </div>
 </div>
 
+<nav class="tabbar" id="tabbar" aria-label="sections"></nav>
 <div class="ov" id="ov"></div>
 <aside class="dr" id="dr">
   <div class="dh"><span class="brand"><img src="favicon.svg" alt="">GG Zone</span><b id="dtitle"></b><button class="g ib" id="dx" type="button"></button></div>
@@ -603,7 +675,7 @@ xo_games:['Мои партии','My games','Moje hry'],xo_none:['Партий п
 xo_my:['Твой ход','Your turn','Jsi na tahu'],xo_their:['Ход соперника',"Opponent's turn",'Na tahu je soupeř'],
 xo_win:['Победа!','You won!','Výhra!'],xo_lose:['Поражение','You lost','Prohra'],xo_draw:['Ничья','Draw','Remíza'],
 xo_again:['Ещё раз','Rematch','Odveta'],xo_vs:['против ','vs ','proti '],xo_pick:['Выбери партию или вызови игрока ниже','Pick a game or challenge a player below','Vyber hru nebo vyzvi hráče níže'],
-ff_addf:['Добавить в друзья','Add friend','Přidat do přátel'],acc:['Аккаунт','Account','Účet'],acc_login:['Войти через Google','Sign in with Google','Přihlásit přes Google'],acc_hint:['Бэклог, гайд, дневник, рекорды и профиль будут сохраняться на всех твоих устройствах','Your backlog, guide, diary, records and profile will be saved on all your devices','Seznam her, průvodce, deník, rekordy a profil se uloží na všech tvých zařízeních'],acc_on:['Синхронизация включена','Sync is on','Synchronizace zapnuta'],acc_sync:['Синхронизация…','Syncing…','Synchronizace…'],acc_out:['Выйти','Sign out','Odhlásit se'],acc_err:['Не удалось войти','Sign-in failed','Přihlášení selhalo'],home:['Главная','Home','Domů'],ci_friends:['Пригласить друзей','Invite friends','Pozvat přátele'],ci_send:['Пригласить','Invite','Pozvat'],ci_sent:['Отправлено ✓','Sent ✓','Odesláno ✓'],ci_none:['Пока некого пригласить. Добавь друзей или дождись, когда кто-то будет онлайн.','No one to invite yet. Add friends or wait for someone to come online.','Zatím není koho pozvat. Přidej přátele nebo počkej, až bude někdo online.'],ci_title:['Приглашение в клан','Clan invitation','Pozvánka do klanu'],ci_prev:['🛡️ Приглашение в клан','🛡️ Clan invitation','🛡️ Pozvánka do klanu'],ci_you:['Ты пригласил в клан','You sent a clan invite','Poslal jsi pozvánku do klanu'],ci_gone:['Клан больше не существует','This clan no longer exists','Tento klan už neexistuje'],ci_in:['Ты уже в этом клане','You are already in this clan','V tomto klanu už jsi'],ci_fr:['Друзья','Friends','Přátelé'],ci_on:['Сейчас онлайн','Online now','Právě online'],cs_t:['⚙️ Настройки клана','⚙️ Clan settings','⚙️ Nastavení klanu'],cs_name:['Название и тег','Name and tag','Název a tag'],cs_desc:['Описание','Description','Popis'],cs_desc_ph:['Например: играем в CS2 по вечерам, нужен микрофон','E.g.: we play CS2 in the evenings, mic required','Např.: hrajeme CS2 večer, nutný mikrofon'],cs_game:['Основная игра','Main game','Hlavní hra'],cs_nogame:['Любые игры','Any games','Jakékoli hry'],cs_join:['Вступление','Joining','Vstup'],cs_open:['🔓 Открытый','🔓 Open','🔓 Otevřený'],cs_closed:['🔒 По заявкам','🔒 By request','🔒 Na žádost'],cs_max:['Лимит участников','Member limit','Limit členů'],cs_col:['Цвет клана','Clan colour','Barva klanu'],cs_save:['Сохранить','Save','Uložit'],cs_saved:['Настройки клана сохранены','Clan settings saved','Nastavení klanu uloženo'],cs_err:['Не удалось сохранить','Could not save','Nepodařilo se uložit'],cr_t:['Заявки на вступление','Join requests','Žádosti o vstup'],cr_ok:['Принять','Accept','Přijmout'],cr_no:['Отклонить','Decline','Odmítnout'],cr_send:['Подать заявку','Request to join','Požádat o vstup'],cr_sent:['Заявка отправлена','Request sent','Žádost odeslána'],cr_cancel:['Отменить заявку','Cancel request','Zrušit žádost'],cr_acc:['Тебя приняли в клан! 🎉','You have been accepted into the clan! 🎉','Byl jsi přijat do klanu! 🎉'],cr_dec:['Заявку в клан отклонили','Your clan request was declined','Tvoje žádost byla odmítnuta'],cm_kick:['Исключить','Remove','Vyloučit'],cm_lead:['Сделать главой','Make leader','Předat vedení'],cm_kick_q:['Исключить игрока из клана?','Remove this player from the clan?','Vyloučit hráče z klanu?'],cm_lead_q:['Передать главенство? Ты станешь обычным участником.','Hand over leadership? You will become a regular member.','Předat vedení? Staneš se běžným členem.'],cm_kicked:['Тебя исключили из клана','You were removed from the clan','Byl jsi vyloučen z klanu'],cl_closed_b:['🔒 по заявкам','🔒 by request','🔒 na žádost'],cl_open_b:['🔓 открытый','🔓 open','🔓 otevřený'],chat:['Чаты','Chats','Chaty'],ch_pub:['Общий чат','Public chat','Veřejný chat'],ch_pub_d:['Все, кто сейчас на сайте','Everyone on the site','Všichni na webu'],ch_open:['Открыть чаты','Open chats','Otevřít chaty'],ch_hint:['Общий чат, чат клана и личные сообщения','Public chat, clan chat and direct messages','Veřejný chat, klanový chat a soukromé zprávy'],ch_clan_open:['💬 Открыть чат клана','💬 Open clan chat','💬 Otevřít klanový chat'],ch_pick:['Выбери чат слева','Pick a chat on the left','Vyber chat vlevo'],ch_none:['Сообщений пока нет. Напиши первым!','No messages yet. Say hi first!','Zatím žádné zprávy. Napiš první!'],ch_dm_h:['Личные сообщения','Direct messages','Soukromé zprávy'],stk_prev:['🦊 Стикер','🦊 Sticker','🦊 Nálepka'],del_t:['Данные и конфиденциальность','Data and privacy','Data a soukromí'],del_pp:['Политика конфиденциальности','Privacy policy','Zásady ochrany soukromí'],del_btn:['Удалить мои данные','Delete my data','Smazat moje data'],del_confirm:['Удалить навсегда профиль, рекорды, сообщения, объявления, партии и сам аккаунт? Если ты глава клана, клан будет распущен. Отменить нельзя.','Permanently delete your profile, records, messages, posts, matches and the account itself? If you lead a clan, it will be disbanded. This cannot be undone.','Trvale smazat profil, rekordy, zprávy, inzeráty, hry a samotný účet? Pokud vedeš klan, bude rozpuštěn. Nelze vrátit zpět.'],del_wait:['Удаляю…','Deleting…','Mažu…'],del_done:['Твои данные удалены','Your data has been deleted','Tvoje data byla smazána'],
+ff_addf:['Добавить в друзья','Add friend','Přidat do přátel'],acc:['Аккаунт','Account','Účet'],acc_login:['Войти через Google','Sign in with Google','Přihlásit přes Google'],acc_hint:['Бэклог, гайд, дневник, рекорды и профиль будут сохраняться на всех твоих устройствах','Your backlog, guide, diary, records and profile will be saved on all your devices','Seznam her, průvodce, deník, rekordy a profil se uloží na všech tvých zařízeních'],acc_on:['Синхронизация включена','Sync is on','Synchronizace zapnuta'],acc_sync:['Синхронизация…','Syncing…','Synchronizace…'],acc_out:['Выйти','Sign out','Odhlásit se'],acc_err:['Не удалось войти','Sign-in failed','Přihlášení selhalo'],home:['Главная','Home','Domů'],g_main:['Общение','Social','Komunita'],g_play:['Играть','Play','Hrát'],g_me:['Я','Me','Já'],ci_friends:['Пригласить друзей','Invite friends','Pozvat přátele'],ci_send:['Пригласить','Invite','Pozvat'],ci_sent:['Отправлено ✓','Sent ✓','Odesláno ✓'],ci_none:['Пока некого пригласить. Добавь друзей или дождись, когда кто-то будет онлайн.','No one to invite yet. Add friends or wait for someone to come online.','Zatím není koho pozvat. Přidej přátele nebo počkej, až bude někdo online.'],ci_title:['Приглашение в клан','Clan invitation','Pozvánka do klanu'],ci_prev:['🛡️ Приглашение в клан','🛡️ Clan invitation','🛡️ Pozvánka do klanu'],ci_you:['Ты пригласил в клан','You sent a clan invite','Poslal jsi pozvánku do klanu'],ci_gone:['Клан больше не существует','This clan no longer exists','Tento klan už neexistuje'],ci_in:['Ты уже в этом клане','You are already in this clan','V tomto klanu už jsi'],ci_fr:['Друзья','Friends','Přátelé'],ci_on:['Сейчас онлайн','Online now','Právě online'],cs_t:['⚙️ Настройки клана','⚙️ Clan settings','⚙️ Nastavení klanu'],cs_name:['Название и тег','Name and tag','Název a tag'],cs_desc:['Описание','Description','Popis'],cs_desc_ph:['Например: играем в CS2 по вечерам, нужен микрофон','E.g.: we play CS2 in the evenings, mic required','Např.: hrajeme CS2 večer, nutný mikrofon'],cs_game:['Основная игра','Main game','Hlavní hra'],cs_nogame:['Любые игры','Any games','Jakékoli hry'],cs_join:['Вступление','Joining','Vstup'],cs_open:['🔓 Открытый','🔓 Open','🔓 Otevřený'],cs_closed:['🔒 По заявкам','🔒 By request','🔒 Na žádost'],cs_max:['Лимит участников','Member limit','Limit členů'],cs_col:['Цвет клана','Clan colour','Barva klanu'],cs_save:['Сохранить','Save','Uložit'],cs_saved:['Настройки клана сохранены','Clan settings saved','Nastavení klanu uloženo'],cs_err:['Не удалось сохранить','Could not save','Nepodařilo se uložit'],cr_t:['Заявки на вступление','Join requests','Žádosti o vstup'],cr_ok:['Принять','Accept','Přijmout'],cr_no:['Отклонить','Decline','Odmítnout'],cr_send:['Подать заявку','Request to join','Požádat o vstup'],cr_sent:['Заявка отправлена','Request sent','Žádost odeslána'],cr_cancel:['Отменить заявку','Cancel request','Zrušit žádost'],cr_acc:['Тебя приняли в клан! 🎉','You have been accepted into the clan! 🎉','Byl jsi přijat do klanu! 🎉'],cr_dec:['Заявку в клан отклонили','Your clan request was declined','Tvoje žádost byla odmítnuta'],cm_kick:['Исключить','Remove','Vyloučit'],cm_lead:['Сделать главой','Make leader','Předat vedení'],cm_kick_q:['Исключить игрока из клана?','Remove this player from the clan?','Vyloučit hráče z klanu?'],cm_lead_q:['Передать главенство? Ты станешь обычным участником.','Hand over leadership? You will become a regular member.','Předat vedení? Staneš se běžným členem.'],cm_kicked:['Тебя исключили из клана','You were removed from the clan','Byl jsi vyloučen z klanu'],cl_closed_b:['🔒 по заявкам','🔒 by request','🔒 na žádost'],cl_open_b:['🔓 открытый','🔓 open','🔓 otevřený'],chat:['Чаты','Chats','Chaty'],ch_pub:['Общий чат','Public chat','Veřejný chat'],ch_pub_d:['Все, кто сейчас на сайте','Everyone on the site','Všichni na webu'],ch_open:['Открыть чаты','Open chats','Otevřít chaty'],ch_hint:['Общий чат, чат клана и личные сообщения','Public chat, clan chat and direct messages','Veřejný chat, klanový chat a soukromé zprávy'],ch_clan_open:['💬 Открыть чат клана','💬 Open clan chat','💬 Otevřít klanový chat'],ch_pick:['Выбери чат слева','Pick a chat on the left','Vyber chat vlevo'],ch_none:['Сообщений пока нет. Напиши первым!','No messages yet. Say hi first!','Zatím žádné zprávy. Napiš první!'],ch_dm_h:['Личные сообщения','Direct messages','Soukromé zprávy'],stk_prev:['🦊 Стикер','🦊 Sticker','🦊 Nálepka'],del_t:['Данные и конфиденциальность','Data and privacy','Data a soukromí'],del_pp:['Политика конфиденциальности','Privacy policy','Zásady ochrany soukromí'],del_btn:['Удалить мои данные','Delete my data','Smazat moje data'],del_confirm:['Удалить навсегда профиль, рекорды, сообщения, объявления, партии и сам аккаунт? Если ты глава клана, клан будет распущен. Отменить нельзя.','Permanently delete your profile, records, messages, posts, matches and the account itself? If you lead a clan, it will be disbanded. This cannot be undone.','Trvale smazat profil, rekordy, zprávy, inzeráty, hry a samotný účet? Pokud vedeš klan, bude rozpuštěn. Nelze vrátit zpět.'],del_wait:['Удаляю…','Deleting…','Mažu…'],del_done:['Твои данные удалены','Your data has been deleted','Tvoje data byla smazána'],
 nt_t:['Уведомления','Notifications','Oznámení'],nt_hint:['Сообщим о личных сообщениях, вызовах в игры и твоём ходе, когда сайт свёрнут','We will tell you about messages, game invites and your turn when the site is in the background','Dáme vědět o zprávách, výzvách do her a tvém tahu, když je web na pozadí'],
 nt_on:['Включить уведомления','Turn on notifications','Zapnout oznámení'],nt_off:['Выключить','Turn off','Vypnout'],nt_ok:['✓ Уведомления включены','✓ Notifications are on','✓ Oznámení zapnuta'],
 nt_denied:['Уведомления запрещены в настройках браузера','Notifications are blocked in browser settings','Oznámení jsou zakázána v nastavení prohlížeče'],
@@ -740,9 +812,19 @@ $('menub').appendChild(ico('menu'));$('dx').appendChild(ico('x'));
 $('menub').onclick=openD;$('dx').onclick=closeD;$('ov').onclick=closeD;
 document.addEventListener('keydown',function(e){if(e.key==='Escape')closeD();});
 
+var MGROUPS=[['g_main',['home','chat','friends','clan','lfg']],['g_play',['xo','react','vote','back']],['g_me',['me','prog']]];
+var TABS=['home','chat','xo','clan','me'];
+function secIco(id){var s=SEC.filter(function(x){return x[0]===id;})[0];return s?s[1]:'home';}
+function buildTabbar(){var tb=$('tabbar');if(!tb)return;tb.innerHTML='';
+  TABS.forEach(function(id){var b=el('button','tab'+(cur===id?' on':''));b.type='button';b.setAttribute('aria-label',t(id));
+    var ic=el('span','tic');if(id==='me')ic.appendChild(avNode(prof.av,'pav'));else ic.appendChild(ico(secIco(id)));b.appendChild(ic);
+    b.appendChild(el('span','tlb',t(id)));if(BADGE&&BADGE[id])b.appendChild(el('span','bdg',String(BADGE[id])));
+    if(cur===id)b.setAttribute('aria-current','page');b.onclick=function(){show(id);};tb.appendChild(b);});}
 function buildDrawer(){
   var a=$('mi');a.innerHTML='';
-  SEC.forEach(function(s){var b=el('button','mi'+(cur===s[0]?' on':''));b.type='button';b.appendChild(ico(s[1]));b.appendChild(el('span',null,t(s[0])));if(BADGE&&BADGE[s[0]])b.appendChild(el('span','bdg',String(BADGE[s[0]])));b.onclick=function(){show(s[0]);closeD();};a.appendChild(b);});
+  MGROUPS.forEach(function(g){a.appendChild(el('div','mg',t(g[0])));g[1].forEach(function(id){if(!SEC.some(function(x){return x[0]===id;}))return;
+    var b=el('button','mi'+(cur===id?' on':''));b.type='button';b.appendChild(ico(secIco(id)));b.appendChild(el('span',null,t(id)));if(BADGE&&BADGE[id])b.appendChild(el('span','bdg',String(BADGE[id])));b.onclick=function(){show(id);closeD();};a.appendChild(b);});});
+  buildTabbar();
   var g=$('ms');g.innerHTML='';
   Object.keys(GAMES).forEach(function(k){var b=el('button','mi'+(game===k?' on':''));b.type='button';var sw=el('i','sw');sw.style.background=GAMES[k].c;b.appendChild(sw);b.appendChild(el('span',null,GAMES[k].n));b.onclick=function(){applyGame(k);};g.appendChild(b);});
   var l=$('ml');l.innerHTML='';
@@ -1419,7 +1501,7 @@ function rHomeNow(){
   hero.appendChild(x);h.appendChild(hero);
   var bar=el('div','xpb'),f=el('div','pb');f.style.width=((prof.xp||0)%100)+'%';bar.appendChild(f);h.appendChild(bar);
   var qa=$('hmq');qa.innerHTML='';
-  [['chat','chat'],['lfg','mega'],['xo','grid'],['clan','shield']].forEach(function(z){var b=el('button','g');b.type='button';b.appendChild(ico(z[1]));b.appendChild(el('span',null,t(z[0])));b.onclick=function(){show(z[0]);};qa.appendChild(b);});
+  [['lfg','mega'],['friends','users'],['react','bolt'],['prog','star']].forEach(function(z){var b=el('button','g');b.type='button';b.appendChild(ico(z[1]));b.appendChild(el('span',null,t(z[0])));b.onclick=function(){show(z[0]);};qa.appendChild(b);});
   var on=$('hmon');on.innerHTML='';
   var others=room?room.peers().filter(function(p){return p.kind==='viewer'&&!p.isMe&&p.by;}):[];
   if(!others.length)on.appendChild(el('div','muted',t('h_alone')));
@@ -1651,7 +1733,7 @@ function rMe(){var h=$('mehead');h.innerHTML='';var hero=el('div','hero');hero.a
   var bar=el('div','xpb'),f=el('div','pb');f.style.width=((prof.xp||0)%100)+'%';bar.appendChild(f);h.appendChild(bar);
   var ar=achIcons(prof.ach);if(ar)h.appendChild(ar);
   var b=el('button','g w',t('me_prog'));b.type='button';b.onclick=function(){show('prog');};h.appendChild(b);}
-function rMeb(){var b=$('meb');b.innerHTML='';b.appendChild(avNode(prof.av,'pav'));b.setAttribute('aria-label',t('me'));}
+function rMeb(){buildTabbar();var b=$('meb');b.innerHTML='';b.appendChild(avNode(prof.av,'pav'));b.setAttribute('aria-label',t('me'));}
 $('meb').onclick=function(){show('me');};
 
 /* ===== Приветственный экран ===== */
@@ -1682,6 +1764,7 @@ function applyLang(){
 }
 function applyGame(k){game=k;sv('hub.game',k);document.documentElement.dataset.game=k;loadSteps();updTitle();rGuide();buildDrawer();pushProf();}
 
+window.addEventListener('scroll',function(){document.body.classList.toggle('scrolled',window.scrollY>4);},{passive:true});
 document.documentElement.dataset.game=game;
 loadSteps();applyLang();setup();
 if(FIRST)openOnb();
