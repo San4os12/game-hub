@@ -306,6 +306,16 @@ button.danger{background:#c0392b;color:#fff}
   #s-home.on,#s-friends.on,#s-react.on,#s-tools.on{columns:3}
   #s-home .qa{grid-template-columns:repeat(4,1fr)}
 }
+.stkt{flex:none;width:46px;padding:0;font-size:22px}
+.row:has(.stkt){flex-wrap:nowrap}.row:has(.stkt) input{flex:1 1 0;min-width:0}.row:has(.stkt)>button:last-child{flex:none;padding-left:12px;padding-right:12px}
+.stkp{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-top:8px;padding:8px;border:1px solid var(--line);border-radius:var(--r);background:rgba(0,0,0,.25);max-height:260px;overflow-y:auto}
+.stkp[hidden]{display:none}
+.stkp button{padding:2px;min-height:0;background:transparent;border:0!important;box-shadow:none!important;clip-path:none!important;aspect-ratio:1}
+.stkp img{width:100%;height:100%;object-fit:contain;display:block}
+.bub.stkb{background:transparent!important;border:0!important;padding:0}
+.bub.stkb .bt{float:none;display:block;text-align:right;margin:0}
+.stk{width:128px;height:128px;object-fit:contain;display:block}
+@media (min-width:1024px){.stkp{grid-template-columns:repeat(6,1fr)}.stk{width:140px;height:140px}}
 </style>
 </head>
 <body>
@@ -382,7 +392,7 @@ button.danger{background:#c0392b;color:#fff}
     <div id="clin" hidden>
       <div class="box" id="clhead"></div>
       <div class="box"><b data-i="cl_chat"></b><div class="dmv" id="clmsgs"></div>
-        <div class="row"><input id="clm" data-p="f_msg" maxlength="200"><button id="cls" type="button" data-i="f_send"></button></div></div>
+        <div class="row"><button class="g stkt" id="clstk" type="button" aria-label="stickers">😊</button><input id="clm" data-p="f_msg" maxlength="200"><button id="cls" type="button" data-i="f_send"></button></div><div class="stkp" id="clstkp" hidden></div></div>
     </div>
     <div class="box"><b data-i="cl_top"></b><div id="cltop" style="margin-top:8px"></div></div>
   </div>
@@ -431,7 +441,7 @@ button.danger{background:#c0392b;color:#fff}
     <div class="box"><b data-i="ff_t"></b><div class="row" style="margin-top:8px"><input id="fq" data-p="ff_search" maxlength="40"><button id="fqb" type="button" data-i="ff_find"></button></div><div id="fqr" style="margin-top:8px"></div><div id="fmine" style="margin-top:8px"></div></div>
     <div class="box"><b data-i="f_list"></b><div id="fl" style="margin-top:8px"></div></div>
     <div class="box"><b data-i="dm_t"></b><div id="dml" style="margin-top:8px"></div></div>
-    <div class="box"><b data-i="f_chat"></b><div id="fc" style="margin:8px 0;min-height:120px;max-height:320px;padding:4px;overflow-y:auto"></div><div class="row"><input id="fm" data-p="f_msg" maxlength="200"><button id="fsend" type="button" data-i="f_send"></button></div></div>
+    <div class="box"><b data-i="f_chat"></b><div id="fc" style="margin:8px 0;min-height:120px;max-height:320px;padding:4px;overflow-y:auto"></div><div class="row"><button class="g stkt" id="fstk" type="button" aria-label="stickers">😊</button><input id="fm" data-p="f_msg" maxlength="200"><button id="fsend" type="button" data-i="f_send"></button></div><div class="stkp" id="fstkp" hidden></div></div>
   </div>
 
   <div class="sec" id="s-diary">
@@ -530,7 +540,7 @@ xo_games:['Мои партии','My games','Moje hry'],xo_none:['Партий п
 xo_my:['Твой ход','Your turn','Jsi na tahu'],xo_their:['Ход соперника',"Opponent's turn",'Na tahu je soupeř'],
 xo_win:['Победа!','You won!','Výhra!'],xo_lose:['Поражение','You lost','Prohra'],xo_draw:['Ничья','Draw','Remíza'],
 xo_again:['Ещё раз','Rematch','Odveta'],xo_vs:['против ','vs ','proti '],xo_pick:['Выбери партию или вызови игрока ниже','Pick a game or challenge a player below','Vyber hru nebo vyzvi hráče níže'],
-ff_addf:['Добавить в друзья','Add friend','Přidat do přátel'],acc:['Аккаунт','Account','Účet'],acc_login:['Войти через Google','Sign in with Google','Přihlásit přes Google'],acc_hint:['Бэклог, гайд, дневник, рекорды и профиль будут сохраняться на всех твоих устройствах','Your backlog, guide, diary, records and profile will be saved on all your devices','Seznam her, průvodce, deník, rekordy a profil se uloží na všech tvých zařízeních'],acc_on:['Синхронизация включена','Sync is on','Synchronizace zapnuta'],acc_sync:['Синхронизация…','Syncing…','Synchronizace…'],acc_out:['Выйти','Sign out','Odhlásit se'],acc_err:['Не удалось войти','Sign-in failed','Přihlášení selhalo'],home:['Главная','Home','Domů'],del_t:['Данные и конфиденциальность','Data and privacy','Data a soukromí'],del_pp:['Политика конфиденциальности','Privacy policy','Zásady ochrany soukromí'],del_btn:['Удалить мои данные','Delete my data','Smazat moje data'],del_confirm:['Удалить навсегда профиль, рекорды, сообщения, объявления, партии и сам аккаунт? Если ты глава клана, клан будет распущен. Отменить нельзя.','Permanently delete your profile, records, messages, posts, matches and the account itself? If you lead a clan, it will be disbanded. This cannot be undone.','Trvale smazat profil, rekordy, zprávy, inzeráty, hry a samotný účet? Pokud vedeš klan, bude rozpuštěn. Nelze vrátit zpět.'],del_wait:['Удаляю…','Deleting…','Mažu…'],del_done:['Твои данные удалены','Your data has been deleted','Tvoje data byla smazána'],
+ff_addf:['Добавить в друзья','Add friend','Přidat do přátel'],acc:['Аккаунт','Account','Účet'],acc_login:['Войти через Google','Sign in with Google','Přihlásit přes Google'],acc_hint:['Бэклог, гайд, дневник, рекорды и профиль будут сохраняться на всех твоих устройствах','Your backlog, guide, diary, records and profile will be saved on all your devices','Seznam her, průvodce, deník, rekordy a profil se uloží na všech tvých zařízeních'],acc_on:['Синхронизация включена','Sync is on','Synchronizace zapnuta'],acc_sync:['Синхронизация…','Syncing…','Synchronizace…'],acc_out:['Выйти','Sign out','Odhlásit se'],acc_err:['Не удалось войти','Sign-in failed','Přihlášení selhalo'],home:['Главная','Home','Domů'],stk_prev:['🦊 Стикер','🦊 Sticker','🦊 Nálepka'],del_t:['Данные и конфиденциальность','Data and privacy','Data a soukromí'],del_pp:['Политика конфиденциальности','Privacy policy','Zásady ochrany soukromí'],del_btn:['Удалить мои данные','Delete my data','Smazat moje data'],del_confirm:['Удалить навсегда профиль, рекорды, сообщения, объявления, партии и сам аккаунт? Если ты глава клана, клан будет распущен. Отменить нельзя.','Permanently delete your profile, records, messages, posts, matches and the account itself? If you lead a clan, it will be disbanded. This cannot be undone.','Trvale smazat profil, rekordy, zprávy, inzeráty, hry a samotný účet? Pokud vedeš klan, bude rozpuštěn. Nelze vrátit zpět.'],del_wait:['Удаляю…','Deleting…','Mažu…'],del_done:['Твои данные удалены','Your data has been deleted','Tvoje data byla smazána'],
 nt_t:['Уведомления','Notifications','Oznámení'],nt_hint:['Сообщим о личных сообщениях, вызовах в игры и твоём ходе, когда сайт свёрнут','We will tell you about messages, game invites and your turn when the site is in the background','Dáme vědět o zprávách, výzvách do her a tvém tahu, když je web na pozadí'],
 nt_on:['Включить уведомления','Turn on notifications','Zapnout oznámení'],nt_off:['Выключить','Turn off','Vypnout'],nt_ok:['✓ Уведомления включены','✓ Notifications are on','✓ Oznámení zapnuta'],
 nt_denied:['Уведомления запрещены в настройках браузера','Notifications are blocked in browser settings','Oznámení jsou zakázána v nastavení prohlížeče'],
@@ -810,7 +820,7 @@ function addMsg(nick,txt,me,ci,sys){var c=$('fc'),w;
   if(sys){w=el('div','sysm',txt);}
   else{w=el('div','msg'+(me?' me':''));var b=el('div','bub');
     if(!me){var n=el('div','bn',nick||'…');n.style.color=col(ci);b.appendChild(n);}
-    b.appendChild(el('span',null,txt));var d=new Date();b.appendChild(el('span','bt',('0'+d.getHours()).slice(-2)+':'+('0'+d.getMinutes()).slice(-2)));w.appendChild(b);}
+    b.appendChild(msgBody(txt));if(stkIdx(txt)>=0)b.classList.add('stkb');var d=new Date();b.appendChild(el('span','bt',('0'+d.getHours()).slice(-2)+':'+('0'+d.getMinutes()).slice(-2)));w.appendChild(b);}
   c.appendChild(w);c.scrollTop=c.scrollHeight;while(c.children.length>80)c.removeChild(c.firstChild);}
 function sendMsg(){var v=$('fm').value.trim();if(!v)return;$('fm').value='';quest('chat');bump('msg');
   if(room&&room.connected()){room.emit('chat',{n:prof.nick||'',m:v.slice(0,200),c:prof.c}).catch(function(){addMsg(prof.nick,v,true,prof.c);});}else{addMsg(prof.nick,v,true,prof.c);}}
@@ -918,7 +928,7 @@ var dms={},dmSeen=ld('hub.dmseen',{});
 function startDm(){var box={};
   ['to','from'].forEach(function(f){FB.fs.collection('dms').where(f,'==',FB.uid).onSnapshot(function(s){
     s.docChanges().forEach(function(c){if(c.type==='removed'){delete box[c.doc.id];return;}var d=c.doc.data();box[c.doc.id]=d;
-      if(c.type==='added'&&d.from!==FB.uid&&d.to===FB.uid&&!isMuted(d.from)&&tms(d.t)>LOADT&&d.from!==dmWith)notify(s16(d.n)||t('n_dm'),String(d.m||'').slice(0,80),'friends');});dms=box;rDm();},function(){});});}
+      if(c.type==='added'&&d.from!==FB.uid&&d.to===FB.uid&&!isMuted(d.from)&&tms(d.t)>LOADT&&d.from!==dmWith)notify(s16(d.n)||t('n_dm'),preview(d.m),'friends');});dms=box;rDm();},function(){});});}
 function convs(){var by={},me=FB&&FB.uid;Object.keys(dms).forEach(function(id){var m=dms[id];var k=m.from===me?m.to:m.from;if(typeof k!=='string')return;(by[k]=by[k]||[]).push(m);});
   Object.keys(by).forEach(function(k){by[k].sort(function(a,b){return tms(a.t)-tms(b.t);});});return by;}
 function rDm(){
@@ -931,7 +941,7 @@ function rDm(){
     var un=list.filter(function(m){return m.from!==FB.uid&&tms(m.t)>seen;}).length;
     var their=list.filter(function(m){return m.from===k;}).pop();
     var r=el('div','item click'),x=el('div','t'),nb=el('b',null,their?s16(their.n)||'…':'…');if(their)nb.style.color=col(their.c);
-    x.appendChild(nb);x.appendChild(el('small',null,(last.from===FB.uid?'→ ':'')+String(last.m||'').slice(0,60)));
+    x.appendChild(nb);x.appendChild(el('small',null,(last.from===FB.uid?'→ ':'')+preview(last.m)));
     if(!their){getProf(k).then(function(d){if(d){nb.textContent=s16(d.nick)||'…';nb.style.color=col(d.c);}});}
     r.appendChild(x);if(un)r.appendChild(el('span','bdg',String(un)));r.onclick=function(){openDm(k);};l.appendChild(r);});
   if(dmWith&&dmList)fillDm();
@@ -946,12 +956,14 @@ function openDm(uid){
     quest('dm');bump('msg');
     FB.fs.collection('dms').add({from:FB.uid,to:uid,n:(prof.nick||'').slice(0,16),c:prof.c,m:v.slice(0,300),t:TS()}).catch(function(){});}
   b.onclick=send;inp.addEventListener('keydown',function(e){if(e.key==='Enter')send();});
-  row.appendChild(inp);row.appendChild(b);sb.appendChild(row);
+  var sk=el('button','g stkt','😊');sk.type='button';sk.setAttribute('aria-label','stickers');var pn=el('div','stkp');pn.hidden=true;
+  stkPicker(sk,pn,function(code){inp.value=code;send();});
+  row.appendChild(sk);row.appendChild(inp);row.appendChild(b);sb.appendChild(row);sb.appendChild(pn);
   openSheet();fillDm();rDm();}
 function fillDm(){var list=convs()[dmWith]||[];dmList.innerHTML='';
   if(!list.length)dmList.appendChild(el('div','sysm',t('dm_none')));
   list.forEach(function(m){var me=m.from===FB.uid,w=el('div','msg'+(me?' me':'')),b=el('div','bub');
-    b.appendChild(el('span',null,String(m.m||'').slice(0,300)));b.appendChild(el('span','bt',hhmm(tms(m.t))));w.appendChild(b);dmList.appendChild(w);});
+    b.appendChild(msgBody(String(m.m||'').slice(0,300)));if(stkIdx(m.m)>=0)b.classList.add('stkb');b.appendChild(el('span','bt',hhmm(tms(m.t))));w.appendChild(b);dmList.appendChild(w);});
   dmList.scrollTop=dmList.scrollHeight;}
 
 /* ===== Таблица рекордов ===== */
@@ -1259,7 +1271,7 @@ function watchClan(){
 function rClanChat(){var c=$('clmsgs');c.innerHTML='';
   clMsgs.forEach(function(m){var me=FB&&m.uid===FB.uid,w=el('div','msg'+(me?' me':'')),b=el('div','bub');
     if(!me){var n=el('div','bn',s16(m.n)||'…');n.style.color=col(m.c);b.appendChild(n);}
-    b.appendChild(el('span',null,String(m.m||'').slice(0,200)));b.appendChild(el('span','bt',hhmm(tms(m.t))));w.appendChild(b);c.appendChild(w);});
+    b.appendChild(msgBody(String(m.m||'').slice(0,200)));if(stkIdx(m.m)>=0)b.classList.add('stkb');b.appendChild(el('span','bt',hhmm(tms(m.t))));w.appendChild(b);c.appendChild(w);});
   c.scrollTop=c.scrollHeight;}
 function rClan(){
   var iv=$('clinv');iv.innerHTML='';iv.hidden=true;
@@ -1426,6 +1438,16 @@ function wipeMe(){
     return cu?cu.delete().catch(function(){return a.signOut();}):null;
   }).then(function(){alert(t('del_done'));location.replace(baseUrl());});}
 $('delb').onclick=wipeMe;
+
+/* ===== Стикеры ===== */
+var STK=['01-privet.webp','02-ahaha.webp','03-gg.webp','04-lagi.webp','05-proigral.webp','06-ok.webp','07-chto.webp','08-eshche-katka.webp','09-lyublyu.webp','10-hmm.webp','11-ura.webp','12-poka.webp'];
+function stkIdx(txt){var m=/^\[st:(\d{1,2})\]$/.exec(String(txt||''));if(!m)return -1;var i=+m[1];return i>=0&&i<STK.length?i:-1;}
+function msgBody(txt){var i=stkIdx(txt);if(i<0)return el('span',null,txt);var im=document.createElement('img');im.className='stk';im.src='stickers/'+STK[i];im.alt='';im.loading='lazy';return im;}
+function preview(txt){return stkIdx(txt)>=0?t('stk_prev'):String(txt||'').slice(0,60);}
+function stkPicker(btn,panel,send){btn.onclick=function(){if(!panel.childNodes.length){STK.forEach(function(f,i){var b=el('button');b.type='button';var im=document.createElement('img');im.src='stickers/'+f;im.alt='';b.appendChild(im);
+  b.onclick=function(){panel.hidden=true;send('[st:'+i+']');};panel.appendChild(b);});}panel.hidden=!panel.hidden;};}
+stkPicker($('fstk'),$('fstkp'),function(code){$('fm').value=code;sendMsg();});
+stkPicker($('clstk'),$('clstkp'),function(code){$('clm').value=code;sendClan();});
 
 /* ===== Поддержка (Telegram) ===== */
 var SUPPORT_TG='M1_M0_1';

@@ -3,7 +3,7 @@
 Картинки лежат в этой же папке:
 - `icon-512.png` — значок приложения 512×512
 - `feature-graphic.png` — обложка 1024×500
-- `01-home.png` … `06-teammates.png` — скриншоты телефона 1080×1920
+- `01-home.png` … `08-teammates.png` — 8 скриншотов телефона 1080×1920 (загружайте по порядку)
 
 Политика конфиденциальности: https://san4os12.github.io/game-hub/privacy.html
 Удаление данных (ссылка для анкеты): https://san4os12.github.io/game-hub/privacy.html#delete-ru
@@ -28,7 +28,7 @@ GG Zone — место для геймеров, где можно найти к�
 Создай свой клан с названием, тегом и эмблемой, приглашай друзей по ссылке, общайся в клановом чате и поднимайся в топе кланов.
 
 💬 ДРУЗЬЯ И ЧАТ
-Общий чат, личные сообщения, список друзей и кнопка «Кто в игру?», чтобы быстро собрать компанию. Уведомления о новых сообщениях и вызовах.
+Общий чат, личные сообщения, 12 стикеров с лисёнком-геймером, список друзей и кнопка «Кто в игру?», чтобы быстро собрать компанию. Уведомления о новых сообщениях и вызовах.
 
 ⚔️ МИНИ-ИГРЫ С ДРУЗЬЯМИ
 Крестики-нолики и камень-ножницы-бумага в реальном времени.
@@ -69,7 +69,7 @@ Post “Looking for a teammate” for CS2, Valorant, Minecraft, Fortnite and mor
 Create a clan with a name, tag and emblem, invite friends with a link, chat in your clan and climb the clan leaderboard.
 
 💬 FRIENDS & CHAT
-Public chat, direct messages, a friends list and an “Anyone up for a game?” button. Notifications for new messages and challenges.
+Public chat, direct messages, 12 fox gamer stickers, a friends list and an “Anyone up for a game?” button. Notifications for new messages and challenges.
 
 ⚔️ MINI-GAMES WITH FRIENDS
 Real-time tic-tac-toe and rock-paper-scissors.
@@ -105,7 +105,7 @@ GG Zone je místo pro hráče, kde najdeš tým, založíš klan a zabavíš se 
 
 🎮 HLEDEJ SPOLUHRÁČE — inzeráty pro CS2, Valorant, Minecraft, Fortnite a další hry. Uvidíš, kdo je online a chce hrát.
 🛡️ KLANY — založ klan s názvem, tagem a znakem, zvi přátele odkazem a piš v klanovém chatu.
-💬 PŘÁTELÉ A CHAT — veřejný chat, soukromé zprávy, seznam přátel a oznámení.
+💬 PŘÁTELÉ A CHAT — veřejný chat, soukromé zprávy, nálepky, seznam přátel a oznámení.
 ⚔️ MINIHRY — piškvorky a kámen-nůžky-papír v reálném čase.
 ⚡ TRENAŽÉRY — test reakce, aim trenér a test rychlosti klikání se žebříčkem.
 ⭐ POSTUP — denní úkoly, XP, úrovně, 16 úspěchů a bonusy za sérii přihlášení.
