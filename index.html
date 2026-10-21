@@ -267,6 +267,7 @@ h1,h2,.dh{font-weight:var(--fhw)}
     <div class="box"><b data-i="lfg_list"></b><div id="hmlfg" style="margin-top:8px"></div><button class="g w" type="button" data-go="lfg" data-i="h_all"></button></div>
     <div class="box"><b data-i="cl_top"></b><div id="hmcl" style="margin-top:8px"></div><button class="g w" type="button" data-go="clan" data-i="h_all"></button></div>
     <div class="box"><b data-i="h_top"></b><div id="hmlb" style="margin-top:8px"></div><button class="g w" type="button" data-go="react" data-i="h_all"></button></div>
+    <div class="box"><b data-i="sup"></b><div class="muted" data-i="sup_hint"></div><div id="suph" style="margin-top:8px"></div></div>
   </div>
 
   <div class="sec" id="s-me">
@@ -277,6 +278,7 @@ h1,h2,.dh{font-weight:var(--fhw)}
     <div class="box"><b data-i="w_av"></b><div class="avr" id="favr"></div></div>
     <div class="box"><b data-i="p_fav"></b><input id="ffav" data-p="p_fav_ph" maxlength="60" style="width:100%;margin-top:8px"><div class="muted" id="fstat" style="margin-top:8px"></div></div>
     <div class="box"><b data-i="acc"></b><div id="acc2" style="margin-top:8px"></div></div>
+    <div class="box"><b data-i="sup"></b><div class="muted" data-i="sup_hint"></div><div id="supm" style="margin-top:8px"></div></div>
   </div>
 
   <div class="sec" id="s-back">
@@ -381,6 +383,7 @@ h1,h2,.dh{font-weight:var(--fhw)}
   <div class="ds" data-i="m_style"></div><div class="grid" id="ms"></div>
   <div class="ds" data-i="m_lang"></div><div class="seg" id="ml"></div>
   <div class="ds" data-i="acc"></div><div id="acc"></div>
+  <div class="ds" data-i="sup"></div><div id="supd"></div>
 </aside>
 
 <div class="toast" id="toast"></div>
@@ -461,7 +464,7 @@ xo_games:['Мои партии','My games','Moje hry'],xo_none:['Партий п
 xo_my:['Твой ход','Your turn','Jsi na tahu'],xo_their:['Ход соперника',"Opponent's turn",'Na tahu je soupeř'],
 xo_win:['Победа!','You won!','Výhra!'],xo_lose:['Поражение','You lost','Prohra'],xo_draw:['Ничья','Draw','Remíza'],
 xo_again:['Ещё раз','Rematch','Odveta'],xo_vs:['против ','vs ','proti '],xo_pick:['Выбери партию или вызови игрока ниже','Pick a game or challenge a player below','Vyber hru nebo vyzvi hráče níže'],
-ff_addf:['Добавить в друзья','Add friend','Přidat do přátel'],acc:['Аккаунт','Account','Účet'],acc_login:['Войти через Google','Sign in with Google','Přihlásit přes Google'],acc_hint:['Бэклог, гайд, дневник, рекорды и профиль будут сохраняться на всех твоих устройствах','Your backlog, guide, diary, records and profile will be saved on all your devices','Seznam her, průvodce, deník, rekordy a profil se uloží na všech tvých zařízeních'],acc_on:['Синхронизация включена','Sync is on','Synchronizace zapnuta'],acc_sync:['Синхронизация…','Syncing…','Synchronizace…'],acc_out:['Выйти','Sign out','Odhlásit se'],acc_err:['Не удалось войти','Sign-in failed','Přihlášení selhalo'],home:['Главная','Home','Domů'],me:['Профиль','Profile','Profil'],me_nick:['Ник и статус','Nickname and status','Přezdívka a stav'],me_color:['Цвет ника','Nickname colour','Barva přezdívky'],me_edit:['Настроить профиль','Edit profile','Upravit profil'],me_prog:['Мой прогресс','My progress','Můj postup'],h_hi:['Привет, ','Hi, ','Ahoj, '],h_online:['Сейчас на сайте','Online now','Právě online'],
+ff_addf:['Добавить в друзья','Add friend','Přidat do přátel'],acc:['Аккаунт','Account','Účet'],acc_login:['Войти через Google','Sign in with Google','Přihlásit přes Google'],acc_hint:['Бэклог, гайд, дневник, рекорды и профиль будут сохраняться на всех твоих устройствах','Your backlog, guide, diary, records and profile will be saved on all your devices','Seznam her, průvodce, deník, rekordy a profil se uloží na všech tvých zařízeních'],acc_on:['Синхронизация включена','Sync is on','Synchronizace zapnuta'],acc_sync:['Синхронизация…','Syncing…','Synchronizace…'],acc_out:['Выйти','Sign out','Odhlásit se'],acc_err:['Не удалось войти','Sign-in failed','Přihlášení selhalo'],home:['Главная','Home','Domů'],sup:['Поддержка','Support','Podpora'],sup_btn:['Написать в поддержку','Contact support','Napsat podpoře'],sup_hint:['Нашёл ошибку или есть идея? Напиши нам в Telegram','Found a bug or have an idea? Message us on Telegram','Našel jsi chybu nebo máš nápad? Napiš nám na Telegram'],sup_msg:['Привет! Я с сайта Game Hub, мой ник на сайте: ','Hi! I am writing from Game Hub, my nickname: ','Ahoj! Píšu z Game Hub, moje přezdívka: '],me:['Профиль','Profile','Profil'],me_nick:['Ник и статус','Nickname and status','Přezdívka a stav'],me_color:['Цвет ника','Nickname colour','Barva přezdívky'],me_edit:['Настроить профиль','Edit profile','Upravit profil'],me_prog:['Мой прогресс','My progress','Můj postup'],h_hi:['Привет, ','Hi, ','Ahoj, '],h_online:['Сейчас на сайте','Online now','Právě online'],
 h_all:['Смотреть все','See all','Zobrazit vše'],h_top:['Лучшая реакция','Fastest reaction','Nejrychlejší reakce'],
 h_quests:['Задания дня: ','Daily quests: ','Denní úkoly: '],h_clan:['Клан: ','Clan: ','Klan: '],h_noclan:['Ты пока без клана','No clan yet','Zatím bez klanu'],
 h_alone:['Пока здесь только ты. Скинь ссылку друзьям!','Only you are here. Share the link with friends!','Zatím jsi tu jen ty. Pošli odkaz přátelům!'],
@@ -559,6 +562,7 @@ star:'<path d="m12 3 2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.5 2.9 1-6.1-4.4-4.3 6.
 shield:'<path d="M12 3 4 6v6c0 5 3.4 8 8 9 4.6-1 8-4 8-9V6z"/><path d="m9 12 2 2 4-4"/>',
 mega:'<path d="M3 11v2a1 1 0 0 0 1 1h2l5 4V6l-5 4H4a1 1 0 0 0-1 1z"/><path d="M15 9a3 3 0 0 1 0 6M18 6a7 7 0 0 1 0 12"/>',
 grid:'<path d="M9 3v18M15 3v18M3 9h18M3 15h18"/>',
+help:'<circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.6.3-1 .9-1 1.6v.6"/><circle cx="12" cy="17" r=".6"/>',
 user:'<circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7"/>',
 users:'<circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c0-3.6 3-6 6.5-6s6.5 2.4 6.5 6"/><path d="M16 4.6a3.5 3.5 0 0 1 0 6.8M18.5 14.3c2 .6 3.5 2.4 3.5 5.7"/>'};
 function ico(n){var s=document.createElement('span');s.innerHTML='<svg class="i" viewBox="0 0 24 24">'+IC[n]+'</svg>';return s.firstChild;}
@@ -1224,6 +1228,14 @@ Array.prototype.forEach.call(document.querySelectorAll('[data-go]'),function(b){
 (function(){var w=function(f){return function(){var r=f.apply(this,arguments);rHome();return r;};};
   rLfg=w(rLfg);rClan=w(rClan);rLb=w(rLb);rProg=w(rProg);rFriends=w(rFriends);})();
 
+/* ===== Поддержка (Telegram) ===== */
+var SUPPORT_TG='M1_M0_1';
+function support(){var url='https://t.me/'+SUPPORT_TG+'?text='+encodeURIComponent(t('sup_msg')+(prof.nick||''));
+  var a=document.createElement('a');a.href=url;a.target='_blank';a.rel='noopener noreferrer';document.body.appendChild(a);a.click();a.remove();}
+function rSup(){['supd','suph','supm'].forEach(function(id){var c=$(id);if(!c)return;c.innerHTML='';
+  var b=el('button',id==='supd'?'mi':'w');b.type='button';if(id==='supd')b.appendChild(ico('help'));b.appendChild(el('span',null,t('sup_btn')));
+  if(id!=='supd')b.style.marginTop='0';b.onclick=support;c.appendChild(b);});}
+
 /* ===== Раздел «Профиль» ===== */
 function rMe(){var h=$('mehead');h.innerHTML='';var hero=el('div','hero');hero.appendChild(avNode(prof.av,'pav','div'));
   var x=el('div');var nb=el('b',null,(prof.ct?'['+prof.ct+'] ':'')+(prof.nick||'…'));nb.style.color=col(prof.c);x.appendChild(nb);
@@ -1258,7 +1270,7 @@ function applyLang(){
   Array.prototype.forEach.call(document.querySelectorAll('[data-i]'),function(e){e.textContent=t(e.dataset.i);});
   Array.prototype.forEach.call(document.querySelectorAll('[data-p]'),function(e){e.placeholder=t(e.dataset.p);});
   $('menub').setAttribute('aria-label',t('menu'));$('dx').setAttribute('aria-label',t('menu'));
-  setRx(rxk);rbest();ttLbl();aimLbl();updTitle();hdr();rBack();rGuide();rDiary();rVote();rFriends();rMine();rAv();rStat();rLb();rLfg();lfgOpts();rDm();rXo();rAcc();rProg();rMg();rClan();rCle();rHome();rOnb();
+  setRx(rxk);rbest();ttLbl();aimLbl();updTitle();hdr();rBack();rGuide();rDiary();rVote();rFriends();rMine();rAv();rStat();rLb();rLfg();lfgOpts();rDm();rXo();rAcc();rProg();rMg();rClan();rCle();rHome();rOnb();rSup();
 }
 function applyGame(k){game=k;sv('hub.game',k);document.documentElement.dataset.game=k;loadSteps();updTitle();rGuide();buildDrawer();pushProf();}
 
