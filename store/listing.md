@@ -1,4 +1,4 @@
-# Game Hub — материалы для Google Play
+# GG Zone — материалы для Google Play
 
 Картинки лежат в этой же папке:
 - `icon-512.png` — значок приложения 512×512
@@ -13,13 +13,13 @@
 ## Русский (основной язык)
 
 **Название (до 30 символов)**
-Game Hub: тиммейты и кланы
+GG Zone: тиммейты и кланы
 
 **Краткое описание (до 80 символов)**
 Находи тиммейтов, вступай в кланы, играй с друзьями и ставь рекорды!
 
 **Полное описание**
-Game Hub — место для геймеров, где можно найти команду, собрать клан и весело провести время с друзьями.
+GG Zone — место для геймеров, где можно найти команду, собрать клан и весело провести время с друзьями.
 
 🎮 НАХОДИ ТИММЕЙТОВ
 Публикуй объявление «Ищу тиммейта» для CS2, Valorant, Minecraft, Fortnite и других игр. Смотри, кто сейчас онлайн и готов играть.
@@ -47,20 +47,20 @@ Game Hub — место для геймеров, где можно найти к
 
 Бесплатно, без рекламы и без обязательной регистрации. Вход через Google по желанию — чтобы прогресс был на всех устройствах. Языки: русский, английский, чешский.
 
-Game Hub — независимый фанатский проект и не связан с разработчиками упомянутых игр.
+GG Zone — независимый фанатский проект и не связан с разработчиками упомянутых игр.
 
 ---
 
 ## English
 
 **Title (≤30)**
-Game Hub: teammates & clans
+GG Zone: teammates & clans
 
 **Short description (≤80)**
 Find teammates, join clans, play mini-games with friends and set records!
 
 **Full description**
-Game Hub is a place for gamers to find a team, build a clan and have fun with friends.
+GG Zone is a place for gamers to find a team, build a clan and have fun with friends.
 
 🎮 FIND TEAMMATES
 Post “Looking for a teammate” for CS2, Valorant, Minecraft, Fortnite and more. See who is online and ready to play.
@@ -88,20 +88,20 @@ A game backlog (Want / Playing / Done), your own goals, a gaming diary and handy
 
 Free, no ads, no sign-up required. Optional Google sign-in keeps your progress on all devices. Languages: English, Russian, Czech.
 
-Game Hub is an independent fan project and is not affiliated with the developers of the games mentioned.
+GG Zone is an independent fan project and is not affiliated with the developers of the games mentioned.
 
 ---
 
 ## Čeština
 
 **Název (≤30)**
-Game Hub: spoluhráči a klany
+GG Zone: spoluhráči a klany
 
 **Krátký popis (≤80)**
 Najdi spoluhráče, přidej se ke klanu, hraj minihry s přáteli a sbírej rekordy!
 
 **Úplný popis**
-Game Hub je místo pro hráče, kde najdeš tým, založíš klan a zabavíš se s přáteli.
+GG Zone je místo pro hráče, kde najdeš tým, založíš klan a zabavíš se s přáteli.
 
 🎮 HLEDEJ SPOLUHRÁČE — inzeráty pro CS2, Valorant, Minecraft, Fortnite a další hry. Uvidíš, kdo je online a chce hrát.
 🛡️ KLANY — založ klan s názvem, tagem a znakem, zvi přátele odkazem a piš v klanovém chatu.
@@ -114,7 +114,7 @@ Game Hub je místo pro hráče, kde najdeš tým, založíš klan a zabavíš se
 
 Zdarma, bez reklam a bez povinné registrace. Jazyky: čeština, angličtina, ruština.
 
-Game Hub je nezávislý fanouškovský projekt a není spojen s vývojáři zmíněných her.
+GG Zone je nezávislý fanouškovský projekt a není spojen s vývojáři zmíněných her.
 
 ---
 

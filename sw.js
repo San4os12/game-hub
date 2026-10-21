@@ -1,4 +1,4 @@
-/* Service worker Game Hub: только уведомления. Ничего не кэширует,
+/* Service worker GG Zone: только уведомления. Ничего не кэширует,
    поэтому обновления сайта всегда приходят сразу. */
 self.addEventListener('install', function () { self.skipWaiting(); });
 self.addEventListener('activate', function (e) { e.waitUntil(self.clients.claim()); });
