@@ -1,0 +1,33 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Профиль и статус «в сети»: читают все, пишет только сам человек
+    match /presence/{uid} {
+      allow read: if true;
+      allow write: if request.auth != null && request.auth.uid == uid
+        && request.resource.data.keys().hasOnly(['nick', 'nl', 'st', 'game', 'c', 'vote', 't'])
+        && request.resource.data.nick is string && request.resource.data.nick.size() <= 16
+        && request.resource.data.vote is string && request.resource.data.vote.size() <= 40
+        && request.resource.data.t == request.time;
+    }
+
+    // Чат и приглашения «Кто в игру?»: читают все, писать можно только от своего имени
+    match /messages/{id} {
+      allow read: if true;
+      allow create: if request.auth != null
+        && request.resource.data.keys().hasOnly(['topic', 'uid', 'n', 'm', 'c', 't'])
+        && request.resource.data.uid == request.auth.uid
+        && request.resource.data.topic in ['chat', 'ping']
+        && request.resource.data.n is string && request.resource.data.n.size() <= 16
+        && request.resource.data.m is string && request.resource.data.m.size() <= 200
+        && request.resource.data.t == request.time;
+      allow update, delete: if false;
+    }
+
+    // Личный список друзей: видит и меняет только владелец
+    match /friends/{uid} {
+      allow read, write: if request.auth != null && request.auth.uid == uid;
+    }
+  }
+}

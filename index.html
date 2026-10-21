@@ -169,6 +169,10 @@ body.open .dr{transform:none;visibility:visible;transition:transform .22s}
   <div class="ds" data-i="m_lang"></div><div class="seg" id="ml"></div>
 </aside>
 
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
+<script src="firebase-hub.js"></script>
 <script>
 (function(){
 function $(i){return document.getElementById(i);}
@@ -200,7 +204,7 @@ r_idle:['Нажми, чтобы начать','Tap to start','Klepni pro start']
 r_go:['ЖМИ!','TAP!','KLEP!'],r_early:['Слишком рано! Нажми ещё раз','Too early! Tap to retry','Příliš brzy! Klepni znovu'],
 r_again:['Ещё раз','Again','Znovu'],r_best:['Лучший результат: ','Best: ','Nejlepší: '],ms:[' мс',' ms',' ms'],
 v_t:['Во что играем вечером?','What do we play tonight?','Co budeme hrát večer?'],
-v_hint:['Открой страницу с друзьями: голоса видны всем, кто сейчас здесь. Без друзей виден только твой голос.','Open this page with friends: everyone here sees the votes. Alone, only your vote shows.','Otevři stránku s přáteli: hlasy vidí všichni online. Sám vidíš jen svůj hlas.'],
+v_hint:['Голоса видны всем, кто сейчас на сайте.','Everyone on the site right now sees the votes.','Hlasy vidí všichni, kdo jsou právě na webu.'],
 v_btn:['Проголосовать','Vote','Hlasovat'],v_none:['Голосов пока нет','No votes yet','Zatím žádné hlasy'],
 d_game:['Игра','Game','Hra'],d_ph:['Что сегодня получилось, что запомнилось?','What happened today?','Co se dnes povedlo?'],d_save:['Сохранить запись','Save entry','Uložit záznam'],
 tools:['Инструменты','Tools','Nástroje'],friends:['Друзья','Friends','Přátelé'],
@@ -209,13 +213,13 @@ tm_t:['Разделить на команды','Split into teams','Rozdělit do 
 tt_t:['Таймер сессии','Session timer','Časovač hry'],tt_start:['Старт','Start','Start'],tt_stop:['Стоп','Stop','Stop'],tt_reset:['Сброс','Reset','Reset'],tt_break:['Пора сделать перерыв!','Time for a break!','Čas na pauzu!'],
 dc_t:['Монетка и кубик','Coin and dice','Mince a kostka'],dc_coin:['Монетка','Coin','Mince'],dc_dice:['Кубик','Dice','Kostka'],dc_h:['Орёл','Heads','Hlava'],dc_tl:['Решка','Tails','Orel'],
 f_t:['Твой профиль','Your profile','Tvůj profil'],f_nick:['Ник','Nickname','Přezdívka'],f_s1:['Онлайн','Online','Online'],f_s2:['Готов играть','Ready to play','Připraven hrát'],f_s3:['Занят','Busy','Zaneprázdněn'],
-f_list:['Сейчас на сайте','Online now','Právě online'],f_you:[' (ты)',' (you)',' (ty)'],f_alone:['Пока здесь только ты. Позови друзей открыть эту страницу.','Only you are here. Ask friends to open this page.','Zatím jsi tu jen ty. Pozvi přátele.'],
+f_list:['Сейчас на сайте','Online now','Právě online'],f_you:[' (ты)',' (you)',' (ty)'],f_alone:['Пока здесь только ты. Отправь друзьям ссылку на сайт.','Only you are here. Send friends the site link.','Zatím jsi tu jen ty. Pošli přátelům odkaz.'],
 f_chat:['Чат','Chat','Chat'],f_msg:['Сообщение','Message','Zpráva'],f_send:['Отправить','Send','Odeslat'],f_ping:['Кто в игру?','Anyone up for a game?','Kdo hraje?'],f_pingmsg:[' зовёт играть!',' wants to play!',' zve hrát!'],
-ff_t:['Мои друзья','My friends','Moji přátelé'],ff_search:['Найти по имени','Search by name','Hledat podle jména'],ff_find:['Найти','Find','Hledat'],
-ff_empty:['Список пуст. Найди друзей по имени.','Your list is empty. Search friends by name.','Seznam je prázdný. Najdi přátele podle jména.'],
-ff_none:['Никого не нашёл. У друга должен быть доступ к странице.','Nobody found. Your friend needs access to this page.','Nikdo nenalezen. Přítel musí mít přístup ke stránce.'],
+ff_t:['Мои друзья','My friends','Moji přátelé'],ff_search:['Найти по нику','Search by nickname','Hledat podle přezdívky'],ff_find:['Найти','Find','Hledat'],
+ff_empty:['Список пуст. Найди друзей по нику.','Your list is empty. Search friends by nickname.','Seznam je prázdný. Najdi přátele podle přezdívky.'],
+ff_none:['Никого не нашёл. Друг должен открыть сайт и задать ник.','Nobody found. Your friend needs to open the site and set a nickname.','Nikdo nenalezen. Přítel musí otevřít web a nastavit přezdívku.'],
 ff_online:['в сети','online','online'],ff_off:['не в сети','offline','offline'],
-ff_unavail:['Список друзей доступен после входа в Claude','Friends list needs a signed-in Claude account','Seznam přátel vyžaduje přihlášení do Claude'],
+ff_unavail:['Не удалось подключиться к серверу. Обнови страницу.','Could not connect to the server. Reload the page.','Nepodařilo se připojit k serveru. Obnov stránku.'],
 mc1:['Собрать дерево и сделать верстак','Gather wood and craft a workbench','Nasbírat dřevo a vyrobit pracovní stůl'],
 mc2:['Построить укрытие до ночи','Build a shelter before night','Postavit úkryt před nocí'],
 mc3:['Найти и выплавить железо','Find and smelt iron','Najít a vytavit železo'],
