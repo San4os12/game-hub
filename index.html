@@ -246,6 +246,8 @@ h1,h2,.dh{font-weight:var(--fhw)}
 .onbs{text-align:center;color:var(--muted);margin:0 0 14px}
 .onbl{list-style:none;margin:0 0 6px;padding:0}.onbl li{display:flex;gap:10px;align-items:flex-start;padding:6px 0}.onbl li::before{content:'✓';color:var(--ok);font-weight:800}
 #wnick{width:100%}
+.mebtn{width:44px;height:44px;min-height:0;padding:0;margin-right:8px;flex:none;border-radius:50%!important;background:transparent!important;border:2px solid var(--accent)!important;box-shadow:none!important;clip-path:none!important;overflow:hidden;display:grid;place-items:center}
+.mebtn .pav{width:100%;height:100%;border:0;font-size:22px}
 </style>
 </head>
 <body>
@@ -253,6 +255,7 @@ h1,h2,.dh{font-weight:var(--fhw)}
   <div class="top">
     <button class="g ib" id="menub" type="button"></button>
     <div style="flex:1"></div>
+    <button class="mebtn" id="meb" type="button"></button>
     <span class="live"><span class="dot off" id="dot"></span><b id="n">1</b><span data-i="online"></span></span>
   </div>
   <h2 id="cur"></h2>
@@ -264,6 +267,16 @@ h1,h2,.dh{font-weight:var(--fhw)}
     <div class="box"><b data-i="lfg_list"></b><div id="hmlfg" style="margin-top:8px"></div><button class="g w" type="button" data-go="lfg" data-i="h_all"></button></div>
     <div class="box"><b data-i="cl_top"></b><div id="hmcl" style="margin-top:8px"></div><button class="g w" type="button" data-go="clan" data-i="h_all"></button></div>
     <div class="box"><b data-i="h_top"></b><div id="hmlb" style="margin-top:8px"></div><button class="g w" type="button" data-go="react" data-i="h_all"></button></div>
+  </div>
+
+  <div class="sec" id="s-me">
+    <div class="box" id="mehead"></div>
+    <div class="box"><b data-i="me_nick"></b>
+      <div class="row" style="margin-top:8px"><input id="fnick" data-p="f_nick" maxlength="16"><select id="fst"><option value="1" data-i="f_s1"></option><option value="2" data-i="f_s2"></option><option value="3" data-i="f_s3"></option></select></div>
+      <div class="muted" data-i="me_color" style="margin-top:12px"></div><div id="fcol" class="row" style="margin-top:6px;gap:8px"></div></div>
+    <div class="box"><b data-i="w_av"></b><div class="avr" id="favr"></div></div>
+    <div class="box"><b data-i="p_fav"></b><input id="ffav" data-p="p_fav_ph" maxlength="60" style="width:100%;margin-top:8px"><div class="muted" id="fstat" style="margin-top:8px"></div></div>
+    <div class="box"><b data-i="acc"></b><div id="acc2" style="margin-top:8px"></div></div>
   </div>
 
   <div class="sec" id="s-back">
@@ -347,7 +360,7 @@ h1,h2,.dh{font-weight:var(--fhw)}
   </div>
 
   <div class="sec" id="s-friends">
-    <div class="box"><b data-i="f_t"></b><div class="row" style="margin-top:8px"><input id="fnick" data-p="f_nick" maxlength="16"><select id="fst"><option value="1" data-i="f_s1"></option><option value="2" data-i="f_s2"></option><option value="3" data-i="f_s3"></option></select></div><div id="fcol" class="row" style="margin-top:10px;gap:8px"></div><div class="avr" id="favr"></div><input id="ffav" data-p="p_fav_ph" maxlength="60" style="width:100%;margin-top:10px"><div class="muted" id="fstat" style="margin-top:8px"></div><button class="w" id="fping" type="button" data-i="f_ping"></button></div>
+    <div class="box"><button class="w" id="fping" type="button" data-i="f_ping" style="margin-top:0"></button><button class="g w" type="button" data-go="me" data-i="me_edit"></button></div>
     <div class="box"><b data-i="ff_t"></b><div class="row" style="margin-top:8px"><input id="fq" data-p="ff_search" maxlength="40"><button id="fqb" type="button" data-i="ff_find"></button></div><div id="fqr" style="margin-top:8px"></div><div id="fmine" style="margin-top:8px"></div></div>
     <div class="box"><b data-i="f_list"></b><div id="fl" style="margin-top:8px"></div></div>
     <div class="box"><b data-i="dm_t"></b><div id="dml" style="margin-top:8px"></div></div>
@@ -448,7 +461,7 @@ xo_games:['Мои партии','My games','Moje hry'],xo_none:['Партий п
 xo_my:['Твой ход','Your turn','Jsi na tahu'],xo_their:['Ход соперника',"Opponent's turn",'Na tahu je soupeř'],
 xo_win:['Победа!','You won!','Výhra!'],xo_lose:['Поражение','You lost','Prohra'],xo_draw:['Ничья','Draw','Remíza'],
 xo_again:['Ещё раз','Rematch','Odveta'],xo_vs:['против ','vs ','proti '],xo_pick:['Выбери партию или вызови игрока ниже','Pick a game or challenge a player below','Vyber hru nebo vyzvi hráče níže'],
-ff_addf:['Добавить в друзья','Add friend','Přidat do přátel'],acc:['Аккаунт','Account','Účet'],acc_login:['Войти через Google','Sign in with Google','Přihlásit přes Google'],acc_hint:['Бэклог, гайд, дневник, рекорды и профиль будут сохраняться на всех твоих устройствах','Your backlog, guide, diary, records and profile will be saved on all your devices','Seznam her, průvodce, deník, rekordy a profil se uloží na všech tvých zařízeních'],acc_on:['Синхронизация включена','Sync is on','Synchronizace zapnuta'],acc_sync:['Синхронизация…','Syncing…','Synchronizace…'],acc_out:['Выйти','Sign out','Odhlásit se'],acc_err:['Не удалось войти','Sign-in failed','Přihlášení selhalo'],home:['Главная','Home','Domů'],h_hi:['Привет, ','Hi, ','Ahoj, '],h_online:['Сейчас на сайте','Online now','Právě online'],
+ff_addf:['Добавить в друзья','Add friend','Přidat do přátel'],acc:['Аккаунт','Account','Účet'],acc_login:['Войти через Google','Sign in with Google','Přihlásit přes Google'],acc_hint:['Бэклог, гайд, дневник, рекорды и профиль будут сохраняться на всех твоих устройствах','Your backlog, guide, diary, records and profile will be saved on all your devices','Seznam her, průvodce, deník, rekordy a profil se uloží na všech tvých zařízeních'],acc_on:['Синхронизация включена','Sync is on','Synchronizace zapnuta'],acc_sync:['Синхронизация…','Syncing…','Synchronizace…'],acc_out:['Выйти','Sign out','Odhlásit se'],acc_err:['Не удалось войти','Sign-in failed','Přihlášení selhalo'],home:['Главная','Home','Domů'],me:['Профиль','Profile','Profil'],me_nick:['Ник и статус','Nickname and status','Přezdívka a stav'],me_color:['Цвет ника','Nickname colour','Barva přezdívky'],me_edit:['Настроить профиль','Edit profile','Upravit profil'],me_prog:['Мой прогресс','My progress','Můj postup'],h_hi:['Привет, ','Hi, ','Ahoj, '],h_online:['Сейчас на сайте','Online now','Právě online'],
 h_all:['Смотреть все','See all','Zobrazit vše'],h_top:['Лучшая реакция','Fastest reaction','Nejrychlejší reakce'],
 h_quests:['Задания дня: ','Daily quests: ','Denní úkoly: '],h_clan:['Клан: ','Clan: ','Klan: '],h_noclan:['Ты пока без клана','No clan yet','Zatím bez klanu'],
 h_alone:['Пока здесь только ты. Скинь ссылку друзьям!','Only you are here. Share the link with friends!','Zatím jsi tu jen ty. Pošli odkaz přátelům!'],
@@ -546,9 +559,10 @@ star:'<path d="m12 3 2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.5 2.9 1-6.1-4.4-4.3 6.
 shield:'<path d="M12 3 4 6v6c0 5 3.4 8 8 9 4.6-1 8-4 8-9V6z"/><path d="m9 12 2 2 4-4"/>',
 mega:'<path d="M3 11v2a1 1 0 0 0 1 1h2l5 4V6l-5 4H4a1 1 0 0 0-1 1z"/><path d="M15 9a3 3 0 0 1 0 6M18 6a7 7 0 0 1 0 12"/>',
 grid:'<path d="M9 3v18M15 3v18M3 9h18M3 15h18"/>',
+user:'<circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7"/>',
 users:'<circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c0-3.6 3-6 6.5-6s6.5 2.4 6.5 6"/><path d="M16 4.6a3.5 3.5 0 0 1 0 6.8M18.5 14.3c2 .6 3.5 2.4 3.5 5.7"/>'};
 function ico(n){var s=document.createElement('span');s.innerHTML='<svg class="i" viewBox="0 0 24 24">'+IC[n]+'</svg>';return s.firstChild;}
-var SEC=[['home','home'],['back','gamepad'],['guide','list'],['calc','calc'],['react','bolt'],['tools','dice'],['prog','star'],['friends','users'],['clan','shield'],['lfg','mega'],['xo','grid'],['vote','poll'],['diary','book']];
+var SEC=[['home','home'],['me','user'],['back','gamepad'],['guide','list'],['calc','calc'],['react','bolt'],['tools','dice'],['prog','star'],['friends','users'],['clan','shield'],['lfg','mega'],['xo','grid'],['vote','poll'],['diary','book']];
 if(!SEC.some(function(s){return s[0]===cur;}))cur='home';
 
 function openD(){document.body.classList.add('open');}
@@ -786,7 +800,7 @@ document.addEventListener('keydown',function(e){if(e.key==='Escape')closeSheet()
 function head(d,uid){var h=el('div','ph');h.appendChild(avNode(d.av,'pav','div'));var x=el('div');var b=el('b',null,(typeof d.ct==='string'&&d.ct?'['+d.ct.slice(0,4)+'] ':'')+(s16(d.nick)||'…'));b.style.color=col(d.c);x.appendChild(b);
   x.appendChild(el('small',null,t('lvl')+' '+lvl(d.xp)+' · '+(isOnline(uid)?t('ff_online'):t('ff_off'))+(typeof d.game==='string'&&d.game?' · '+d.game.slice(0,20):'')));h.appendChild(x);return h;}
 function showProfile(uid){
-  if(FB&&uid===FB.uid){closeSheet();show('friends');return;}
+  if(FB&&uid===FB.uid){closeSheet();show('me');return;}
   dmWith=null;dmList=null;var sb=$('sbody');sb.innerHTML='';sb.appendChild(el('div','muted','…'));openSheet();
   getProf(uid).then(function(d){d=d||{};sb.innerHTML='';sb.appendChild(head(d,uid));
     if(typeof d.fav==='string'&&d.fav)sb.appendChild(el('div','muted',t('p_fav')+': '+d.fav.slice(0,60)));
@@ -986,8 +1000,8 @@ function login(){
     var code=e&&e.code||'';
     if(code==='auth/popup-blocked'||code==='auth/operation-not-supported-in-this-environment'){FB.auth.currentUser.linkWithRedirect(p);return;}
     loginErr(e);});}
-function rAcc(){
-  var a=$('acc');a.innerHTML='';
+function rAcc(){rAccIn($('acc'));rAccIn($('acc2'));}
+function rAccIn(a){a.innerHTML='';
   if(!FB||!FB.auth){a.appendChild(el('div','muted',t('off_srv')));return;}
   if(!isGoogle()){
     var b=el('button','mi');b.type='button';b.appendChild(el('span',null,'G'));b.appendChild(el('span',null,t('acc_login')));b.onclick=login;a.appendChild(b);
@@ -1203,11 +1217,22 @@ function rHomeNow(){
   var lb=$('hmlb');lb.innerHTML='';
   if(!lbR.length)lb.appendChild(el('div','muted',t('lb_empty')));
   lbR.slice(0,3).forEach(function(z,i){var r=el('div','item click');r.appendChild(el('span','rk',['🥇','🥈','🥉'][i]));r.appendChild(avNode(z.av,'pav sm'));
-    var b=el('b','t',s16(z.nick)||'…');b.style.color=col(z.c);r.appendChild(b);r.appendChild(el('span','val',z.r+t('ms')));r.onclick=function(){showProfile(z.id);};lb.appendChild(r);});}
+    var b=el('b','t',s16(z.nick)||'…');b.style.color=col(z.c);r.appendChild(b);r.appendChild(el('span','val',z.r+t('ms')));r.onclick=function(){showProfile(z.id);};lb.appendChild(r);});
+  rMe();rMeb();}
 Array.prototype.forEach.call(document.querySelectorAll('[data-go]'),function(b){b.onclick=function(){show(b.dataset.go);};});
 // главная обновляется вместе с данными
 (function(){var w=function(f){return function(){var r=f.apply(this,arguments);rHome();return r;};};
   rLfg=w(rLfg);rClan=w(rClan);rLb=w(rLb);rProg=w(rProg);rFriends=w(rFriends);})();
+
+/* ===== Раздел «Профиль» ===== */
+function rMe(){var h=$('mehead');h.innerHTML='';var hero=el('div','hero');hero.appendChild(avNode(prof.av,'pav','div'));
+  var x=el('div');var nb=el('b',null,(prof.ct?'['+prof.ct+'] ':'')+(prof.nick||'…'));nb.style.color=col(prof.c);x.appendChild(nb);
+  x.appendChild(el('small',null,t('lvl')+' '+lvl(prof.xp)+' · '+(prof.xp||0)+' XP'));hero.appendChild(x);h.appendChild(hero);
+  var bar=el('div','xpb'),f=el('div','pb');f.style.width=((prof.xp||0)%100)+'%';bar.appendChild(f);h.appendChild(bar);
+  var ar=achIcons(prof.ach);if(ar)h.appendChild(ar);
+  var b=el('button','g w',t('me_prog'));b.type='button';b.onclick=function(){show('prog');};h.appendChild(b);}
+function rMeb(){var b=$('meb');b.innerHTML='';b.appendChild(avNode(prof.av,'pav'));b.setAttribute('aria-label',t('me'));}
+$('meb').onclick=function(){show('me');};
 
 /* ===== Приветственный экран ===== */
 var onbGame=game;
