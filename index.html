@@ -345,6 +345,12 @@ body.chatopen .chv{display:flex;flex-direction:column;position:fixed;inset:0;z-i
   .chi{background:transparent}
   .chl .item.mine{outline:2px solid var(--accent);outline-offset:-2px}
 }
+.cldesc{margin:10px 0 0;padding:10px 12px;border-left:3px solid var(--accent);background:rgba(0,0,0,.2);border-radius:var(--r);white-space:pre-wrap;overflow-wrap:anywhere}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.chip{font-size:12px;font-weight:800;padding:4px 10px;border-radius:999px;border:1px solid var(--line);background:rgba(0,0,0,.2)}
+.mrow{display:flex;gap:6px;flex:none}
+.mrow button{min-height:34px;padding:4px 10px;font-size:12px}
+#cltop small{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 </style>
 </head>
 <body>
@@ -421,6 +427,20 @@ body.chatopen .chv{display:flex;flex-direction:column;position:fixed;inset:0;z-i
     <div id="clin" hidden>
       <div class="box" id="clhead"></div>
       <div class="box"><button class="w" id="clopen" type="button" data-i="ch_clan_open" style="margin-top:0"></button></div>
+      <div class="box" id="clreqb" hidden></div>
+      <div class="box" id="clset" hidden>
+        <b data-i="cs_t"></b>
+        <div class="ds" data-i="cs_name"></div>
+        <div class="row"><input id="csn" data-p="cl_name" maxlength="20"><input id="cst" data-p="cl_tag" maxlength="4" style="flex:0 1 110px;text-transform:uppercase"></div>
+        <div class="ds" data-i="cs_desc"></div>
+        <textarea id="csd" data-p="cs_desc_ph" maxlength="150" style="min-height:70px;margin-top:0"></textarea>
+        <div class="ds" data-i="cs_game"></div><select id="csg" style="width:100%"></select>
+        <div class="ds" data-i="cs_join"></div><div class="tabs2" style="margin:0"><button class="g" id="cso" type="button" data-i="cs_open"></button><button class="g" id="csc" type="button" data-i="cs_closed"></button></div>
+        <div class="ds" data-i="cs_max"></div><div class="seg" id="csm" style="grid-template-columns:repeat(4,1fr)"></div>
+        <div class="ds" data-i="cs_col"></div><div class="row" id="csk" style="gap:8px"></div>
+        <div class="ds" data-i="cl_emb"></div><div class="cle" id="cse" style="margin-top:0"></div>
+        <button class="w" id="css" type="button" data-i="cs_save"></button>
+      </div>
     </div>
     <div class="box"><b data-i="cl_top"></b><div id="cltop" style="margin-top:8px"></div></div>
   </div>
@@ -577,7 +597,7 @@ xo_games:['Мои партии','My games','Moje hry'],xo_none:['Партий п
 xo_my:['Твой ход','Your turn','Jsi na tahu'],xo_their:['Ход соперника',"Opponent's turn",'Na tahu je soupeř'],
 xo_win:['Победа!','You won!','Výhra!'],xo_lose:['Поражение','You lost','Prohra'],xo_draw:['Ничья','Draw','Remíza'],
 xo_again:['Ещё раз','Rematch','Odveta'],xo_vs:['против ','vs ','proti '],xo_pick:['Выбери партию или вызови игрока ниже','Pick a game or challenge a player below','Vyber hru nebo vyzvi hráče níže'],
-ff_addf:['Добавить в друзья','Add friend','Přidat do přátel'],acc:['Аккаунт','Account','Účet'],acc_login:['Войти через Google','Sign in with Google','Přihlásit přes Google'],acc_hint:['Бэклог, гайд, дневник, рекорды и профиль будут сохраняться на всех твоих устройствах','Your backlog, guide, diary, records and profile will be saved on all your devices','Seznam her, průvodce, deník, rekordy a profil se uloží na všech tvých zařízeních'],acc_on:['Синхронизация включена','Sync is on','Synchronizace zapnuta'],acc_sync:['Синхронизация…','Syncing…','Synchronizace…'],acc_out:['Выйти','Sign out','Odhlásit se'],acc_err:['Не удалось войти','Sign-in failed','Přihlášení selhalo'],home:['Главная','Home','Domů'],chat:['Чаты','Chats','Chaty'],ch_pub:['Общий чат','Public chat','Veřejný chat'],ch_pub_d:['Все, кто сейчас на сайте','Everyone on the site','Všichni na webu'],ch_open:['Открыть чаты','Open chats','Otevřít chaty'],ch_hint:['Общий чат, чат клана и личные сообщения','Public chat, clan chat and direct messages','Veřejný chat, klanový chat a soukromé zprávy'],ch_clan_open:['💬 Открыть чат клана','💬 Open clan chat','💬 Otevřít klanový chat'],ch_pick:['Выбери чат слева','Pick a chat on the left','Vyber chat vlevo'],ch_none:['Сообщений пока нет. Напиши первым!','No messages yet. Say hi first!','Zatím žádné zprávy. Napiš první!'],ch_dm_h:['Личные сообщения','Direct messages','Soukromé zprávy'],stk_prev:['🦊 Стикер','🦊 Sticker','🦊 Nálepka'],del_t:['Данные и конфиденциальность','Data and privacy','Data a soukromí'],del_pp:['Политика конфиденциальности','Privacy policy','Zásady ochrany soukromí'],del_btn:['Удалить мои данные','Delete my data','Smazat moje data'],del_confirm:['Удалить навсегда профиль, рекорды, сообщения, объявления, партии и сам аккаунт? Если ты глава клана, клан будет распущен. Отменить нельзя.','Permanently delete your profile, records, messages, posts, matches and the account itself? If you lead a clan, it will be disbanded. This cannot be undone.','Trvale smazat profil, rekordy, zprávy, inzeráty, hry a samotný účet? Pokud vedeš klan, bude rozpuštěn. Nelze vrátit zpět.'],del_wait:['Удаляю…','Deleting…','Mažu…'],del_done:['Твои данные удалены','Your data has been deleted','Tvoje data byla smazána'],
+ff_addf:['Добавить в друзья','Add friend','Přidat do přátel'],acc:['Аккаунт','Account','Účet'],acc_login:['Войти через Google','Sign in with Google','Přihlásit přes Google'],acc_hint:['Бэклог, гайд, дневник, рекорды и профиль будут сохраняться на всех твоих устройствах','Your backlog, guide, diary, records and profile will be saved on all your devices','Seznam her, průvodce, deník, rekordy a profil se uloží na všech tvých zařízeních'],acc_on:['Синхронизация включена','Sync is on','Synchronizace zapnuta'],acc_sync:['Синхронизация…','Syncing…','Synchronizace…'],acc_out:['Выйти','Sign out','Odhlásit se'],acc_err:['Не удалось войти','Sign-in failed','Přihlášení selhalo'],home:['Главная','Home','Domů'],cs_t:['⚙️ Настройки клана','⚙️ Clan settings','⚙️ Nastavení klanu'],cs_name:['Название и тег','Name and tag','Název a tag'],cs_desc:['Описание','Description','Popis'],cs_desc_ph:['Например: играем в CS2 по вечерам, нужен микрофон','E.g.: we play CS2 in the evenings, mic required','Např.: hrajeme CS2 večer, nutný mikrofon'],cs_game:['Основная игра','Main game','Hlavní hra'],cs_nogame:['Любые игры','Any games','Jakékoli hry'],cs_join:['Вступление','Joining','Vstup'],cs_open:['🔓 Открытый','🔓 Open','🔓 Otevřený'],cs_closed:['🔒 По заявкам','🔒 By request','🔒 Na žádost'],cs_max:['Лимит участников','Member limit','Limit členů'],cs_col:['Цвет клана','Clan colour','Barva klanu'],cs_save:['Сохранить','Save','Uložit'],cs_saved:['Настройки клана сохранены','Clan settings saved','Nastavení klanu uloženo'],cs_err:['Не удалось сохранить','Could not save','Nepodařilo se uložit'],cr_t:['Заявки на вступление','Join requests','Žádosti o vstup'],cr_ok:['Принять','Accept','Přijmout'],cr_no:['Отклонить','Decline','Odmítnout'],cr_send:['Подать заявку','Request to join','Požádat o vstup'],cr_sent:['Заявка отправлена','Request sent','Žádost odeslána'],cr_cancel:['Отменить заявку','Cancel request','Zrušit žádost'],cr_acc:['Тебя приняли в клан! 🎉','You have been accepted into the clan! 🎉','Byl jsi přijat do klanu! 🎉'],cr_dec:['Заявку в клан отклонили','Your clan request was declined','Tvoje žádost byla odmítnuta'],cm_kick:['Исключить','Remove','Vyloučit'],cm_lead:['Сделать главой','Make leader','Předat vedení'],cm_kick_q:['Исключить игрока из клана?','Remove this player from the clan?','Vyloučit hráče z klanu?'],cm_lead_q:['Передать главенство? Ты станешь обычным участником.','Hand over leadership? You will become a regular member.','Předat vedení? Staneš se běžným členem.'],cm_kicked:['Тебя исключили из клана','You were removed from the clan','Byl jsi vyloučen z klanu'],cl_closed_b:['🔒 по заявкам','🔒 by request','🔒 na žádost'],cl_open_b:['🔓 открытый','🔓 open','🔓 otevřený'],chat:['Чаты','Chats','Chaty'],ch_pub:['Общий чат','Public chat','Veřejný chat'],ch_pub_d:['Все, кто сейчас на сайте','Everyone on the site','Všichni na webu'],ch_open:['Открыть чаты','Open chats','Otevřít chaty'],ch_hint:['Общий чат, чат клана и личные сообщения','Public chat, clan chat and direct messages','Veřejný chat, klanový chat a soukromé zprávy'],ch_clan_open:['💬 Открыть чат клана','💬 Open clan chat','💬 Otevřít klanový chat'],ch_pick:['Выбери чат слева','Pick a chat on the left','Vyber chat vlevo'],ch_none:['Сообщений пока нет. Напиши первым!','No messages yet. Say hi first!','Zatím žádné zprávy. Napiš první!'],ch_dm_h:['Личные сообщения','Direct messages','Soukromé zprávy'],stk_prev:['🦊 Стикер','🦊 Sticker','🦊 Nálepka'],del_t:['Данные и конфиденциальность','Data and privacy','Data a soukromí'],del_pp:['Политика конфиденциальности','Privacy policy','Zásady ochrany soukromí'],del_btn:['Удалить мои данные','Delete my data','Smazat moje data'],del_confirm:['Удалить навсегда профиль, рекорды, сообщения, объявления, партии и сам аккаунт? Если ты глава клана, клан будет распущен. Отменить нельзя.','Permanently delete your profile, records, messages, posts, matches and the account itself? If you lead a clan, it will be disbanded. This cannot be undone.','Trvale smazat profil, rekordy, zprávy, inzeráty, hry a samotný účet? Pokud vedeš klan, bude rozpuštěn. Nelze vrátit zpět.'],del_wait:['Удаляю…','Deleting…','Mažu…'],del_done:['Твои данные удалены','Your data has been deleted','Tvoje data byla smazána'],
 nt_t:['Уведомления','Notifications','Oznámení'],nt_hint:['Сообщим о личных сообщениях, вызовах в игры и твоём ходе, когда сайт свёрнут','We will tell you about messages, game invites and your turn when the site is in the background','Dáme vědět o zprávách, výzvách do her a tvém tahu, když je web na pozadí'],
 nt_on:['Включить уведомления','Turn on notifications','Zapnout oznámení'],nt_off:['Выключить','Turn off','Vypnout'],nt_ok:['✓ Уведомления включены','✓ Notifications are on','✓ Oznámení zapnuta'],
 nt_denied:['Уведомления запрещены в настройках браузера','Notifications are blocked in browser settings','Oznámení jsou zakázána v nastavení prohlížeče'],
@@ -1256,6 +1276,7 @@ function embNode(i,cls,tag){var e=el(tag||'span',cls);if(typeof i==='number'&&i>
 function emb(i){return CLEMB[(typeof i==='number'&&i>=0&&i<CLEMB.length&&i%1===0)?i:0];}
 function rCle(){var b=$('cle');b.innerHTML='';EMBIMG.map(function(_,k){return 100+k;}).concat(CLEMB.map(function(_,k){return k;})).forEach(function(i){var s=el('button','avb'+(clEmb===i?' on':''));s.type='button';s.appendChild(embNode(i,'pav sm'));s.onclick=function(){clEmb=i;rCle();};b.appendChild(s);});}
 function startClans(){
+  watchReq();
   if(INV)FB.fs.collection('clans').doc(INV).get().then(function(s){if(s.exists){invClan=s.data();invClan.id=INV;show('clan');rClan();}}).catch(function(){});
   FB.fs.collection('clans').orderBy('mn','desc').limit(20).onSnapshot(function(s){clTop=[];s.forEach(function(d){var x=d.data();x.id=d.id;clTop.push(x);});rClan();},function(){});
   watchClan();}
@@ -1266,7 +1287,7 @@ function watchClan(){
   if(!FB||!prof.cl){rClan();return;}
   var id=prof.cl;
   clUnsub=FB.fs.collection('clans').doc(id).onSnapshot(function(s){var d=s.exists?s.data():null;
-    if(!d||!Array.isArray(d.members)||d.members.indexOf(FB.uid)<0){if(prof.cl===id)setClan(null);return;}
+    if(!d||!Array.isArray(d.members)||d.members.indexOf(FB.uid)<0){if(prof.cl===id){if(d)toast(t('cm_kicked'));setClan(null);}return;}
     d.id=id;myClan=d;if(prof.ct!==d.tag){prof.ct=String(d.tag||'').slice(0,4);sv('hub.prof',prof);pushProf();}
     d.members.forEach(function(u){if(!clMembers[u])getProf(u).then(function(p){clMembers[u]=p||{};rClan();});});
     rClan();},function(){});
@@ -1274,6 +1295,64 @@ function watchClan(){
     clMsgs.sort(function(a,b){return tms(a.t)-tms(b.t);});clMsgs=clMsgs.slice(-60);rClanChat();},function(){});
   rClan();}
 function rClanChat(){rChats();}
+/* ===== Настройки клана ===== */
+function cOpen(c){return c.open!==false;}
+function cMax(c){return (typeof c.max==='number'&&c.max>=5&&c.max<=50)?c.max:30;}
+function cReq(c){return Array.isArray(c.req)?c.req.filter(function(x){return typeof x==='string';}):[];}
+function cCol(c){return (typeof c.col==='number'&&c.col>=0&&c.col<PAL.length)?PAL[c.col]:null;}
+function FVx(){return firebase.firestore.FieldValue;}
+var clReqUnsub=null,csState=null;
+function clanJoin(c){if(!FB)return;var FV=FVx();
+  if(cOpen(c)){if((c.members||[]).length>=cMax(c)){toast(t('cl_full'));return;}
+    FB.fs.collection('clans').doc(c.id).update({members:FV.arrayUnion(FB.uid),mn:FV.increment(1)}).then(function(){invClan=null;setClan({id:c.id,tag:c.tag});}).catch(function(){toast(t('cl_full'));});}
+  else{FB.fs.collection('clans').doc(c.id).update({req:FV.arrayUnion(FB.uid)}).then(function(){sv('hub.clreq',c.id);watchReq();toast(t('cr_sent'));rClan();}).catch(function(){toast(t('cs_err'));});}}
+function clanCancel(c){if(!FB)return;FB.fs.collection('clans').doc(c.id).update({req:FVx().arrayRemove(FB.uid)}).catch(function(){});sv('hub.clreq','');watchReq();rClan();}
+function watchReq(){if(clReqUnsub){clReqUnsub();clReqUnsub=null;}var id=ld('hub.clreq','');if(!FB||!id||prof.cl)return;
+  clReqUnsub=FB.fs.collection('clans').doc(id).onSnapshot(function(s){var d=s.exists?s.data():null;
+    if(d&&Array.isArray(d.members)&&d.members.indexOf(FB.uid)>=0){sv('hub.clreq','');if(clReqUnsub){clReqUnsub();clReqUnsub=null;}toast(t('cr_acc'));setClan({id:id,tag:d.tag});return;}
+    if(!d||cReq(d).indexOf(FB.uid)<0){sv('hub.clreq','');if(clReqUnsub){clReqUnsub();clReqUnsub=null;}if(d)toast(t('cr_dec'));rClan();}},function(){});}
+function ownerUpd(data,ok){FB.fs.collection('clans').doc(myClan.id).update(data).then(function(){if(ok)toast(ok);}).catch(function(){toast(t('cs_err'));});}
+function rClanOwner(){
+  var own=myClan&&FB&&myClan.owner===FB.uid;$('clset').hidden=!own;
+  var rb=$('clreqb');rb.innerHTML='';var reqs=own?cReq(myClan):[];rb.hidden=!reqs.length;
+  if(reqs.length){rb.appendChild(el('b',null,t('cr_t')+' · '+reqs.length));
+    reqs.forEach(function(u){var r=el('div','item');r.style.marginTop='8px';var av=el('span','pav sm','…');r.appendChild(av);var nb=el('b','t','…');r.appendChild(nb);
+      getProf(u).then(function(p){if(p){av.replaceWith(avNode(p.av,'pav sm'));nb.textContent=s16(p.nick)||'…';nb.style.color=col(p.c);}});
+      nb.style.cursor='pointer';nb.onclick=function(){showProfile(u);};
+      var m=el('div','mrow'),a=el('button',null,t('cr_ok')),d=el('button','g',t('cr_no'));a.type=d.type='button';
+      a.onclick=function(){if(myClan.members.length>=cMax(myClan)){toast(t('cl_full'));return;}var FV=FVx();ownerUpd({req:FV.arrayRemove(u),members:FV.arrayUnion(u),mn:FV.increment(1)});};
+      d.onclick=function(){ownerUpd({req:FVx().arrayRemove(u)});};m.appendChild(a);m.appendChild(d);r.appendChild(m);rb.appendChild(r);});}
+  if(!own){csState=null;return;}
+  if(!csState||csState.id!==myClan.id){csState={id:myClan.id,open:cOpen(myClan),max:cMax(myClan),col:(typeof myClan.col==='number'?myClan.col:-1),emb:myClan.emb};
+    $('csn').value=String(myClan.name||'');$('cst').value=String(myClan.tag||'');$('csd').value=String(myClan.desc||'');
+    var g=$('csg');g.innerHTML='';var o0=el('option',null,t('cs_nogame'));o0.value='';g.appendChild(o0);
+    Object.keys(GAMES).forEach(function(k){var o=el('option',null,GAMES[k].n);o.value=GAMES[k].n;g.appendChild(o);});g.value=String(myClan.game||'');}
+  rCsUi();}
+function rCsUi(){if(!csState)return;
+  $('cso').classList.toggle('on',csState.open);$('csc').classList.toggle('on',!csState.open);
+  var m=$('csm');m.innerHTML='';[10,20,30,50].forEach(function(n){var b=el('button','mi'+(csState.max===n?' on':''),String(n));b.type='button';
+    var tooSmall=myClan&&myClan.members.length>n;b.disabled=tooSmall;if(tooSmall)b.style.opacity='.4';b.onclick=function(){csState.max=n;rCsUi();};m.appendChild(b);});
+  var k=$('csk');k.innerHTML='';PAL.forEach(function(c,i){var b=el('button','sw2'+(csState.col===i?' on':''));b.type='button';b.style.background=c;b.setAttribute('aria-label','color '+(i+1));b.onclick=function(){csState.col=i;rCsUi();};k.appendChild(b);});
+  var e=$('cse');e.innerHTML='';EMBIMG.map(function(_,i){return 100+i;}).concat(CLEMB.map(function(_,i){return i;})).forEach(function(i){var b=el('button','avb'+(csState.emb===i?' on':''));b.type='button';b.appendChild(embNode(i,'pav sm'));b.onclick=function(){csState.emb=i;rCsUi();};e.appendChild(b);});}
+$('cso').onclick=function(){if(csState){csState.open=true;rCsUi();}};
+$('csc').onclick=function(){if(csState){csState.open=false;rCsUi();}};
+$('css').onclick=function(){if(!myClan||!csState)return;
+  var n=$('csn').value.trim().slice(0,20),tg=$('cst').value.trim().toUpperCase().replace(/[^A-ZА-ЯЁ0-9]/g,'').slice(0,4);
+  if(n.length<3||tg.length<2){toast(t('cl_err'));return;}
+  var data={name:n,tag:tg,emb:csState.emb,desc:$('csd').value.trim().slice(0,150),game:String($('csg').value||'').slice(0,20),open:csState.open,max:csState.max};
+  if(csState.col>=0)data.col=csState.col;
+  ownerUpd(data,t('cs_saved'));};
+function memberActions(u){var m=el('div','mrow');
+  var l=el('button','g','👑');l.type='button';l.title=t('cm_lead');l.setAttribute('aria-label',t('cm_lead'));
+  l.onclick=function(e){e.stopPropagation();if(confirm(t('cm_lead_q')))ownerUpd({owner:u});};
+  var k=el('button','g','✖');k.type='button';k.title=t('cm_kick');k.setAttribute('aria-label',t('cm_kick'));
+  k.onclick=function(e){e.stopPropagation();if(confirm(t('cm_kick_q'))){var FV=FVx();ownerUpd({members:FV.arrayRemove(u),mn:FV.increment(-1)});}};
+  m.appendChild(l);m.appendChild(k);return m;}
+function clanMeta(c){var w=el('div','chips');
+  w.appendChild(el('span','chip',(c.members||[]).length+' / '+cMax(c)));
+  w.appendChild(el('span','chip',cOpen(c)?t('cl_open_b'):t('cl_closed_b')));
+  if(c.game)w.appendChild(el('span','chip','🎮 '+String(c.game).slice(0,20)));return w;}
+
 function rClan(){
   var iv=$('clinv');iv.innerHTML='';iv.hidden=true;
   if(FB&&invClan&&!(myClan&&myClan.id===invClan.id)){iv.hidden=false;var c=invClan;iv.appendChild(el('b',null,t('cl_invited')));
@@ -1281,15 +1360,18 @@ function rClan(){
     var x=el('div');x.appendChild(el('b',null,'['+String(c.tag||'').slice(0,4)+'] '+String(c.name||'').slice(0,20)));
     x.appendChild(el('small',null,(Array.isArray(c.members)?c.members.length:0)+t('cl_members')));top.appendChild(x);iv.appendChild(top);
     if(myClan)iv.appendChild(el('div','muted',t('cl_leave_first')));
-    else{var jb=el('button','w',t('cl_join'));jb.type='button';jb.onclick=function(){var FV=firebase.firestore.FieldValue;
-      FB.fs.collection('clans').doc(c.id).update({members:FV.arrayUnion(FB.uid),mn:FV.increment(1)}).then(function(){invClan=null;setClan({id:c.id,tag:c.tag});}).catch(function(){toast(t('cl_full'));});};iv.appendChild(jb);}}
+    else{iv.appendChild(clanMeta(c));if(c.desc)iv.appendChild(el('div','cldesc',String(c.desc).slice(0,150)));
+      var pend=ld('hub.clreq','')===c.id;var jb=el('button',pend?'g w':'w',pend?t('cr_cancel'):(cOpen(c)?t('cl_join'):t('cr_send')));jb.type='button';
+      jb.onclick=function(){if(pend)clanCancel(c);else clanJoin(c);};iv.appendChild(jb);}}
   var inC=!!(FB&&myClan);$('clnew').hidden=inC||!FB;$('clin').hidden=!inC;
   if(inC){var h=$('clhead');h.innerHTML='';var top=el('div','clh');top.appendChild(embNode(myClan.emb,'em','div'));
-    var x=el('div');x.appendChild(el('b',null,'['+String(myClan.tag||'').slice(0,4)+'] '+String(myClan.name||'').slice(0,20)));
+    var x=el('div'),cb=el('b',null,'['+String(myClan.tag||'').slice(0,4)+'] '+String(myClan.name||'').slice(0,20));if(cCol(myClan))cb.style.color=cCol(myClan);x.appendChild(cb);
     x.appendChild(el('small',null,myClan.members.length+t('cl_members')));top.appendChild(x);h.appendChild(top);
+    h.appendChild(clanMeta(myClan));if(myClan.desc)h.appendChild(el('div','cldesc',String(myClan.desc).slice(0,150)));
     var ml=el('div');ml.style.marginTop='10px';
     myClan.members.forEach(function(u){var p=clMembers[u]||{},r=el('div','item click');r.appendChild(avNode(p.av,'pav sm'));
       var nb=el('b','t',(s16(p.nick)||'…')+(u===myClan.owner?' 👑':''));nb.style.color=col(p.c);r.appendChild(nb);
+      if(FB&&myClan.owner===FB.uid&&u!==FB.uid)r.appendChild(memberActions(u));
       r.onclick=function(){showProfile(u);};ml.appendChild(r);});
     h.appendChild(ml);
     var ib=el('button','w','📨 '+t('cl_inv'));ib.type='button';var cid=myClan.id,cname=String(myClan.name||'');ib.onclick=function(){shareLink(baseUrl()+'#clan='+cid,t('cl_inv_text')+cname);};h.appendChild(ib);
@@ -1298,17 +1380,19 @@ function rClan(){
       var pr=own?FB.fs.collection('clans').doc(id).delete():FB.fs.collection('clans').doc(id).update({members:FV.arrayRemove(FB.uid),mn:FV.increment(-1)});
       pr.then(function(){setClan(null);}).catch(function(){});};
     h.appendChild(lb);}
+  if(inC)rClanOwner();else{$('clset').hidden=true;$('clreqb').hidden=true;csState=null;}
   var l=$('cltop');l.innerHTML='';
   if(!FB){l.appendChild(el('div','muted',t('off_srv')));return;}
   if(!clTop.length){l.appendChild(el('div','muted',t('cl_none')));return;}
   clTop.forEach(function(c,i){var mine=myClan&&myClan.id===c.id,r=el('div','item'+(mine?' mine':''));
     r.appendChild(el('span','rk',i<3?['🥇','🥈','🥉'][i]:String(i+1)));r.appendChild(embNode(c.emb,'pav sm'));
     var x=el('div','t');x.appendChild(el('b',null,'['+String(c.tag||'').slice(0,4)+'] '+String(c.name||'').slice(0,20)));
-    x.appendChild(el('small',null,(Array.isArray(c.members)?c.members.length:0)+t('cl_members')+(mine?' · '+t('cl_mine'):'')));r.appendChild(x);
-    if(!myClan){var full=Array.isArray(c.members)&&c.members.length>=30,b=el('button','pill',t(full?'cl_full':'cl_join'));b.type='button';b.disabled=full;
-      b.onclick=function(){var FV=firebase.firestore.FieldValue;
-        FB.fs.collection('clans').doc(c.id).update({members:FV.arrayUnion(FB.uid),mn:FV.increment(1)}).then(function(){setClan({id:c.id,tag:c.tag});}).catch(function(){});};
-      r.appendChild(b);}
+    var cn=x.querySelector('b');if(cCol(c))cn.style.color=cCol(c);
+    x.appendChild(el('small',null,(Array.isArray(c.members)?c.members.length:0)+'/'+cMax(c)+' · '+(cOpen(c)?'🔓':'🔒')+(c.game?' · '+String(c.game).slice(0,20):'')+(mine?' · '+t('cl_mine'):'')));
+    if(c.desc)x.appendChild(el('small',null,String(c.desc).slice(0,80)));r.appendChild(x);
+    if(!myClan){var full=Array.isArray(c.members)&&c.members.length>=cMax(c),pend=ld('hub.clreq','')===c.id;
+      var b=el('button','pill',pend?t('cr_sent'):full?t('cl_full'):cOpen(c)?t('cl_join'):t('cr_send'));b.type='button';b.disabled=full&&!pend;
+      b.onclick=function(){if(pend)clanCancel(c);else clanJoin(c);};r.appendChild(b);}
     l.appendChild(r);});}
 $('clc').onclick=function(){if(!FB)return;var n=$('cln').value.trim(),tg=$('clt').value.trim().toUpperCase().replace(/[^A-ZА-ЯЁ0-9]/g,'').slice(0,4);
   if(n.length<3||tg.length<2){toast(t('cl_err'));return;}

@@ -80,33 +80,72 @@ service cloud.firestore {
         && request.auth.token.firebase.sign_in_provider != 'anonymous';
     }
 
-    // Кланы: создать может любой, вступить и выйти можно только самому, распустить может глава
+    // Кланы: создать может любой; вступить/выйти/подать заявку — только сам за себя;
+    // глава меняет настройки, принимает заявки, исключает и передаёт главенство
     match /clans/{id} {
+      function old() { return resource.data; }
+      function me() { return request.auth.uid; }
+      function oreq() { return old().get('req', []); }
+      function okFields() {
+        return d().name is string && d().name.size() >= 3 && d().name.size() <= 20
+          && d().tag is string && d().tag.size() >= 2 && d().tag.size() <= 4
+          && d().emb is int
+          && (!('desc' in d()) || (d().desc is string && d().desc.size() <= 150))
+          && (!('game' in d()) || (d().game is string && d().game.size() <= 20))
+          && (!('col' in d()) || d().col is int)
+          && (!('open' in d()) || d().open is bool)
+          && (!('max' in d()) || (d().max is int && d().max >= 5 && d().max <= 50))
+          && (!('req' in d()) || (d().req is list && d().req.size() <= 50));
+      }
       allow read: if true;
       allow create: if signedIn()
-        && d().keys().hasOnly(['name', 'tag', 'emb', 'owner', 'members', 'mn', 't'])
-        && d().owner == request.auth.uid
-        && d().members == [request.auth.uid] && d().mn == 1
-        && d().name is string && d().name.size() >= 3 && d().name.size() <= 20
-        && d().tag is string && d().tag.size() >= 2 && d().tag.size() <= 4
-        && d().emb is int
+        && d().keys().hasOnly(['name', 'tag', 'emb', 'owner', 'members', 'mn', 't', 'desc', 'game', 'col', 'open', 'max', 'req'])
+        && okFields()
+        && d().owner == me()
+        && d().members == [me()] && d().mn == 1
+        && (!('req' in d()) || d().req.size() == 0)
         && d().t == request.time;
-      allow update: if signedIn()
-        && d().diff(resource.data).affectedKeys().hasOnly(['members', 'mn'])
-        && d().mn == d().members.size()
-        && (
-          // вступить
-          (!(request.auth.uid in resource.data.members)
-            && d().members == resource.data.members.concat([request.auth.uid])
-            && d().members.size() <= 30)
-          ||
-          // выйти (глава не выходит, а распускает клан)
-          (request.auth.uid in resource.data.members
-            && request.auth.uid != resource.data.owner
-            && d().members.size() == resource.data.members.size() - 1
-            && d().members.toSet() == resource.data.members.toSet().difference([request.auth.uid].toSet()))
-        );
-      allow delete: if signedIn() && request.auth.uid == resource.data.owner;
+      allow update: if signedIn() && (
+        // глава: настройки, заявки, исключение, передача главенства
+        (me() == old().owner
+          && d().diff(old()).affectedKeys().hasOnly(['name', 'tag', 'emb', 'desc', 'game', 'col', 'open', 'max', 'owner', 'members', 'mn', 'req'])
+          && okFields()
+          && d().mn == d().members.size()
+          && d().members.size() <= d().get('max', 30)
+          && d().owner in d().members
+          && d().members.toSet().difference(old().members.toSet().union(oreq().toSet())).size() == 0
+          && d().get('req', []).toSet().difference(oreq().toSet()).size() == 0)
+        ||
+        // вступить в открытый клан
+        (!(me() in old().members)
+          && old().get('open', true) == true
+          && d().diff(old()).affectedKeys().hasOnly(['members', 'mn'])
+          && d().members == old().members.concat([me()])
+          && d().mn == d().members.size()
+          && d().members.size() <= old().get('max', 30))
+        ||
+        // выйти (глава не выходит, а распускает клан или передаёт главенство)
+        (me() in old().members && me() != old().owner
+          && d().diff(old()).affectedKeys().hasOnly(['members', 'mn'])
+          && d().mn == d().members.size()
+          && d().members.size() == old().members.size() - 1
+          && d().members.toSet() == old().members.toSet().difference([me()].toSet()))
+        ||
+        // подать заявку в закрытый клан
+        (!(me() in old().members)
+          && old().get('open', true) == false
+          && !(me() in oreq())
+          && d().diff(old()).affectedKeys().hasOnly(['req'])
+          && d().req == oreq().concat([me()])
+          && d().req.size() <= 50)
+        ||
+        // отменить свою заявку
+        (me() in oreq()
+          && d().diff(old()).affectedKeys().hasOnly(['req'])
+          && d().req.size() == oreq().size() - 1
+          && d().req.toSet() == oreq().toSet().difference([me()].toSet()))
+      );
+      allow delete: if signedIn() && me() == old().owner;
     }
 
     // Чат клана: писать могут только участники
