@@ -1,0 +1,137 @@
+# Game Hub — материалы для Google Play
+
+Картинки лежат в этой же папке:
+- `icon-512.png` — значок приложения 512×512
+- `feature-graphic.png` — обложка 1024×500
+- `01-home.png` … `06-teammates.png` — скриншоты телефона 1080×1920
+
+Политика конфиденциальности: https://san4os12.github.io/game-hub/privacy.html
+Удаление данных (ссылка для анкеты): https://san4os12.github.io/game-hub/privacy.html#delete-ru
+
+---
+
+## Русский (основной язык)
+
+**Название (до 30 символов)**
+Game Hub: тиммейты и кланы
+
+**Краткое описание (до 80 символов)**
+Находи тиммейтов, вступай в кланы, играй с друзьями и ставь рекорды!
+
+**Полное описание**
+Game Hub — место для геймеров, где можно найти команду, собрать клан и весело провести время с друзьями.
+
+🎮 НАХОДИ ТИММЕЙТОВ
+Публикуй объявление «Ищу тиммейта» для CS2, Valorant, Minecraft, Fortnite и других игр. Смотри, кто сейчас онлайн и готов играть.
+
+🛡️ КЛАНЫ
+Создай свой клан с названием, тегом и эмблемой, приглашай друзей по ссылке, общайся в клановом чате и поднимайся в топе кланов.
+
+💬 ДРУЗЬЯ И ЧАТ
+Общий чат, личные сообщения, список друзей и кнопка «Кто в игру?», чтобы быстро собрать компанию. Уведомления о новых сообщениях и вызовах.
+
+⚔️ МИНИ-ИГРЫ С ДРУЗЬЯМИ
+Крестики-нолики и камень-ножницы-бумага в реальном времени.
+
+⚡ ТРЕНАЖЁРЫ И РЕКОРДЫ
+Тест реакции, тренажёр аима и тест скорости кликов. Соревнуйся в общей таблице рекордов.
+
+⭐ ПРОГРЕСС
+Задания дня, опыт, уровни, 16 достижений и бонусы за серию входов.
+
+📋 ТВОИ ИГРЫ
+Бэклог игр со статусами «Хочу / Играю / Прошёл», свои цели в гайде, игровой дневник и полезные расчёты для Minecraft.
+
+🎨 СТИЛЬ ТВОЕЙ ИГРЫ
+11 оформлений: Minecraft, Roblox, Sky, CS 1.6, CS:GO, CS2, Fortnite, Valorant, GTA, Dota 2 и Genshin. Десятки аватарок и эмблем кланов.
+
+Бесплатно, без рекламы и без обязательной регистрации. Вход через Google по желанию — чтобы прогресс был на всех устройствах. Языки: русский, английский, чешский.
+
+Game Hub — независимый фанатский проект и не связан с разработчиками упомянутых игр.
+
+---
+
+## English
+
+**Title (≤30)**
+Game Hub: teammates & clans
+
+**Short description (≤80)**
+Find teammates, join clans, play mini-games with friends and set records!
+
+**Full description**
+Game Hub is a place for gamers to find a team, build a clan and have fun with friends.
+
+🎮 FIND TEAMMATES
+Post “Looking for a teammate” for CS2, Valorant, Minecraft, Fortnite and more. See who is online and ready to play.
+
+🛡️ CLANS
+Create a clan with a name, tag and emblem, invite friends with a link, chat in your clan and climb the clan leaderboard.
+
+💬 FRIENDS & CHAT
+Public chat, direct messages, a friends list and an “Anyone up for a game?” button. Notifications for new messages and challenges.
+
+⚔️ MINI-GAMES WITH FRIENDS
+Real-time tic-tac-toe and rock-paper-scissors.
+
+⚡ TRAINERS & RECORDS
+Reaction test, aim trainer and click speed test, with a shared leaderboard.
+
+⭐ PROGRESS
+Daily quests, XP, levels, 16 achievements and login streak bonuses.
+
+📋 YOUR GAMES
+A game backlog (Want / Playing / Done), your own goals, a gaming diary and handy Minecraft calculators.
+
+🎨 YOUR GAME'S STYLE
+11 themes: Minecraft, Roblox, Sky, CS 1.6, CS:GO, CS2, Fortnite, Valorant, GTA, Dota 2 and Genshin. Dozens of avatars and clan emblems.
+
+Free, no ads, no sign-up required. Optional Google sign-in keeps your progress on all devices. Languages: English, Russian, Czech.
+
+Game Hub is an independent fan project and is not affiliated with the developers of the games mentioned.
+
+---
+
+## Čeština
+
+**Název (≤30)**
+Game Hub: spoluhráči a klany
+
+**Krátký popis (≤80)**
+Najdi spoluhráče, přidej se ke klanu, hraj minihry s přáteli a sbírej rekordy!
+
+**Úplný popis**
+Game Hub je místo pro hráče, kde najdeš tým, založíš klan a zabavíš se s přáteli.
+
+🎮 HLEDEJ SPOLUHRÁČE — inzeráty pro CS2, Valorant, Minecraft, Fortnite a další hry. Uvidíš, kdo je online a chce hrát.
+🛡️ KLANY — založ klan s názvem, tagem a znakem, zvi přátele odkazem a piš v klanovém chatu.
+💬 PŘÁTELÉ A CHAT — veřejný chat, soukromé zprávy, seznam přátel a oznámení.
+⚔️ MINIHRY — piškvorky a kámen-nůžky-papír v reálném čase.
+⚡ TRENAŽÉRY — test reakce, aim trenér a test rychlosti klikání se žebříčkem.
+⭐ POSTUP — denní úkoly, XP, úrovně, 16 úspěchů a bonusy za sérii přihlášení.
+📋 TVOJE HRY — seznam her, vlastní cíle, herní deník.
+🎨 11 STYLŮ — Minecraft, Roblox, Sky, CS 1.6, CS:GO, CS2, Fortnite, Valorant, GTA, Dota 2 a Genshin.
+
+Zdarma, bez reklam a bez povinné registrace. Jazyky: čeština, angličtina, ruština.
+
+Game Hub je nezávislý fanouškovský projekt a není spojen s vývojáři zmíněných her.
+
+---
+
+## Подсказки для анкет в Play Console
+
+**Категория:** Приложения → Социальные сети (или Развлечения). Контакт: Telegram https://t.me/M1_M0_1 и ваша почта.
+
+**Реклама:** приложение рекламу не показывает → «Нет».
+
+**Целевая аудитория:** 13+ (отметьте 13–15, 16–17 и 18+). Не выбирайте «до 13», иначе включатся строгие правила для детей.
+
+**Возрастной рейтинг (анкета IARC):** категория «Социальные сети / общение»; пользователи могут общаться между собой — «Да»; обмен местоположением — «Нет»; покупки — «Нет»; насилия/азартных игр — «Нет».
+
+**Безопасность данных (Data safety):**
+- Собираются ли данные: «Да». Шифруются при передаче: «Да». Пользователь может запросить удаление: «Да» (ссылка выше).
+- Личная информация: **имя** и **адрес эл. почты** — необязательно (только при входе через Google), для «Функциональность приложения» и «Управление аккаунтом». Не передаются третьим лицам.
+- Сообщения: **другие сообщения в приложении** (чаты, личные сообщения) — для «Функциональность приложения».
+- Действия в приложении: **другой контент, созданный пользователем** (ник, объявления, кланы, рекорды) — для «Функциональность приложения».
+- Идентификаторы: **ID пользователя** (идентификатор аккаунта Firebase) — для «Функциональность приложения» и «Управление аккаунтом».
+- Местоположение, контакты, фото, финансы, здоровье: **не собираются**.

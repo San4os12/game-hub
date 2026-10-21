@@ -256,6 +256,9 @@ h1,h2,.dh{font-weight:var(--fhw)}
 .cpsb{width:100%;height:150px;margin-top:10px;font-size:22px;touch-action:manipulation;user-select:none;-webkit-user-select:none}
 .cpsb.go{background:var(--ok);color:#06140c}
 .strk{display:inline-block;margin-left:6px;color:var(--warn);font-weight:800}
+.btnlink{display:flex;align-items:center;justify-content:center;text-decoration:none;min-height:46px;margin-top:10px;border:1px solid var(--line);border-radius:var(--r);color:var(--ink);font:800 15px var(--fb)}
+.mi.btnlink{justify-content:flex-start;margin-top:0}
+button.danger{background:#c0392b;color:#fff}
 </style>
 </head>
 <body>
@@ -290,6 +293,7 @@ h1,h2,.dh{font-weight:var(--fhw)}
     <div class="box"><b data-i="app_t"></b><div class="muted" id="appi"></div><div id="appb"></div></div>
     <div class="box"><b data-i="mu_t"></b><div id="mul" style="margin-top:8px"></div></div>
     <div class="box"><b data-i="acc"></b><div id="acc2" style="margin-top:8px"></div></div>
+    <div class="box"><b data-i="del_t"></b><a class="g w btnlink" href="privacy.html" target="_blank" rel="noopener" data-i="del_pp"></a><button class="w danger" id="delb" type="button" data-i="del_btn"></button></div>
     <div class="box"><b data-i="sup"></b><div class="muted" data-i="sup_hint"></div><div id="supm" style="margin-top:8px"></div></div>
   </div>
 
@@ -398,6 +402,7 @@ h1,h2,.dh{font-weight:var(--fhw)}
   <div class="ds" data-i="m_lang"></div><div class="seg" id="ml"></div>
   <div class="ds" data-i="acc"></div><div id="acc"></div>
   <div class="ds" data-i="sup"></div><div id="supd"></div>
+  <a class="mi btnlink" href="privacy.html" target="_blank" rel="noopener" data-i="del_pp"></a>
 </aside>
 
 <div class="toast" id="toast"></div>
@@ -478,7 +483,7 @@ xo_games:['Мои партии','My games','Moje hry'],xo_none:['Партий п
 xo_my:['Твой ход','Your turn','Jsi na tahu'],xo_their:['Ход соперника',"Opponent's turn",'Na tahu je soupeř'],
 xo_win:['Победа!','You won!','Výhra!'],xo_lose:['Поражение','You lost','Prohra'],xo_draw:['Ничья','Draw','Remíza'],
 xo_again:['Ещё раз','Rematch','Odveta'],xo_vs:['против ','vs ','proti '],xo_pick:['Выбери партию или вызови игрока ниже','Pick a game or challenge a player below','Vyber hru nebo vyzvi hráče níže'],
-ff_addf:['Добавить в друзья','Add friend','Přidat do přátel'],acc:['Аккаунт','Account','Účet'],acc_login:['Войти через Google','Sign in with Google','Přihlásit přes Google'],acc_hint:['Бэклог, гайд, дневник, рекорды и профиль будут сохраняться на всех твоих устройствах','Your backlog, guide, diary, records and profile will be saved on all your devices','Seznam her, průvodce, deník, rekordy a profil se uloží na všech tvých zařízeních'],acc_on:['Синхронизация включена','Sync is on','Synchronizace zapnuta'],acc_sync:['Синхронизация…','Syncing…','Synchronizace…'],acc_out:['Выйти','Sign out','Odhlásit se'],acc_err:['Не удалось войти','Sign-in failed','Přihlášení selhalo'],home:['Главная','Home','Domů'],
+ff_addf:['Добавить в друзья','Add friend','Přidat do přátel'],acc:['Аккаунт','Account','Účet'],acc_login:['Войти через Google','Sign in with Google','Přihlásit přes Google'],acc_hint:['Бэклог, гайд, дневник, рекорды и профиль будут сохраняться на всех твоих устройствах','Your backlog, guide, diary, records and profile will be saved on all your devices','Seznam her, průvodce, deník, rekordy a profil se uloží na všech tvých zařízeních'],acc_on:['Синхронизация включена','Sync is on','Synchronizace zapnuta'],acc_sync:['Синхронизация…','Syncing…','Synchronizace…'],acc_out:['Выйти','Sign out','Odhlásit se'],acc_err:['Не удалось войти','Sign-in failed','Přihlášení selhalo'],home:['Главная','Home','Domů'],del_t:['Данные и конфиденциальность','Data and privacy','Data a soukromí'],del_pp:['Политика конфиденциальности','Privacy policy','Zásady ochrany soukromí'],del_btn:['Удалить мои данные','Delete my data','Smazat moje data'],del_confirm:['Удалить навсегда профиль, рекорды, сообщения, объявления, партии и сам аккаунт? Если ты глава клана, клан будет распущен. Отменить нельзя.','Permanently delete your profile, records, messages, posts, matches and the account itself? If you lead a clan, it will be disbanded. This cannot be undone.','Trvale smazat profil, rekordy, zprávy, inzeráty, hry a samotný účet? Pokud vedeš klan, bude rozpuštěn. Nelze vrátit zpět.'],del_wait:['Удаляю…','Deleting…','Mažu…'],del_done:['Твои данные удалены','Your data has been deleted','Tvoje data byla smazána'],
 nt_t:['Уведомления','Notifications','Oznámení'],nt_hint:['Сообщим о личных сообщениях, вызовах в игры и твоём ходе, когда сайт свёрнут','We will tell you about messages, game invites and your turn when the site is in the background','Dáme vědět o zprávách, výzvách do her a tvém tahu, když je web na pozadí'],
 nt_on:['Включить уведомления','Turn on notifications','Zapnout oznámení'],nt_off:['Выключить','Turn off','Vypnout'],nt_ok:['✓ Уведомления включены','✓ Notifications are on','✓ Oznámení zapnuta'],
 nt_denied:['Уведомления запрещены в настройках браузера','Notifications are blocked in browser settings','Oznámení jsou zakázána v nastavení prohlížeče'],
@@ -1355,6 +1360,25 @@ function doStreak(){var st=ld('hub.streak',{d:'',n:0}),d=today();if(st.d===d)ret
   st.n=(st.d===yd)?(st.n||0)+1:1;st.d=d;sv('hub.streak',st);
   var bonus=Math.min(st.n,7)*5;addXp(bonus);var c=ld('hub.cnt',{});c.streak=Math.max(c.streak||0,st.n);sv('hub.cnt',c);
   toast('🔥 '+t('st_day')+' '+st.n+' · +'+bonus+' XP');checkAch();pushProf();rProg();}
+
+/* ===== Удаление аккаунта и данных ===== */
+function wipeMe(){
+  if(!confirm(t('del_confirm')))return;
+  var b=$('delb');b.disabled=true;b.textContent=t('del_wait');
+  var tasks=[];
+  function q(col,f){return FB.fs.collection(col).where(f,'==',FB.uid).get().then(function(s){var ps=[];
+    s.forEach(function(d){ps.push(FB.fs.collection(col).doc(d.id).delete().catch(function(){}));});return Promise.all(ps);}).catch(function(){});}
+  if(FB){var u=FB.uid,FV=firebase.firestore.FieldValue;
+    if(myClan)tasks.push((myClan.owner===u?FB.fs.collection('clans').doc(myClan.id).delete():FB.fs.collection('clans').doc(myClan.id).update({members:FV.arrayRemove(u),mn:FV.increment(-1)})).catch(function(){}));
+    ['presence','scores','lfg','friends'].forEach(function(c){tasks.push(FB.fs.collection(c).doc(u).delete().catch(function(){}));});
+    if(isGoogle())tasks.push(FB.fs.collection('users').doc(u).delete().catch(function(){}));
+    tasks.push(q('dms','from'),q('messages','uid'),q('clanmsg','uid'),q('xo','x'),q('xo','o'),q('rps','a'),q('rps','b'));}
+  Promise.all(tasks).then(function(){
+    try{localStorage.clear();}catch(e){}
+    var a=FB&&FB.auth,cu=a&&a.currentUser;
+    return cu?cu.delete().catch(function(){return a.signOut();}):null;
+  }).then(function(){alert(t('del_done'));location.replace(baseUrl());});}
+$('delb').onclick=wipeMe;
 
 /* ===== Поддержка (Telegram) ===== */
 var SUPPORT_TG='M1_M0_1';
