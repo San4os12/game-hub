@@ -190,8 +190,8 @@ dice:['Во что поиграть сегодня?','What to play today?','Co d
 pick0:['Добавь игры, которые ещё не прошёл',"Add games you haven't finished",'Přidej hry, které jsi nedohrál'],
 empty:['Пока пусто. Добавь первую игру','Nothing here yet. Add your first game','Zatím prázdno. Přidej první hru'],
 st_want:['Хочу','Want','Chci'],st_play:['Играю','Playing','Hraju'],st_done:['Прошёл','Done','Dohráno'],
-g_title:[': путь прохождения',': progress checklist',': postup hrou'],g_hint:['Отмечай шаги по мере прохождения','Tick steps as you go','Odškrtávej kroky při hraní'],
-g_ph:['Свой шаг','Your own step','Vlastní krok'],
+g_title:[': путь прохождения',': progress checklist',': postup hrou'],g_hint:['Записывай свои цели и отмечай выполненные','Write your own goals and tick them off','Zapiš si vlastní cíle a odškrtávej je'],g_empty:['Пока пусто. Напиши первую цель ниже','Nothing yet. Add your first goal below','Zatím prázdno. Přidej první cíl níže'],
+g_ph:['Что нужно сделать?','What needs doing?','Co je potřeba udělat?'],
 c_t1:['Сколько блоков нужно для постройки','How many blocks you need','Kolik bloků potřebuješ'],
 c_l:['Длина','Length','Délka'],c_w:['Ширина','Width','Šířka'],c_h:['Высота','Height','Výška'],
 c_hollow:['полый внутри (стены, пол, потолок)','hollow (walls, floor, roof)','dutý (stěny, podlaha, strop)'],
@@ -296,9 +296,9 @@ $('bd').onclick=function(){var p=games.filter(function(g){return g.s!=='done';})
 
 /* Гайд */
 var steps=[];
-function loadSteps(){var s=GAMES[game].s;steps=ld('hub.st2.'+s,null)||[1,2,3,4,5].map(function(i){return{k:s+i,d:0};});}
-function saveSteps(){sv('hub.st2.'+GAMES[game].s,steps);}
-function rGuide(){var l=$('gl');l.innerHTML='';
+function loadSteps(){steps=ld('hub.st3.'+GAMES[game].s,[]);if(!Array.isArray(steps))steps=[];}
+function saveSteps(){sv('hub.st3.'+GAMES[game].s,steps);}
+function rGuide(){var l=$('gl');l.innerHTML='';if(!steps.length){l.appendChild(el('div','muted',t('g_empty')));}
   steps.forEach(function(s){var r=el('div','item'),c=document.createElement('input');c.type='checkbox';c.checked=!!s.d;
     c.onchange=function(){s.d=c.checked?1:0;saveSteps();rGuide();};
     var x=el('div','t',s.k?t(s.k):s.t);if(s.d){x.style.textDecoration='line-through';x.style.color='var(--muted)';}
