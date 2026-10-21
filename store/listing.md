@@ -37,10 +37,10 @@ GG Zone — место для геймеров, где можно найти к�
 Тест реакции, тренажёр аима и тест скорости кликов. Соревнуйся в общей таблице рекордов.
 
 ⭐ ПРОГРЕСС
-Задания дня, опыт, уровни, 16 достижений и бонусы за серию входов.
+Задания дня, опыт, уровни, 15 достижений и бонусы за серию входов.
 
 📋 ТВОИ ИГРЫ
-Бэклог игр со статусами «Хочу / Играю / Прошёл», свои цели в гайде, игровой дневник и полезные расчёты для Minecraft.
+Бэклог игр со статусами «Хочу / Играю / Прошёл» и кнопка «Во что поиграть сегодня?».
 
 🎨 СТИЛЬ ТВОЕЙ ИГРЫ
 11 оформлений: Minecraft, Roblox, Sky, CS 1.6, CS:GO, CS2, Fortnite, Valorant, GTA, Dota 2 и Genshin. Десятки аватарок и эмблем кланов.
@@ -78,10 +78,10 @@ Real-time tic-tac-toe and rock-paper-scissors.
 Reaction test, aim trainer and click speed test, with a shared leaderboard.
 
 ⭐ PROGRESS
-Daily quests, XP, levels, 16 achievements and login streak bonuses.
+Daily quests, XP, levels, 15 achievements and login streak bonuses.
 
 📋 YOUR GAMES
-A game backlog (Want / Playing / Done), your own goals, a gaming diary and handy Minecraft calculators.
+A game backlog (Want / Playing / Done) and a “What to play today?” button.
 
 🎨 YOUR GAME'S STYLE
 11 themes: Minecraft, Roblox, Sky, CS 1.6, CS:GO, CS2, Fortnite, Valorant, GTA, Dota 2 and Genshin. Dozens of avatars and clan emblems.
@@ -108,8 +108,8 @@ GG Zone je místo pro hráče, kde najdeš tým, založíš klan a zabavíš se 
 💬 PŘÁTELÉ A CHAT — veřejný chat, soukromé zprávy, nálepky, seznam přátel a oznámení.
 ⚔️ MINIHRY — piškvorky a kámen-nůžky-papír v reálném čase.
 ⚡ TRENAŽÉRY — test reakce, aim trenér a test rychlosti klikání se žebříčkem.
-⭐ POSTUP — denní úkoly, XP, úrovně, 16 úspěchů a bonusy za sérii přihlášení.
-📋 TVOJE HRY — seznam her, vlastní cíle, herní deník.
+⭐ POSTUP — denní úkoly, XP, úrovně, 15 úspěchů a bonusy za sérii přihlášení.
+📋 TVOJE HRY — seznam her a tlačítko „Co dnes hrát?“.
 🎨 11 STYLŮ — Minecraft, Roblox, Sky, CS 1.6, CS:GO, CS2, Fortnite, Valorant, GTA, Dota 2 a Genshin.
 
 Zdarma, bez reklam a bez povinné registrace. Jazyky: čeština, angličtina, ruština.

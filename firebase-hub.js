@@ -92,7 +92,7 @@
         if (m.topic === 'ping' && ms(m.t) < loadedAt - PING_MS) return;
         var cbs = topicCbs[m.topic] || [];
         var msg = { topic: m.topic, peer: m.uid, by: m.uid, isMe: m.uid === me, sameTab: m.uid === me,
-          kind: 'viewer', guest: false, data: { n: str(m.n, 16), m: str(m.m, 200), c: m.c } };
+          kind: 'viewer', guest: false, data: { n: str(m.n, 16), m: str(m.m, 200), c: m.c, t: ms(m.t) } };
         cbs.forEach(function (f) { try { f(msg); } catch (e) {} });
       });
     }, function () {});
