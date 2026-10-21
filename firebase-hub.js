@@ -51,7 +51,7 @@
       Object.keys(docs).forEach(function (id) {
         var d = docs[id];
         if (id === me || now - ms(d.t) < ONLINE_MS) {
-          var pr = { nick: d.nick, st: d.st, game: d.game, c: d.c, vote: d.vote, av: d.av, fav: d.fav, sd: d.sd, br: d.br, ba: d.ba, cl: d.cl, ct: d.ct, xp: d.xp, ach: d.ach };
+          var pr = { nick: d.nick, st: d.st, game: d.game, c: d.c, vote: d.vote, av: d.av, fav: d.fav, sd: d.sd, br: d.br, ba: d.ba, cl: d.cl, ct: d.ct, xp: d.xp, ach: d.ach, bn: d.bn, fr: d.fr, bio: d.bio };
           if (id === me) Object.keys(mine).forEach(function (k) { pr[k] = mine[k]; });
           out.push({ peer: id, by: id, isMe: id === me, sameTab: id === me, kind: 'viewer', guest: false, presence: pr, updatedAt: ms(d.t) });
         }
@@ -68,7 +68,8 @@
         vote: str(mine.vote, 40), t: FV.serverTimestamp(),
         av: int(mine.av, 0, 199), fav: str(mine.fav, 60),
         cl: str(mine.cl, 24), ct: str(mine.ct, 4), xp: int(mine.xp, 0, 9999999), ach: int(mine.ach, 0, 1048575),
-        sd: int(mine.sd, 0, 9999), br: int(mine.br, 0, 99999), ba: int(mine.ba, 0, 999)
+        sd: int(mine.sd, 0, 9999), br: int(mine.br, 0, 99999), ba: int(mine.ba, 0, 999),
+        bn: int(mine.bn, 0, 40), fr: int(mine.fr, 0, 10), bio: str(mine.bio, 120)
       };
       d.nl = d.nick.toLowerCase();
       fs.collection('presence').doc(me).set(d).catch(function () {});
@@ -85,14 +86,17 @@
 
     var loadedAt = Date.now();
     fs.collection('messages').orderBy('t', 'desc').limit(40).onSnapshot(function (snap) {
+      snap.docChanges().filter(function (c) { return c.type === 'removed'; }).forEach(function (c) {
+        (topicCbs.__del || []).forEach(function (f) { try { f({ id: c.doc.id }); } catch (e) {} });
+      });
       var added = snap.docChanges().filter(function (c) { return c.type === 'added'; })
-        .map(function (c) { return c.doc.data(); })
+        .map(function (c) { var d = c.doc.data(); d.__id = c.doc.id; return d; })
         .sort(function (a, b) { return ms(a.t) - ms(b.t); });
       added.forEach(function (m) {
         if (m.topic === 'ping' && ms(m.t) < loadedAt - PING_MS) return;
         var cbs = topicCbs[m.topic] || [];
         var msg = { topic: m.topic, peer: m.uid, by: m.uid, isMe: m.uid === me, sameTab: m.uid === me,
-          kind: 'viewer', guest: false, data: { n: str(m.n, 16), m: str(m.m, 200), c: m.c, t: ms(m.t) } };
+          kind: 'viewer', guest: false, data: { n: str(m.n, 16), m: str(m.m, 200), c: m.c, t: ms(m.t), id: m.__id } };
         cbs.forEach(function (f) { try { f(msg); } catch (e) {} });
       });
     }, function () {});

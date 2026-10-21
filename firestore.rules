@@ -4,15 +4,28 @@ service cloud.firestore {
 
     function signedIn() { return request.auth != null; }
     function d() { return request.resource.data; }
+    // админы: документ admins/{uid} создаётся вручную в консоли Firebase
+    function isAdmin() { return signedIn() && exists(/databases/$(database)/documents/admins/$(request.auth.uid)); }
+    // бан: bans/{uid} с полем until
+    function notBanned() {
+      return !exists(/databases/$(database)/documents/bans/$(request.auth.uid))
+        || get(/databases/$(database)/documents/bans/$(request.auth.uid)).data.until < request.time;
+    }
+    // заблокировал ли получатель отправителя
+    function blockedBy(to) {
+      return exists(/databases/$(database)/documents/blocks/$(to))
+        && request.auth.uid in get(/databases/$(database)/documents/blocks/$(to)).data.ids;
+    }
 
     // Профиль и статус «в сети»: читают все, пишет только сам человек
     match /presence/{uid} {
       allow read: if true;
       allow write: if signedIn() && request.auth.uid == uid
-        && d().keys().hasOnly(['nick', 'nl', 'st', 'game', 'c', 'vote', 't', 'av', 'fav', 'sd', 'br', 'ba', 'cl', 'ct', 'xp', 'ach'])
+        && d().keys().hasOnly(['nick', 'nl', 'st', 'game', 'c', 'vote', 't', 'av', 'fav', 'sd', 'br', 'ba', 'cl', 'ct', 'xp', 'ach', 'bn', 'fr', 'bio'])
         && d().nick is string && d().nick.size() <= 16
         && d().vote is string && d().vote.size() <= 40
         && (!('fav' in d()) || (d().fav is string && d().fav.size() <= 60))
+        && (!('bio' in d()) || (d().bio is string && d().bio.size() <= 120))
         && d().t == request.time;
       allow delete: if signedIn() && request.auth.uid == uid;
     }
@@ -26,9 +39,10 @@ service cloud.firestore {
         && d().topic in ['chat', 'ping']
         && d().n is string && d().n.size() <= 16
         && d().m is string && d().m.size() <= 200
-        && d().t == request.time;
+        && d().t == request.time
+        && notBanned();
       allow update: if false;
-      allow delete: if signedIn() && resource.data.uid == request.auth.uid;
+      allow delete: if signedIn() && (resource.data.uid == request.auth.uid || isAdmin());
     }
 
     // Личный список друзей: видит и меняет только владелец
@@ -40,10 +54,12 @@ service cloud.firestore {
     match /scores/{uid} {
       allow read: if true;
       allow write: if signedIn() && request.auth.uid == uid
-        && d().keys().hasOnly(['nick', 'c', 'av', 'r', 'a'])
+        && d().keys().hasOnly(['nick', 'c', 'av', 'r', 'a', 's', 'sx'])
         && d().nick is string && d().nick.size() <= 16
         && d().r is int && (d().r == 0 || (d().r >= 100 && d().r <= 5000))
-        && d().a is int && d().a >= 0 && d().a <= 60;
+        && d().a is int && d().a >= 0 && d().a <= 60
+        && (!('s' in d()) || (d().s is string && d().s.size() <= 8))
+        && (!('sx' in d()) || (d().sx is int && d().sx >= 0 && d().sx <= 1000000));
       allow delete: if signedIn() && request.auth.uid == uid;
     }
 
@@ -55,8 +71,9 @@ service cloud.firestore {
         && d().nick is string && d().nick.size() <= 16
         && d().game is string && d().game.size() <= 20
         && d().text is string && d().text.size() > 0 && d().text.size() <= 120
-        && d().t == request.time;
-      allow delete: if signedIn() && request.auth.uid == uid;
+        && d().t == request.time
+        && notBanned();
+      allow delete: if signedIn() && (request.auth.uid == uid || isAdmin());
     }
 
     // Личные сообщения: видят только отправитель и получатель
@@ -69,9 +86,10 @@ service cloud.firestore {
         && d().to is string && d().to != d().from
         && d().n is string && d().n.size() <= 16
         && d().m is string && d().m.size() > 0 && d().m.size() <= 300
-        && d().t == request.time;
+        && d().t == request.time
+        && notBanned() && !blockedBy(d().to);
       allow update: if false;
-      allow delete: if signedIn() && resource.data.from == request.auth.uid;
+      allow delete: if signedIn() && (resource.data.from == request.auth.uid || isAdmin());
     }
 
     // Облачное сохранение бэклога, гайда, дневника и профиля: только владелец, вошедший через Google
@@ -104,7 +122,8 @@ service cloud.firestore {
         && d().owner == me()
         && d().members == [me()] && d().mn == 1
         && (!('req' in d()) || d().req.size() == 0)
-        && d().t == request.time;
+        && d().t == request.time
+        && notBanned();
       allow update: if signedIn() && (
         // глава: настройки, заявки, исключение, передача главенства
         (me() == old().owner
@@ -139,13 +158,22 @@ service cloud.firestore {
           && d().req == oreq().concat([me()])
           && d().req.size() <= 50)
         ||
+        // участник приносит клану опыт (не больше 200 за раз) и очки недельной войны
+        (me() in old().members
+          && d().diff(old()).affectedKeys().hasOnly(['xp', 'wxp', 'wk'])
+          && d().xp is int && d().xp > old().get('xp', 0) && d().xp <= old().get('xp', 0) + 200
+          && d().wk is string && d().wk.size() <= 10
+          && d().wxp is int && d().wxp > 0
+          && ((d().wk == old().get('wk', '') && d().wxp <= old().get('wxp', 0) + 200)
+              || (d().wk != old().get('wk', '') && d().wxp <= 200)))
+        ||
         // отменить свою заявку
         (me() in oreq()
           && d().diff(old()).affectedKeys().hasOnly(['req'])
           && d().req.size() == oreq().size() - 1
           && d().req.toSet() == oreq().toSet().difference([me()].toSet()))
       );
-      allow delete: if signedIn() && me() == old().owner;
+      allow delete: if signedIn() && (me() == old().owner || isAdmin());
     }
 
     // Чат клана: писать могут только участники
@@ -158,9 +186,10 @@ service cloud.firestore {
         && request.auth.uid in get(/databases/$(database)/documents/clans/$(d().clan)).data.members
         && d().n is string && d().n.size() <= 16
         && d().m is string && d().m.size() > 0 && d().m.size() <= 200
-        && d().t == request.time;
+        && d().t == request.time
+        && notBanned();
       allow update: if false;
-      allow delete: if signedIn() && resource.data.uid == request.auth.uid;
+      allow delete: if signedIn() && (resource.data.uid == request.auth.uid || isAdmin());
     }
 
     // Камень-ножницы-бумага: каждый делает только свой ход и только один раз
@@ -176,7 +205,8 @@ service cloud.firestore {
         && d().an is string && d().an.size() <= 16
         && d().bn is string && d().bn.size() <= 16
         && d().ma == '' && d().mb == ''
-        && d().t == request.time;
+        && d().t == request.time
+        && !blockedBy(d().b);
       allow update: if rpsPlayer() && d().t == request.time
         && (
           (request.auth.uid == resource.data.a && resource.data.ma == ''
@@ -200,7 +230,8 @@ service cloud.firestore {
         && d().xn is string && d().xn.size() <= 16
         && d().on is string && d().on.size() <= 16
         && d().b == '---------' && d().turn == 'x' && d().w == ''
-        && d().t == request.time;
+        && d().t == request.time
+        && !blockedBy(d().o);
       allow update: if player()
         && resource.data.w == ''
         && ((resource.data.turn == 'x' && request.auth.uid == resource.data.x)
@@ -212,6 +243,74 @@ service cloud.firestore {
         && d().turn in ['x', 'o'] && d().turn != resource.data.turn
         && d().w in ['', 'x', 'o', 'd']
         && d().t == request.time;
+    }
+
+    // Свой баннер профиля: только картинка webp/jpeg/png до ~280 КБ, пишет только владелец
+    match /banners/{uid} {
+      allow read: if true;
+      allow create, update: if signedIn() && request.auth.uid == uid
+        && d().keys().hasOnly(['img', 't'])
+        && d().img is string && d().img.size() < 280000
+        && (d().img.matches('data:image/webp;base64,[A-Za-z0-9+/=]+')
+            || d().img.matches('data:image/jpeg;base64,[A-Za-z0-9+/=]+')
+            || d().img.matches('data:image/png;base64,[A-Za-z0-9+/=]+'))
+        && d().t == request.time
+        && notBanned();
+      allow delete: if signedIn() && (request.auth.uid == uid || isAdmin());
+    }
+
+    // Чёрный список: кого человек заблокировал (используется правилами выше)
+    match /blocks/{uid} {
+      allow read, delete: if signedIn() && request.auth.uid == uid;
+      allow write: if signedIn() && request.auth.uid == uid
+        && d().keys().hasOnly(['ids']) && d().ids is list && d().ids.size() <= 200;
+    }
+
+    // Заявки в друзья: id = отправитель_получатель
+    match /freq/{id} {
+      allow read: if signedIn() && (request.auth.uid == resource.data.from || request.auth.uid == resource.data.to);
+      allow create: if signedIn()
+        && d().keys().hasOnly(['from', 'to', 'fn', 'st', 't'])
+        && d().from == request.auth.uid
+        && d().to is string && d().to != d().from
+        && id == d().from + '_' + d().to
+        && d().fn is string && d().fn.size() <= 16
+        && d().st == 'p'
+        && d().t == request.time
+        && notBanned() && !blockedBy(d().to);
+      allow update: if signedIn() && request.auth.uid == resource.data.to
+        && d().diff(resource.data).affectedKeys().hasOnly(['st']) && d().st == 'a';
+      allow delete: if signedIn() && (request.auth.uid == resource.data.from || request.auth.uid == resource.data.to);
+    }
+
+    // Жалобы: отправить может любой, читают и закрывают только админы
+    match /reports/{id} {
+      allow create: if signedIn()
+        && d().keys().hasOnly(['by', 'target', 'kind', 'ref', 'text', 'reason', 't'])
+        && d().by == request.auth.uid
+        && d().target is string && d().target.size() <= 64
+        && d().kind in ['msg', 'user', 'clan', 'lfg']
+        && d().ref is string && d().ref.size() <= 120
+        && d().text is string && d().text.size() <= 300
+        && d().reason is string && d().reason.size() <= 10
+        && d().t == request.time;
+      allow read, delete: if isAdmin();
+      allow update: if false;
+    }
+
+    // Баны: видят все (чтобы приложение показало предупреждение), выдают только админы
+    match /bans/{uid} {
+      allow read: if signedIn();
+      allow write: if isAdmin()
+        && d().keys().hasOnly(['until', 'reason', 'by'])
+        && d().until is timestamp && d().reason is string && d().reason.size() <= 80;
+      allow delete: if isAdmin();
+    }
+
+    // Список админов: каждый может проверить только себя; меняется только в консоли
+    match /admins/{uid} {
+      allow read: if signedIn() && request.auth.uid == uid;
+      allow write: if false;
     }
   }
 }
