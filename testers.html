@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Стань тестером GG Zone</title>
+<meta name="description" content="GG Zone выходит в Google Play. Нужны 12 тестеров с Android-телефоном на 14 дней — помоги приложению выйти.">
+<meta property="og:title" content="Стань тестером GG Zone">
+<meta property="og:description" content="Тиммейты, пати, кланы и мини-игры. Помоги GG Zone выйти в Google Play — нужны 12 тестеров с Android.">
+<meta property="og:image" content="https://san4os12.github.io/game-hub/og.png">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<style>
+:root{--bg:#12101f;--card:#1d1a30;--card2:#25213d;--ink:#efecff;--muted:#a9a3c9;--accent:#8e6bff;--accent2:#b9a6ff;--line:#2e2a48;--ok:#3ddc97}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+a{color:var(--accent2)}
+.wrap{max-width:820px;margin:0 auto;padding:20px 16px 64px}
+header{display:flex;align-items:center;gap:12px;justify-content:space-between;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--ink);font-weight:800;font-size:20px}
+.brand img{width:40px;height:40px}
+.langs{display:flex;gap:6px}
+.langs button{font:700 14px system-ui,sans-serif;color:var(--ink);background:var(--card);border:1px solid var(--line);border-radius:10px;padding:8px 12px;min-height:40px;cursor:pointer}
+.langs button[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:#fff}
+.hero{margin:28px 0 8px}
+h1{font-size:clamp(30px,7vw,46px);line-height:1.08;margin:0 0 14px;letter-spacing:-.5px}
+.lead{font-size:18px;color:#d9d3f7;max-width:62ch;margin:0}
+.slots{display:grid;grid-template-columns:repeat(6,48px);gap:10px;margin:26px 0 8px}
+.slots span{width:48px;height:48px;border-radius:50%;border:2px dashed #5b4fa0;display:grid;place-items:center;color:var(--accent2);font-weight:800;font-size:20px}
+.slots span:first-child{border:2px solid var(--accent);background:rgba(142,107,255,.18);font-size:22px}
+.slots-cap{color:var(--muted);font-size:14px;margin:0}
+.cta{display:inline-flex;align-items:center;justify-content:center;gap:10px;margin-top:22px;padding:14px 22px;min-height:54px;border-radius:14px;background:var(--accent);color:#fff;text-decoration:none;font-weight:800;font-size:17px;box-shadow:0 10px 30px rgba(142,107,255,.35)}
+.cta:hover{filter:brightness(1.1)}
+.cta:focus-visible,.langs button:focus-visible{outline:3px solid #fff;outline-offset:3px}
+.shots{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;padding:6px 2px 14px;margin:30px -16px 0;padding-left:16px;padding-right:16px}
+.shots img{flex:0 0 auto;width:min(46vw,200px);aspect-ratio:9/16;border-radius:18px;border:1px solid var(--line);scroll-snap-align:start;background:var(--card)}
+h2{font-size:22px;margin:36px 0 12px}
+ol.steps{list-style:none;counter-reset:s;margin:0;padding:0;display:grid;gap:10px}
+ol.steps li{counter-increment:s;display:grid;grid-template-columns:40px 1fr;gap:12px;align-items:start;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px}
+ol.steps li::before{content:counter(s);width:40px;height:40px;border-radius:12px;background:var(--card2);color:var(--accent2);display:grid;place-items:center;font-weight:800;font-size:18px}
+ol.steps b{display:block}
+ol.steps small{color:var(--muted);font-size:14px}
+.qa{display:grid;gap:10px}
+.qa details{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px 16px}
+.qa summary{cursor:pointer;font-weight:700;min-height:28px}
+.qa p{margin:8px 0 0;color:#d9d3f7}
+.contact{margin-top:30px;color:var(--muted);font-size:15px}
+footer{margin-top:40px;color:var(--muted);font-size:13px;display:flex;gap:14px;flex-wrap:wrap}
+[hidden]{display:none!important}
+@media (max-width:380px){.slots{grid-template-columns:repeat(6,40px);gap:8px}.slots span{width:40px;height:40px;font-size:17px}}
+@media (prefers-reduced-motion:no-preference){.slots span:first-child{animation:pulse 2.4s ease-out infinite}@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(142,107,255,.5)}80%,100%{box-shadow:0 0 0 12px rgba(142,107,255,0)}}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <a class="brand" href="./"><img src="favicon.svg" alt="">GG Zone</a>
+  <div class="langs" role="group" aria-label="Language"><button type="button" data-set="ru">RU</button><button type="button" data-set="en">EN</button><button type="button" data-set="cs">CS</button></div>
+</header>
+
+<main>
+<!-- Русский -->
+<div data-l="ru" lang="ru">
+  <section class="hero">
+    <h1>Помоги GG Zone выйти в Google Play</h1>
+    <p class="lead">GG Zone — приложение для геймеров: тиммейты, пати, кланы, чаты и мини-игры. Чтобы выпустить его в Google Play, Google просит 12 тестеров с Android-телефоном на 14 дней. Это бесплатно и займёт минуту.</p>
+    <div class="slots" aria-hidden="true"><span>🎮</span><span>+</span><span>+</span><span>+</span><span>+</span><span>+</span><span>+</span><span>+</span><span>+</span><span>+</span><span>+</span><span>+</span></div>
+    <p class="slots-cap">12 мест для тестеров</p>
+    <a class="cta" href="./#tester">📱 Стать тестером</a>
+  </section>
+  <div class="shots"><img src="beta/s1.webp" alt="Пати и поиск тиммейтов" loading="lazy"><img src="beta/s2.webp" alt="Главная" loading="lazy"><img src="beta/s3.webp" alt="Профиль" loading="lazy"><img src="beta/s4.webp" alt="Чаты" loading="lazy"></div>
+  <h2>Как стать тестером</h2>
+  <ol class="steps">
+    <li><div><b>Открой GG Zone и нажми «Стать тестером»</b><small>Кнопка выше откроет нужное окно. Впиши почту аккаунта Google, с которой заходишь в Google Play.</small></div></li>
+    <li><div><b>Подожди приглашение</b><small>Мы добавим тебя в тест, обычно в течение дня.</small></div></li>
+    <li><div><b>Установи тестовую версию</b><small>В GG Zone появится кнопка «Установить тестовую версию» — она откроет Google Play.</small></div></li>
+    <li><div><b>Не удаляй приложение 14 дней</b><small>Заходи хотя бы иногда — так Google видит, что приложение живое.</small></div></li>
+  </ol>
+  <h2>Вопросы</h2>
+  <div class="qa">
+    <details><summary>Это бесплатно?</summary><p>Да. Тестовая версия бесплатная, без рекламы и покупок.</p></details>
+    <details><summary>Кто увидит мою почту?</summary><p>Только администратор — чтобы добавить её в список тестеров в Google Play. После теста мы её удалим.</p></details>
+    <details><summary>У меня iPhone. Можно помочь?</summary><p>Для теста нужен Android. Но ты можешь позвать друга с Android и пользоваться сайтом GG Zone на iPhone.</p></details>
+    <details><summary>Что будет после 14 дней?</summary><p>Мы отправим приложение на проверку в Google, и после неё GG Zone появится в Google Play для всех. Тестовую версию можно оставить — она обновится сама.</p></details>
+  </div>
+  <p class="contact">Есть вопросы? Напиши в Telegram: <a href="https://t.me/M1_M0_1" target="_blank" rel="noopener">@M1_M0_1</a></p>
+</div>
+
+<!-- English -->
+<div data-l="en" lang="en" hidden>
+  <section class="hero">
+    <h1>Help GG Zone get onto Google Play</h1>
+    <p class="lead">GG Zone is an app for gamers: teammates, parties, clans, chats and mini-games. To publish it on Google Play, Google asks for 12 testers with an Android phone for 14 days. It’s free and takes a minute.</p>
+    <div class="slots" aria-hidden="true"><span>🎮</span><span>+</span><span>+</span><span>+</span><span>+</span><span>+</span><span>+</span><span>+</span><span>+</span><span>+</span><span>+</span><span>+</span></div>
+    <p class="slots-cap">12 tester spots</p>
+    <a class="cta" href="./#tester">📱 Become a tester</a>
+  </section>
+  <div class="shots"><img src="beta/s1.webp" alt="Parties and teammate search" loading="lazy"><img src="beta/s2.webp" alt="Home" loading="lazy"><img src="beta/s3.webp" alt="Profile" loading="lazy"><img src="beta/s4.webp" alt="Chats" loading="lazy"></div>
+  <h2>How to become a tester</h2>
+  <ol class="steps">
+    <li><div><b>Open GG Zone and tap “Become a tester”</b><small>The button above opens the right screen. Enter the Google account email you use on Google Play.</small></div></li>
+    <li><div><b>Wait for the invite</b><small>We’ll add you to the test, usually within a day.</small></div></li>
+    <li><div><b>Install the test version</b><small>An “Install the test version” button will appear in GG Zone — it opens Google Play.</small></div></li>
+    <li><div><b>Keep the app for 14 days</b><small>Open it now and then so Google can see the app is in use.</small></div></li>
+  </ol>
+  <h2>Questions</h2>
+  <div class="qa">
+    <details><summary>Is it free?</summary><p>Yes. The test version is free, with no ads or purchases.</p></details>
+    <details><summary>Who sees my email?</summary><p>Only the admin, to add it to the tester list on Google Play. We delete it after the test.</p></details>
+    <details><summary>I have an iPhone. Can I help?</summary><p>The test needs Android. You can invite a friend with Android and keep using the GG Zone website on your iPhone.</p></details>
+    <details><summary>What happens after 14 days?</summary><p>We send the app to Google for review, and then GG Zone appears on Google Play for everyone. You can keep the test version — it updates by itself.</p></details>
+  </div>
+  <p class="contact">Questions? Message us on Telegram: <a href="https://t.me/M1_M0_1" target="_blank" rel="noopener">@M1_M0_1</a></p>
+</div>
+
+<!-- Čeština -->
+<div data-l="cs" lang="cs" hidden>
+  <section class="hero">
+    <h1>Pomoz GG Zone dostat se na Google Play</h1>
+    <p class="lead">GG Zone je aplikace pro hráče: spoluhráči, party, klany, chaty a minihry. Aby mohla vyjít na Google Play, Google vyžaduje 12 testerů s telefonem s Androidem na 14 dní. Je to zdarma a zabere to minutu.</p>
+    <div class="slots" aria-hidden="true"><span>🎮</span><span>+</span><span>+</span><span>+</span><span>+</span><span>+</span><span>+</span><span>+</span><span>+</span><span>+</span><span>+</span><span>+</span></div>
+    <p class="slots-cap">12 míst pro testery</p>
+    <a class="cta" href="./#tester">📱 Stát se testerem</a>
+  </section>
+  <div class="shots"><img src="beta/s1.webp" alt="Party a hledání spoluhráčů" loading="lazy"><img src="beta/s2.webp" alt="Hlavní stránka" loading="lazy"><img src="beta/s3.webp" alt="Profil" loading="lazy"><img src="beta/s4.webp" alt="Chaty" loading="lazy"></div>
+  <h2>Jak se stát testerem</h2>
+  <ol class="steps">
+    <li><div><b>Otevři GG Zone a klepni na „Stát se testerem“</b><small>Tlačítko výše otevře správné okno. Zadej e-mail účtu Google, který používáš na Google Play.</small></div></li>
+    <li><div><b>Počkej na pozvánku</b><small>Přidáme tě do testu, obvykle do jednoho dne.</small></div></li>
+    <li><div><b>Nainstaluj testovací verzi</b><small>V GG Zone se objeví tlačítko „Nainstalovat testovací verzi“ — otevře Google Play.</small></div></li>
+    <li><div><b>Nech si aplikaci 14 dní</b><small>Občas ji otevři, ať Google vidí, že se používá.</small></div></li>
+  </ol>
+  <h2>Otázky</h2>
+  <div class="qa">
+    <details><summary>Je to zdarma?</summary><p>Ano. Testovací verze je zdarma, bez reklam a nákupů.</p></details>
+    <details><summary>Kdo uvidí můj e-mail?</summary><p>Jen administrátor, aby ho přidal do seznamu testerů v Google Play. Po testu ho smažeme.</p></details>
+    <details><summary>Mám iPhone. Můžu pomoct?</summary><p>Test potřebuje Android. Můžeš ale pozvat kamaráda s Androidem a na iPhonu dál používat web GG Zone.</p></details>
+    <details><summary>Co bude po 14 dnech?</summary><p>Pošleme aplikaci Googlu ke kontrole a pak bude GG Zone na Google Play pro všechny. Testovací verzi si můžeš nechat — aktualizuje se sama.</p></details>
+  </div>
+  <p class="contact">Máš otázku? Napiš na Telegram: <a href="https://t.me/M1_M0_1" target="_blank" rel="noopener">@M1_M0_1</a></p>
+</div>
+</main>
+
+<footer><a href="./">GG Zone</a><a href="privacy.html">Конфиденциальность · Privacy · Soukromí</a><a href="rules.html">Правила · Rules · Pravidla</a></footer>
+</div>
+<script>
+(function(){
+  var L=['ru','en','cs'],q=(/[?&]lang=(ru|en|cs)/.exec(location.search)||[])[1],nav=String(navigator.language||'').slice(0,2).toLowerCase(),saved=null;
+  try{saved=JSON.parse(localStorage.getItem('hub.lang'));}catch(e){}
+  var cur=q||(L.indexOf(saved)>=0?saved:(L.indexOf(nav)>=0?nav:(nav==='uk'||nav==='be'||nav==='kk'?'ru':(nav==='sk'?'cs':'en'))));
+  var T={ru:'Стань тестером GG Zone',en:'Become a GG Zone tester',cs:'Staň se testerem GG Zone'};
+  function set(l){cur=l;[].forEach.call(document.querySelectorAll('[data-l]'),function(e){e.hidden=e.getAttribute('data-l')!==l;});
+    [].forEach.call(document.querySelectorAll('[data-set]'),function(b){b.setAttribute('aria-pressed',String(b.getAttribute('data-set')===l));});
+    document.documentElement.lang=l;document.title=T[l];}
+  [].forEach.call(document.querySelectorAll('[data-set]'),function(b){b.onclick=function(){set(b.getAttribute('data-set'));};});
+  set(cur);
+})();
+</script>
+</body>
+</html>

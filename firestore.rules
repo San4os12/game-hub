@@ -458,6 +458,41 @@ service cloud.firestore {
         || resource.data.t < request.time - duration.value(1, 'd'));
     }
 
+    // Запись в тестеры Google Play: почту видят только сам игрок и админ
+    match /testers/{uid} {
+      allow read: if signedIn() && (request.auth.uid == uid || isAdmin());
+      allow create, update: if signedIn() && request.auth.uid == uid
+        && d().keys().hasOnly(['e', 'n', 'dv', 'l', 't'])
+        && d().e is string && d().e.size() >= 6 && d().e.size() <= 80 && d().e.matches('[^@ ]+@[^@ ]+[.][a-z]{2,12}')
+        && d().n is string && d().n.size() <= 16
+        && d().dv in ['a', 'i', 'd']
+        && d().l is string && d().l.size() <= 3
+        && d().t == request.time;
+      allow delete: if signedIn() && (request.auth.uid == uid || isAdmin());
+    }
+
+    // Настройки приложения (ссылка на тест в Google Play): читают все, меняет только админ
+    match /config/{id} {
+      allow read: if true;
+      allow write: if isAdmin()
+        && d().keys().hasOnly(['test', 't'])
+        && (!('test' in d()) || (d().test is string && d().test.size() <= 200 && d().test.matches('https://play[.]google[.]com/.*')));
+      allow delete: if isAdmin();
+    }
+
+    // Общая статистика: когда игрок впервые зашёл, язык и тип устройства. Видит только админ
+    match /joined/{uid} {
+      function okJ() {
+        return d().l in ['ru', 'en', 'cs'] && d().dv in ['a', 'i', 'd'] && d().pw is bool && d().tw is bool;
+      }
+      allow read: if isAdmin();
+      allow create: if signedIn() && request.auth.uid == uid
+        && d().keys().hasOnly(['t', 'l', 'dv', 'pw', 'tw']) && okJ() && d().t == request.time;
+      allow update: if signedIn() && request.auth.uid == uid
+        && d().diff(resource.data).affectedKeys().hasOnly(['l', 'dv', 'pw', 'tw']) && okJ();
+      allow delete: if signedIn() && (request.auth.uid == uid || isAdmin());
+    }
+
     // Подписка на пуш-уведомления: видит и меняет только сам игрок (сервер читает в обход правил)
     match /push/{uid} {
       allow read, delete: if signedIn() && request.auth.uid == uid;
