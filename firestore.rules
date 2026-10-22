@@ -21,11 +21,17 @@ service cloud.firestore {
     match /presence/{uid} {
       allow read: if true;
       allow write: if signedIn() && request.auth.uid == uid
-        && d().keys().hasOnly(['nick', 'nl', 'st', 'game', 'c', 'vote', 't', 'av', 'fav', 'sd', 'br', 'ba', 'cl', 'ct', 'xp', 'ach', 'bn', 'fr', 'bio'])
+        && d().keys().hasOnly(['nick', 'nl', 'st', 'game', 'c', 'vote', 't', 'av', 'fav', 'sd', 'br', 'ba', 'cl', 'ct', 'xp', 'ach', 'bn', 'fr', 'bio', 'pg', 'ps'])
         && d().nick is string && d().nick.size() <= 16
         && d().vote is string && d().vote.size() <= 40
         && (!('fav' in d()) || (d().fav is string && d().fav.size() <= 60))
         && (!('bio' in d()) || (d().bio is string && d().bio.size() <= 120))
+        && (!('pg' in d()) || (d().pg is string && d().pg.size() <= 20))
+        // защита от накрутки: опыт растёт не быстрее ~1800 в час (+1000 запас); админу можно
+        && (!('xp' in d()) || (d().xp is int && (
+              (resource == null && d().xp <= 3000)
+              || (resource != null && d().xp <= resource.data.get('xp', 0) + 1000 + (request.time.toMillis() - resource.data.t.toMillis()) / 2000)
+              || isAdmin())))
         && d().t == request.time;
       allow delete: if signedIn() && request.auth.uid == uid;
     }
@@ -42,7 +48,9 @@ service cloud.firestore {
         && d().t == request.time
         && notBanned();
       allow update: if false;
-      allow delete: if signedIn() && (resource.data.uid == request.auth.uid || isAdmin());
+      // своё, админ, или любое сообщение старше 7 дней (автоуборка)
+      allow delete: if signedIn() && (resource.data.uid == request.auth.uid || isAdmin()
+        || resource.data.t < request.time - duration.value(7, 'd'));
     }
 
     // Личный список друзей: видит и меняет только владелец
@@ -54,12 +62,17 @@ service cloud.firestore {
     match /scores/{uid} {
       allow read: if true;
       allow write: if signedIn() && request.auth.uid == uid
-        && d().keys().hasOnly(['nick', 'c', 'av', 'r', 'a', 's', 'sx'])
+        && d().keys().hasOnly(['nick', 'c', 'av', 'r', 'a', 's', 'sx', 't'])
+        && (!('t' in d()) || d().t == request.time)
         && d().nick is string && d().nick.size() <= 16
         && d().r is int && (d().r == 0 || (d().r >= 100 && d().r <= 5000))
         && d().a is int && d().a >= 0 && d().a <= 60
         && (!('s' in d()) || (d().s is string && d().s.size() <= 8))
-        && (!('sx' in d()) || (d().sx is int && d().sx >= 0 && d().sx <= 1000000));
+        && (!('sx' in d()) || (d().sx is int && d().sx >= 0 && d().sx <= 1000000))
+        // защита от накрутки сезона
+        && (!('sx' in d()) || d().sx <= 3000 || isAdmin()
+            || (resource != null && resource.data.get('s', '') == d().get('s', '')
+                && d().sx <= resource.data.get('sx', 0) + 1000 + (request.time.toMillis() - resource.data.get('t', request.time).toMillis()) / 2000));
       allow delete: if signedIn() && request.auth.uid == uid;
     }
 
@@ -95,7 +108,8 @@ service cloud.firestore {
         && d().t == request.time
         && notBanned() && !blockedBy(d().to);
       allow update: if false;
-      allow delete: if signedIn() && (resource.data.from == request.auth.uid || isAdmin());
+      allow delete: if signedIn() && (resource.data.from == request.auth.uid || isAdmin()
+        || (resource.data.to == request.auth.uid && resource.data.t < request.time - duration.value(60, 'd')));
     }
 
     // Облачное сохранение бэклога, гайда, дневника и профиля: только владелец, вошедший через Google
@@ -166,7 +180,9 @@ service cloud.firestore {
         ||
         // участник приносит клану опыт (не больше 200 за раз) и очки недельной войны
         (me() in old().members
-          && d().diff(old()).affectedKeys().hasOnly(['xp', 'wxp', 'wk'])
+          && d().diff(old()).affectedKeys().hasOnly(['xp', 'wxp', 'wk', 'lt'])
+          && (!('lt' in d()) || d().lt == request.time)
+          && (old().get('lt', null) == null || request.time > old().lt + duration.value(50, 's'))
           && d().xp is int && d().xp > old().get('xp', 0) && d().xp <= old().get('xp', 0) + 200
           && d().wk is string && d().wk.size() <= 10
           && d().wxp is int && d().wxp > 0
@@ -195,7 +211,8 @@ service cloud.firestore {
         && d().t == request.time
         && notBanned();
       allow update: if false;
-      allow delete: if signedIn() && (resource.data.uid == request.auth.uid || isAdmin());
+      allow delete: if signedIn() && (resource.data.uid == request.auth.uid || isAdmin()
+        || resource.data.t < request.time - duration.value(30, 'd'));
     }
 
     // Камень-ножницы-бумага: каждый делает только свой ход и только один раз
@@ -332,6 +349,19 @@ service cloud.firestore {
         && notBanned() && !blockedBy(d().to);
       allow update: if false;
       allow delete: if signedIn() && (request.auth.uid == resource.data.from || request.auth.uid == resource.data.to || isAdmin());
+    }
+
+    // Приглашения по ссылке: новичок записывает, кто его позвал (один раз)
+    match /refs/{uid} {
+      allow read: if signedIn() && (request.auth.uid == uid || request.auth.uid == resource.data.by);
+      allow create: if signedIn() && request.auth.uid == uid
+        && d().keys().hasOnly(['by', 'n', 't'])
+        && d().by is string && d().by != uid && d().by.size() <= 64
+        && d().n is string && d().n.size() <= 16
+        && d().t == request.time
+        && exists(/databases/$(database)/documents/presence/$(d().by));
+      allow update: if false;
+      allow delete: if signedIn() && request.auth.uid == uid;
     }
   }
 }

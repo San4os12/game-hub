@@ -1,0 +1,28 @@
+{
+  "rules": {
+    "status": {
+      ".read": "auth != null",
+      "$uid": {
+        ".write": "auth != null && auth.uid === $uid",
+        ".validate": "newData.hasChildren(['nick', 't'])",
+        "nick": { ".validate": "newData.isString() && newData.val().length <= 16" },
+        "st": { ".validate": "newData.isString() && newData.val().length <= 2" },
+        "game": { ".validate": "newData.isString() && newData.val().length <= 20" },
+        "vote": { ".validate": "newData.isString() && newData.val().length <= 40" },
+        "cl": { ".validate": "newData.isString() && newData.val().length <= 24" },
+        "ct": { ".validate": "newData.isString() && newData.val().length <= 4" },
+        "pg": { ".validate": "newData.isString() && newData.val().length <= 20" },
+        "c": { ".validate": "newData.isNumber()" },
+        "av": { ".validate": "newData.isNumber()" },
+        "xp": { ".validate": "newData.isNumber()" },
+        "ach": { ".validate": "newData.isNumber()" },
+        "bn": { ".validate": "newData.isNumber()" },
+        "fr": { ".validate": "newData.isNumber()" },
+        "ps": { ".validate": "newData.isNumber()" },
+        "t": { ".validate": "newData.isNumber() && newData.val() <= now" },
+        "$other": { ".validate": false }
+      }
+    },
+    "$other": { ".read": false, ".write": false }
+  }
+}

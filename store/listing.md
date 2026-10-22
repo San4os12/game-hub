@@ -18,40 +18,34 @@
 GG Zone: тиммейты и кланы
 
 **Краткое описание (до 80 символов)**
-Находи тиммейтов, вступай в кланы, играй с друзьями и ставь рекорды!
+Находи тиммейтов, собирай клан, открывай медали и играй с друзьями!
 
 **Полное описание**
 GG Zone — место для геймеров, где можно найти команду, собрать клан и весело провести время с друзьями.
 
 🎮 НАХОДИ ТИММЕЙТОВ
-Публикуй объявление «Ищу тиммейта» для CS2, Valorant, Minecraft, Fortnite и других игр. Смотри, кто сейчас онлайн и готов играть.
+Объявление «Ищу тиммейта» с платформой, микрофоном, языком и рангом. Фильтр по играм, кнопка «Я в деле!» в один клик и уведомления, когда кто-то ищет команду в твою любимую игру. Видно, кто сейчас в сети.
 
-🛡️ КЛАНЫ
-Создай свой клан с названием, тегом и эмблемой, приглашай друзей по ссылке, общайся в клановом чате и поднимайся в топе кланов.
+🛡️ КЛАНЫ И ВОЙНЫ НЕДЕЛИ
+Создай клан с тегом и эмблемой, приглашай друзей прямо в приложении, общайся в клановом чате. Опыт участников идёт в копилку клана — сражайтесь за первое место в недельной войне кланов.
 
 💬 ДРУЗЬЯ И ЧАТ
-Общий чат, личные сообщения, 12 стикеров с лисёнком-геймером, список друзей и кнопка «Кто в игру?», чтобы быстро собрать компанию. Уведомления о новых сообщениях и вызовах.
+Общий чат, личные сообщения, стикеры с лисёнком-геймером, заявки в друзья и статус «Играю в…» — друзья видят, во что ты играешь прямо сейчас.
+
+🏅 36 МЕДАЛЕЙ И СЕЗОНЫ
+Бронзовые, серебряные, золотые и легендарные медали с прогрессом, секретные достижения, уровни, задания дня, ежедневный подарок и рейтинг сезона.
 
 ⚔️ МИНИ-ИГРЫ С ДРУЗЬЯМИ
-Крестики-нолики и камень-ножницы-бумага в реальном времени.
-
-⚡ ТРЕНАЖЁРЫ И РЕКОРДЫ
-Тест реакции, тренажёр аима и тест скорости кликов. Соревнуйся в общей таблице рекордов.
-
-⭐ ПРОГРЕСС И СЕЗОНЫ
-Задания дня, опыт, уровни, 15 достижений, бонусы за серию входов, ежемесячные сезоны и недельные войны кланов.
+Крестики-нолики и камень-ножницы-бумага в реальном времени. Тест реакции, тренажёр аима и тест кликов с таблицей рекордов.
 
 🖼️ ТВОЙ ПРОФИЛЬ
 Баннер-обложка (готовый или своя картинка), рамки аватарки за уровни, «Обо мне» и любимые игры.
 
+🎨 23 СТИЛЯ ОФОРМЛЕНИЯ
+13 игровых тем в цветах любимых игр и 10 особых: Dark Neon, Cyberpunk, Synthwave, Sakura, Matrix и другие.
+
 🛡️ БЕЗОПАСНОЕ ОБЩЕНИЕ
-Заявки в друзья, блокировка игроков, жалобы на сообщения и профили, фильтр мата и модерация.
-
-📋 ТВОИ ИГРЫ
-Бэклог игр со статусами «Хочу / Играю / Прошёл» и кнопка «Во что поиграть сегодня?».
-
-🎨 21 СТИЛЬ ОФОРМЛЕНИЯ
-11 игровых оформлений и 10 особых стилей: Dark Neon, Cyberpunk, Synthwave, Sakura, Matrix и другие. Десятки аватарок и эмблем кланов.
+Правила сообщества, жалобы, блокировка игроков, фильтр мата и модерация.
 
 Бесплатно, без рекламы и без обязательной регистрации. Вход через Google по желанию — чтобы прогресс был на всех устройствах. Языки: русский, английский, чешский.
 
@@ -65,34 +59,34 @@ GG Zone — независимый фанатский проект и не св�
 GG Zone: teammates & clans
 
 **Short description (≤80)**
-Find teammates, join clans, play mini-games with friends and set records!
+Find teammates, build a clan, unlock medals and play with friends!
 
 **Full description**
 GG Zone is a place for gamers to find a team, build a clan and have fun with friends.
 
 🎮 FIND TEAMMATES
-Post “Looking for a teammate” for CS2, Valorant, Minecraft, Fortnite and more. See who is online and ready to play.
+“Looking for a teammate” posts with platform, mic, language and rank. Game filters, one-tap “I’m in!” and alerts when someone looks for players in your favourite game. See who is online right now.
 
-🛡️ CLANS
-Create a clan with a name, tag and emblem, invite friends with a link, chat in your clan and climb the clan leaderboard.
+🛡️ CLANS & WEEKLY WARS
+Create a clan with a tag and emblem, invite friends in the app and chat with your clan. Members’ XP goes to the clan — fight for first place in the weekly clan war.
 
 💬 FRIENDS & CHAT
-Public chat, direct messages, 12 fox gamer stickers, a friends list and an “Anyone up for a game?” button. Notifications for new messages and challenges.
+Public chat, direct messages, fox gamer stickers, friend requests and a “Playing…” status so friends see what you are playing right now.
+
+🏅 36 MEDALS & SEASONS
+Bronze, silver, gold and legendary medals with progress, secret achievements, levels, daily quests, a daily gift and a season leaderboard.
 
 ⚔️ MINI-GAMES WITH FRIENDS
-Real-time tic-tac-toe and rock-paper-scissors.
+Real-time tic-tac-toe and rock-paper-scissors. Reaction test, aim trainer and click speed test with leaderboards.
 
-⚡ TRAINERS & RECORDS
-Reaction test, aim trainer and click speed test, with a shared leaderboard.
+🖼️ YOUR PROFILE
+Cover banner (ready-made or your own picture), avatar frames for levels, “About me” and favourite games.
 
-⭐ PROGRESS
-Daily quests, XP, levels, 15 achievements and login streak bonuses.
+🎨 23 STYLES
+13 game themes in the colours of popular games and 10 special styles: Dark Neon, Cyberpunk, Synthwave, Sakura, Matrix and more.
 
-📋 YOUR GAMES
-A game backlog (Want / Playing / Done) and a “What to play today?” button.
-
-🎨 YOUR GAME'S STYLE
-11 themes: Minecraft, Roblox, Sky, CS 1.6, CS:GO, CS2, Fortnite, Valorant, GTA, Dota 2 and Genshin. Dozens of avatars and clan emblems.
+🛡️ SAFE COMMUNITY
+Community rules, reports, blocking, profanity filter and moderation.
 
 Free, no ads, no sign-up required. Optional Google sign-in keeps your progress on all devices. Languages: English, Russian, Czech.
 
@@ -106,19 +100,19 @@ GG Zone is an independent fan project and is not affiliated with the developers 
 GG Zone: spoluhráči a klany
 
 **Krátký popis (≤80)**
-Najdi spoluhráče, přidej se ke klanu, hraj minihry s přáteli a sbírej rekordy!
+Najdi spoluhráče, založ klan, sbírej medaile a hraj s přáteli!
 
 **Úplný popis**
 GG Zone je místo pro hráče, kde najdeš tým, založíš klan a zabavíš se s přáteli.
 
-🎮 HLEDEJ SPOLUHRÁČE — inzeráty pro CS2, Valorant, Minecraft, Fortnite a další hry. Uvidíš, kdo je online a chce hrát.
-🛡️ KLANY — založ klan s názvem, tagem a znakem, zvi přátele odkazem a piš v klanovém chatu.
-💬 PŘÁTELÉ A CHAT — veřejný chat, soukromé zprávy, nálepky, seznam přátel a oznámení.
-⚔️ MINIHRY — piškvorky a kámen-nůžky-papír v reálném čase.
-⚡ TRENAŽÉRY — test reakce, aim trenér a test rychlosti klikání se žebříčkem.
-⭐ POSTUP — denní úkoly, XP, úrovně, 15 úspěchů a bonusy za sérii přihlášení.
-📋 TVOJE HRY — seznam her a tlačítko „Co dnes hrát?“.
-🎨 11 STYLŮ — Minecraft, Roblox, Sky, CS 1.6, CS:GO, CS2, Fortnite, Valorant, GTA, Dota 2 a Genshin.
+🎮 HLEDEJ SPOLUHRÁČE — inzeráty s platformou, mikrofonem, jazykem a rankem, filtr podle her, „Jdu do toho!“ jedním klepnutím a upozornění na tvé oblíbené hry.
+🛡️ KLANY A TÝDENNÍ VÁLKY — klan s tagem a znakem, pozvánky přátelům, klanový chat a týdenní válka klanů.
+💬 PŘÁTELÉ A CHAT — veřejný chat, soukromé zprávy, nálepky, žádosti o přátelství a stav „Hraju…“.
+🏅 36 MEDAILÍ A SEZÓNY — bronzové, stříbrné, zlaté a legendární medaile, tajné úspěchy, denní úkoly a denní dárek.
+⚔️ MINIHRY — piškvorky a kámen-nůžky-papír v reálném čase, test reakce, aim trenér a test klikání.
+🖼️ TVŮJ PROFIL — banner, rámečky avatara, „O mně“ a oblíbené hry.
+🎨 23 STYLŮ — 13 herních témat a 10 speciálních (Dark Neon, Synthwave, Matrix…).
+🛡️ BEZPEČNÁ KOMUNITA — pravidla, nahlášení, blokování, filtr sprostých slov a moderace.
 
 Zdarma, bez reklam a bez povinné registrace. Jazyky: čeština, angličtina, ruština.
 
@@ -141,7 +135,7 @@ GG Zone je nezávislý fanouškovský projekt a není spojen s vývojáři zmín
 **Безопасность данных (Data safety):**
 - Собираются ли данные: «Да». Шифруются при передаче: «Да». Пользователь может запросить удаление: «Да» (ссылка выше).
 - Личная информация: **имя** и **адрес эл. почты** — необязательно (только при входе через Google), для «Функциональность приложения» и «Управление аккаунтом». Не передаются третьим лицам.
-- Сообщения: **другие сообщения в приложении** (чаты, личные сообщения) — для «Функциональность приложения».
+- Сообщения: **другие сообщения в приложении** (чаты, личные сообщения) — для «Функциональность приложения». Хранятся ограниченное время (см. политику).
 - Действия в приложении: **другой контент, созданный пользователем** (ник, «Обо мне», объявления, кланы, рекорды, жалобы) — для «Функциональность приложения».
 - Фото и видео: **фотографии** — только если игрок сам загрузил картинку-баннер; хранится в его профиле и видна другим игрокам.
 - Идентификаторы: **ID пользователя** (идентификатор аккаунта Firebase) — для «Функциональность приложения» и «Управление аккаунтом».
