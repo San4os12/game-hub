@@ -67,10 +67,16 @@ service cloud.firestore {
     match /lfg/{uid} {
       allow read: if true;
       allow create, update: if signedIn() && request.auth.uid == uid
-        && d().keys().hasOnly(['nick', 'c', 'av', 'game', 'text', 't'])
+        && d().keys().hasOnly(['nick', 'c', 'av', 'game', 'text', 't', 'pl', 'mic', 'lang', 'rank', 'need', 'h'])
         && d().nick is string && d().nick.size() <= 16
         && d().game is string && d().game.size() <= 20
         && d().text is string && d().text.size() > 0 && d().text.size() <= 120
+        && (!('pl' in d()) || d().pl in ['pc', 'ps', 'xb', 'sw', 'mob'])
+        && (!('mic' in d()) || d().mic is bool)
+        && (!('lang' in d()) || (d().lang is string && d().lang.size() <= 5))
+        && (!('rank' in d()) || (d().rank is string && d().rank.size() <= 20))
+        && (!('need' in d()) || (d().need is int && d().need >= 1 && d().need <= 4))
+        && (!('h' in d()) || d().h in [1, 3, 6])
         && d().t == request.time
         && notBanned();
       allow delete: if signedIn() && (request.auth.uid == uid || isAdmin());
@@ -311,6 +317,21 @@ service cloud.firestore {
     match /admins/{uid} {
       allow read: if signedIn() && request.auth.uid == uid;
       allow write: if false;
+    }
+
+    // Отклики «Я в деле!» на объявления: id = автор_откликнувшийся
+    match /lfgr/{id} {
+      allow read: if true;
+      allow create: if signedIn()
+        && d().keys().hasOnly(['to', 'from', 'n', 'av', 'c', 't'])
+        && d().from == request.auth.uid
+        && d().to is string && d().to != d().from
+        && id == d().to + '_' + d().from
+        && d().n is string && d().n.size() <= 16
+        && d().t == request.time
+        && notBanned() && !blockedBy(d().to);
+      allow update: if false;
+      allow delete: if signedIn() && (request.auth.uid == resource.data.from || request.auth.uid == resource.data.to || isAdmin());
     }
   }
 }
