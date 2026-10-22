@@ -363,5 +363,18 @@ service cloud.firestore {
       allow update: if false;
       allow delete: if signedIn() && request.auth.uid == uid;
     }
+
+    // Подписка на пуш-уведомления: видит и меняет только сам игрок (сервер читает в обход правил)
+    match /push/{uid} {
+      allow read, delete: if signedIn() && request.auth.uid == uid;
+      allow create, update: if signedIn() && request.auth.uid == uid
+        && d().keys().hasOnly(['tokens', 'prefs', 'lang', 'gr', 'gd', 't'])
+        && d().tokens is list && d().tokens.size() <= 10
+        && (!('prefs' in d()) || d().prefs is map)
+        && (!('lang' in d()) || (d().lang is string && d().lang.size() <= 3))
+        && (!('gr' in d()) || d().gr is bool)
+        && (!('gd' in d()) || (d().gd is string && d().gd.size() <= 12))
+        && d().t == request.time;
+    }
   }
 }
