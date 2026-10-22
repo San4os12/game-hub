@@ -10,6 +10,8 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -31,4 +33,15 @@ jobs:
         run: |
           printf '%s' "$SA" > "$RUNNER_TEMP/sa.json"
           export GOOGLE_APPLICATION_CREDENTIALS="$RUNNER_TEMP/sa.json"
-          npx -y firebase-tools@13 deploy --only functions --project game-hub-f93c4 --force --non-interactive
+          set -o pipefail
+          npx -y firebase-tools@13 deploy --only functions --project game-hub-f93c4 --force --non-interactive 2>&1 | tee "$RUNNER_TEMP/deploy.txt"
+      - name: Сохранить лог ошибки (ветка ci-logs)
+        if: failure() && steps.key.outputs.skip != '1'
+        run: |
+          mkdir -p "$RUNNER_TEMP/logs"
+          grep -v -i -E 'private_key|BEGIN PRIVATE|token' "$RUNNER_TEMP/deploy.txt" | tail -n 150 > "$RUNNER_TEMP/logs/deploy.txt" || true
+          cd "$RUNNER_TEMP/logs"
+          git init -q && git checkout -q -b ci-logs
+          git config user.email "actions@github.com" && git config user.name "GitHub Actions"
+          git add deploy.txt && git commit -q -m "deploy log $GITHUB_RUN_ID"
+          git push -q -f "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}.git" ci-logs
