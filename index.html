@@ -2480,7 +2480,7 @@ function rNt(){var b=$('ntb');b.innerHTML='';
 
 /* ===== Пуш-уведомления (Firebase Cloud Messaging) =====
    Работают, даже когда приложение закрыто. Нужен публичный ключ VAPID и серверные функции. */
-var VAPID=window.GG_VAPID||'';
+var VAPID=window.GG_VAPID||'BNhRgFWITH15Fm1AhFfDpod2O80vlEz4no7-eC_5CXkxw94qxPl39qJohyK2mZepawxeecNTY5pOsKC1iPPoR-o';
 var PKINDS=['dm','friend','game','lfg','party','clan','gift'],PPREF=Object.assign({},ld('hub.pprefs',{})),PUSHOK=false,PTOKEN='';
 function pushAvail(){try{return !!(VAPID&&FB&&window.firebase&&firebase.messaging&&firebase.messaging.isSupported&&firebase.messaging.isSupported()&&'serviceWorker' in navigator);}catch(e){return false;}}
 function pushOn(){if(!pushAvail()||Notification.permission!=='granted')return;
