@@ -1,5 +1,5 @@
 # Выкладка серверной части (пуш-уведомления) в Firebase Cloud Functions.
-# Нужен секрет репозитория FIREBASE_SA — JSON-ключ сервисного аккаунта Google Cloud.
+# Нужен секрет репозитория FIREBASE_SA или GGKEY — JSON-ключ сервисного аккаунта Google Cloud.
 # Пока секрета нет — шаг выкладки просто пропускается.
 name: Deploy Cloud Functions
 on:
@@ -18,7 +18,7 @@ jobs:
       - name: Проверка ключа
         id: key
         env:
-          SA: ${{ secrets.FIREBASE_SA }}
+          SA: ${{ secrets.FIREBASE_SA || secrets.GGKEY }}
         run: |
           if [ -z "$SA" ]; then echo "skip=1" >> "$GITHUB_OUTPUT"; echo "Секрета FIREBASE_SA нет — выкладку пропускаю"; fi
       - name: Установка зависимостей
@@ -27,7 +27,7 @@ jobs:
       - name: Выкладка в Firebase
         if: steps.key.outputs.skip != '1'
         env:
-          SA: ${{ secrets.FIREBASE_SA }}
+          SA: ${{ secrets.FIREBASE_SA || secrets.GGKEY }}
         run: |
           printf '%s' "$SA" > "$RUNNER_TEMP/sa.json"
           export GOOGLE_APPLICATION_CREDENTIALS="$RUNNER_TEMP/sa.json"
