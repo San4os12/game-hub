@@ -782,6 +782,27 @@ body.dropen .dr #mi .mi,body.dropen .dr #ms .mi{animation:drIn .45s var(--ez) bo
 .rk{display:inline-block}
 .item:hover .rk{animation:bump .5s var(--ez2)}
 @media (prefers-reduced-motion:reduce){#splash{display:none}}
+/* ===== Dark Souls ===== */
+:root[data-game=souls]{--bg:#111213;--card:rgba(27,28,30,.92);--ink:#e4e2dd;--muted:#9c9a96;--accent:#d9622b;--ai:#140a05;--line:#33353a;--ok:#e8a24a;--warn:#e8a24a;--fh:"Cormorant SC",Georgia,serif;--r:2px;--hs:30px;--bw:0px;--bc:transparent;
+  --btnbg:linear-gradient(180deg,#e8743a,#b84a1a 60%,#8c3410);--btnsh:0 8px 22px -10px rgba(232,116,58,.8)}
+:root[data-game=souls] body{background:radial-gradient(700px 380px at 50% 108%,rgba(217,98,43,.30),transparent 70%) fixed,radial-gradient(900px 500px at 50% -220px,rgba(150,155,165,.14),transparent) fixed,#111213}
+:root:is([data-game=souls],[data-game=elden]) body::before{content:'';position:fixed;inset:0;z-index:-1;pointer-events:none;background-repeat:repeat;animation:motes 26s linear infinite}
+:root[data-game=souls] body::before{opacity:.75;background-size:320px 640px;background-image:radial-gradient(2px 2px at 20px 600px,#ff8a3d,transparent),radial-gradient(1.5px 1.5px at 90px 420px,#ffb067,transparent),radial-gradient(2px 2px at 170px 520px,#ff7a2a,transparent),radial-gradient(1.5px 1.5px at 240px 300px,#ffa04d,transparent),radial-gradient(1px 1px at 300px 160px,#ffc48a,transparent),radial-gradient(1.5px 1.5px at 130px 80px,#ff8a3d,transparent)}
+:root[data-game=elden] body::before{opacity:.6;background-size:360px 720px;animation-duration:48s;background-image:radial-gradient(2px 2px at 40px 650px,#f3dc8a,transparent),radial-gradient(1.5px 1.5px at 150px 470px,#e7c766,transparent),radial-gradient(2.5px 2.5px at 260px 560px,rgba(243,220,138,.8),transparent),radial-gradient(1.5px 1.5px at 320px 260px,#f3dc8a,transparent),radial-gradient(1px 1px at 90px 140px,#fff1c2,transparent),radial-gradient(2px 2px at 210px 40px,rgba(231,199,102,.7),transparent)}
+@keyframes motes{from{background-position:0 0}to{background-position:40px -1280px}}
+:root[data-game=souls] :is(h1,h2,.bh b,.pro-n){letter-spacing:1.5px;font-weight:700;color:#efe9df;text-shadow:0 0 18px rgba(232,116,58,.25)}
+:root[data-game=souls] .box{border:1px solid #33353a;box-shadow:inset 0 0 0 1px rgba(232,162,74,.06),0 14px 30px -14px #000}
+:root[data-game=souls] .box::before{content:'';display:block;height:1px;margin:-16px -16px 15px;background:linear-gradient(90deg,transparent,rgba(232,162,74,.45),transparent)}
+:root[data-game=souls] .mi.on{background:linear-gradient(90deg,rgba(217,98,43,.35),transparent);color:#f4c38a;border-color:#8c3410}
+/* ===== Elden Ring ===== */
+:root[data-game=elden]{--bg:#14110a;--card:rgba(32,27,17,.88);--ink:#efe6cf;--muted:#b0a483;--accent:#c9a227;--ai:#1a1405;--line:#3d3520;--ok:#d8c06a;--warn:#e7c766;--fh:"Cormorant SC",Georgia,serif;--r:3px;--hs:30px;--bw:0px;--bc:transparent;
+  --btnbg:linear-gradient(180deg,#e7cf7a,#c9a227 55%,#9a7a17);--btnsh:0 8px 24px -10px rgba(231,199,102,.8)}
+:root[data-game=elden] body{background:radial-gradient(520px 520px at 50% -140px,rgba(231,199,102,.30),transparent 70%) fixed,radial-gradient(1000px 500px at 50% 120%,rgba(70,60,30,.35),transparent) fixed,#14110a}
+:root[data-game=elden] :is(h1,h2,.bh b,.pro-n){color:#e7c766;letter-spacing:1.5px;font-weight:700}
+:root[data-game=elden] .box{border:1px solid #4a3f22;box-shadow:inset 0 0 0 1px rgba(231,199,102,.08),0 0 24px -12px rgba(231,199,102,.35)}
+:root[data-game=elden] .box::before{content:'';display:block;height:1px;margin:-16px -16px 15px;background:linear-gradient(90deg,transparent,#c9a227,transparent)}
+:root[data-game=elden] .mi.on{background:linear-gradient(90deg,rgba(201,162,39,.3),transparent);color:#f1dc94;border-color:#9a7a17}
+:root:is([data-game=souls],[data-game=elden]) .pro .pro-ban::after{background:linear-gradient(180deg,rgba(0,0,0,.2),transparent 35%,transparent 50%,rgba(0,0,0,.7))}
 .top{animation:slideDown .6s var(--ez) both}
 .tabbar{animation:slideUp .6s var(--ez) .1s both}
 @keyframes slideDown{from{transform:translateY(-100%);opacity:0}to{transform:none;opacity:1}}
@@ -1170,7 +1191,7 @@ cs5:['Сыграть соревновательный матч','Play a competit
 var L={ru:0,en:1,cs:2},lang=ld('hub.lang',null)||autoLang(),game=ld('hub.game','minecraft'),cur=(location.hash||'').slice(1);
 if(!(lang in L))lang='ru';
 function t(k){var a=T[k];return a?a[L[lang]]:k;}
-var GAMES={minecraft:{n:'Minecraft',c:'#5b8c2a',s:'mc'},roblox:{n:'Roblox',c:'#00a2ff',s:'rb'},sky:{n:'Sky',c:'#f6c667',s:'sk'},cs16:{n:'CS 1.6',c:'#ffb000',s:'cs'},csgo:{n:'CS:GO',c:'#de9b35',s:'cs'},cs2:{n:'CS2',c:'#4aa3ff',s:'cs'},fortnite:{n:'Fortnite',c:'#9d4dff',s:'fn'},valorant:{n:'Valorant',c:'#ff4655',s:'va'},gta:{n:'GTA',c:'#2fbf71',s:'gt'},dota:{n:'Dota 2',c:'#c23c2a',s:'do'},genshin:{n:'Genshin',c:'#e9c46a',s:'gi'},neon:{n:'Dark Neon',c:'#22e584',s:'st',x:1},cyber:{n:'Cyberpunk',c:'#fcee0a',s:'st',x:1},synth:{n:'Synthwave',c:'#ff3df2',s:'st',x:1},sakura:{n:'Sakura',c:'#ff8fb8',s:'st',x:1},ocean:{n:'Deep Ocean',c:'#1fd1c1',s:'st',x:1},blood:{n:'Blood',c:'#e01e37',s:'st',x:1},matrix:{n:'Matrix',c:'#00ff66',s:'st',x:1},frost:{n:'Frost',c:'#8fd3ff',s:'st',x:1},royal:{n:'Royal Gold',c:'#d4af37',s:'st',x:1},vapor:{n:'Vaporwave',c:'#b967ff',s:'st',x:1}};
+var GAMES={minecraft:{n:'Minecraft',c:'#5b8c2a',s:'mc'},roblox:{n:'Roblox',c:'#00a2ff',s:'rb'},sky:{n:'Sky',c:'#f6c667',s:'sk'},cs16:{n:'CS 1.6',c:'#ffb000',s:'cs'},csgo:{n:'CS:GO',c:'#de9b35',s:'cs'},cs2:{n:'CS2',c:'#4aa3ff',s:'cs'},fortnite:{n:'Fortnite',c:'#9d4dff',s:'fn'},valorant:{n:'Valorant',c:'#ff4655',s:'va'},gta:{n:'GTA',c:'#2fbf71',s:'gt'},dota:{n:'Dota 2',c:'#c23c2a',s:'do'},genshin:{n:'Genshin',c:'#e9c46a',s:'gi'},souls:{n:'Dark Souls',c:'#d9622b',s:'ds'},elden:{n:'Elden Ring',c:'#c9a227',s:'er'},neon:{n:'Dark Neon',c:'#22e584',s:'st',x:1},cyber:{n:'Cyberpunk',c:'#fcee0a',s:'st',x:1},synth:{n:'Synthwave',c:'#ff3df2',s:'st',x:1},sakura:{n:'Sakura',c:'#ff8fb8',s:'st',x:1},ocean:{n:'Deep Ocean',c:'#1fd1c1',s:'st',x:1},blood:{n:'Blood',c:'#e01e37',s:'st',x:1},matrix:{n:'Matrix',c:'#00ff66',s:'st',x:1},frost:{n:'Frost',c:'#8fd3ff',s:'st',x:1},royal:{n:'Royal Gold',c:'#d4af37',s:'st',x:1},vapor:{n:'Vaporwave',c:'#b967ff',s:'st',x:1}};
 if(!GAMES[game])game='minecraft';
 var IC={
 menu:'<path d="M4 6h16M4 12h16M4 18h16"/>',flag:'<path d="M5 21V4"/><path d="M5 4h11l-2 4 2 4H5"/>',trophy:'<path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0z"/><path d="M17 5h3v2a3 3 0 0 1-3 3M7 5H4v2a3 3 0 0 0 3 3"/>',edit:'<path d="M4 20h4L19 9l-4-4L4 16z"/><path d="M14 6l4 4"/>',image:'<rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="9" cy="10" r="2"/><path d="M21 16l-5-5-9 8"/>',upload:'<path d="M12 16V4M7 9l5-5 5 5"/><path d="M4 16v3a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-3"/>',chat:'<path d="M4 5h16v11H9l-5 4z"/><path d="M8 9h8M8 12h5"/>',back:'<path d="M15 5l-7 7 7 7"/>',home:'<path d="M3 11 12 4l9 7"/><path d="M5 10v10h5v-6h4v6h5V10"/>',x:'<path d="M6 6l12 12M18 6 6 18"/>',
@@ -1574,7 +1595,7 @@ function rXo(){
   if(FB)badge();}
 
 /* ===== Аккаунт Google и синхронизация ===== */
-var STEPK=['mc','rb','sk','cs','fn','va','gt','do','gi'];
+var STEPK=['mc','rb','sk','cs','fn','va','gt','do','gi','ds','er'];
 var SYNC_KEYS=['hub.games','hub.diary','hub.best','hub.aim','hub.prof','hub.cnt','hub.mute'].concat(STEPK.map(function(k){return 'hub.st3.'+k;}));
 var syncOn=false,syncBusy=false,cloudT=null;
 function onSaved(k){if(syncOn&&SYNC_KEYS.indexOf(k)>=0)cloudSave();}
@@ -2193,7 +2214,7 @@ function bdgPop(node,key,v){v=+v||0;if(v>(BPV[key]||0)&&BPV[key]!==undefined)nod
 
 /* ===== Профиль: шапка, карточки, редактор баннера ===== */
 var CUSTOM_BN=40,BIMG={};
-var GICON={minecraft:'⛏️',roblox:'🧱',cs:'🎯',counter:'🎯',fortnite:'🪂',valorant:'🔫',gta:'🚗',dota:'🗡️',genshin:'✨',sky:'🕯️',apex:'🦾',pubg:'🍳',league:'⚔️',lol:'⚔️',overwatch:'🛡️',rust:'🪓',terraria:'🌳',brawl:'⭐',standoff:'💥',fifa:'⚽',fc:'⚽',rocket:'🚀',among:'👾',clash:'🏰',warframe:'🤖',hollow:'🦋'};
+var GICON={souls:'🔥',elden:'💍',minecraft:'⛏️',roblox:'🧱',cs:'🎯',counter:'🎯',fortnite:'🪂',valorant:'🔫',gta:'🚗',dota:'🗡️',genshin:'✨',sky:'🕯️',apex:'🦾',pubg:'🍳',league:'⚔️',lol:'⚔️',overwatch:'🛡️',rust:'🪓',terraria:'🌳',brawl:'⭐',standoff:'💥',fifa:'⚽',fc:'⚽',rocket:'🚀',among:'👾',clash:'🏰',warframe:'🤖',hollow:'🦋'};
 function gIcon(n){n=String(n).toLowerCase();for(var k in GICON)if(n.indexOf(k)>=0)return GICON[k];return '🎮';}
 function gCol(n){n=String(n).toLowerCase();for(var k in GAMES){if(GAMES[k].x)continue;if(n.indexOf(k)>=0||n.indexOf(GAMES[k].n.toLowerCase())>=0)return GAMES[k].c;}return '#8b5cf6';}
 function achCount(m){var c=0;if(typeof m!=='number')return 0;ACH.forEach(function(a,i){if(ACH_HIDE.indexOf(a[0])<0&&m&(1<<i))c++;});return c;}
