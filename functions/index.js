@@ -14,19 +14,25 @@ const TXT = {
     sticker: '🦊 Стикер', clanInv: '🛡️ Приглашение в клан', friendReq: 'Заявка в друзья', friendReqB: ' хочет добавить тебя в друзья',
     friendOk: 'Новый друг', friendOkB: ' принял(а) твою заявку', xo: ' вызывает тебя в крестики-нолики', rps: ' вызывает тебя в камень-ножницы-бумагу',
     turn: 'Твой ход', turnB: 'Партия против ', lfg: ' откликнулся на твоё объявление', lfgT: '🙋 Тиммейт нашёлся',
-    clanReq: 'Новая заявка в клан', clanReqB: 'Кто-то хочет вступить в ', gift: '🎁 Подарок дня ждёт', giftB: 'Открой его, пока не наступила полночь!', game: 'Вызов'
+    clanReq: 'Новая заявка в клан', clanReqB: 'Кто-то хочет вступить в ', gift: '🎁 Подарок дня ждёт', giftB: 'Открой его, пока не наступила полночь!', game: 'Вызов',
+    partyInv: '🎮 Приглашение в пати', partyT: '🎮 Пати', partyJoin: ' теперь в твоём пати', partyFull: '🔥 Пати собрано!', partyFullB: 'Все в сборе — заходите в игру',
+    endoT: '⭐ Новая оценка', endoB: ' оценил(а) тебя как тиммейта', good: '🤝 Надёжный', skill: '🎯 Скилл', fun: '😄 Весёлый'
   },
   en: {
     sticker: '🦊 Sticker', clanInv: '🛡️ Clan invitation', friendReq: 'Friend request', friendReqB: ' wants to add you as a friend',
     friendOk: 'New friend', friendOkB: ' accepted your request', xo: ' challenges you to tic-tac-toe', rps: ' challenges you to rock-paper-scissors',
     turn: 'Your turn', turnB: 'Match against ', lfg: ' responded to your post', lfgT: '🙋 Teammate found',
-    clanReq: 'New clan request', clanReqB: 'Someone wants to join ', gift: '🎁 Your daily gift is waiting', giftB: 'Open it before midnight!', game: 'Challenge'
+    clanReq: 'New clan request', clanReqB: 'Someone wants to join ', gift: '🎁 Your daily gift is waiting', giftB: 'Open it before midnight!', game: 'Challenge',
+    partyInv: '🎮 Party invite', partyT: '🎮 Party', partyJoin: ' joined your party', partyFull: '🔥 Party is full!', partyFullB: 'Everyone is here — jump into the game',
+    endoT: '⭐ New rating', endoB: ' rated you as a teammate', good: '🤝 Reliable', skill: '🎯 Skilled', fun: '😄 Fun'
   },
   cs: {
     sticker: '🦊 Nálepka', clanInv: '🛡️ Pozvánka do klanu', friendReq: 'Žádost o přátelství', friendReqB: ' si tě chce přidat do přátel',
     friendOk: 'Nový přítel', friendOkB: ' přijal(a) tvou žádost', xo: ' tě vyzývá na piškvorky', rps: ' tě vyzývá na kámen-nůžky-papír',
     turn: 'Jsi na tahu', turnB: 'Hra proti ', lfg: ' reagoval na tvůj inzerát', lfgT: '🙋 Spoluhráč nalezen',
-    clanReq: 'Nová žádost do klanu', clanReqB: 'Někdo chce vstoupit do ', gift: '🎁 Denní dárek čeká', giftB: 'Otevři ho do půlnoci!', game: 'Výzva'
+    clanReq: 'Nová žádost do klanu', clanReqB: 'Někdo chce vstoupit do ', gift: '🎁 Denní dárek čeká', giftB: 'Otevři ho do půlnoci!', game: 'Výzva',
+    partyInv: '🎮 Pozvánka do party', partyT: '🎮 Party', partyJoin: ' je teď v tvé party', partyFull: '🔥 Party je plná!', partyFullB: 'Všichni jsou tu — hurá do hry',
+    endoT: '⭐ Nové hodnocení', endoB: ' tě ohodnotil(a) jako spoluhráče', good: '🤝 Spolehlivý', skill: '🎯 Skill', fun: '😄 Zábavný'
   }
 };
 
@@ -36,6 +42,7 @@ function preview(m, L) {
   m = String(m || '');
   if (/^\[st:\d+\]$/.test(m)) return L.sticker;
   if (/^\[clan:[A-Za-z0-9_-]+\]$/.test(m)) return L.clanInv;
+  if (/^\[party:[A-Za-z0-9_-]+\]$/.test(m)) return L.partyInv;
   return m.slice(0, 120);
 }
 
@@ -49,7 +56,7 @@ async function nickOf(uid) {
   try { const p = await db.doc('presence/' + uid).get(); return p.exists ? s16(p.data().nick) : '…'; } catch (e) { return '…'; }
 }
 
-/* kind: dm | friend | game | lfg | clan | gift ; build(L) => {title, body} */
+/* kind: dm | friend | game | lfg | party | clan | gift ; build(L) => {title, body} */
 async function push(to, kind, build, sec, from) {
   if (!to || to === from) return null;
   const snap = await db.doc('push/' + to).get();
@@ -79,8 +86,8 @@ async function push(to, kind, build, sec, from) {
 // 💬 личное сообщение (и приглашение в клан)
 exports.onDm = fn.firestore.document('dms/{id}').onCreate((s) => {
   const d = s.data();
-  const clan = /^\[clan:/.test(String(d.m || ''));
-  return push(d.to, clan ? 'clan' : 'dm', (L) => ({ title: s16(d.n), body: preview(d.m, L) }), 'chat', d.from);
+  const clan = /^\[clan:/.test(String(d.m || '')), party = /^\[party:/.test(String(d.m || ''));
+  return push(d.to, clan ? 'clan' : party ? 'party' : 'dm', (L) => ({ title: s16(d.n), body: preview(d.m, L) }), 'chat', d.from);
 });
 
 // 🤝 заявка в друзья / заявку приняли
@@ -116,6 +123,41 @@ exports.onRpsNew = fn.firestore.document('rps/{id}').onCreate((s) => {
 exports.onLfgReply = fn.firestore.document('lfgr/{id}').onCreate((s) => {
   const d = s.data();
   return push(d.to, 'lfg', (L) => ({ title: L.lfgT, body: s16(d.n) + L.lfg }), 'lfg', d.from);
+});
+
+// 🎮 пати: новый игрок — создателю; пати собрано — всем участникам
+const members = (p) => (p && p.m && typeof p.m === 'object' ? Object.keys(p.m) : []);
+const partySize = (p) => ([2, 3, 4, 5, 6, 10].includes(p && p.sz) ? p.sz : 5);
+exports.onPartyUpdate = fn.firestore.document('party/{id}').onUpdate((ch) => {
+  const a = ch.before.data(), b = ch.after.data(), ma = members(a), mb = members(b);
+  const added = mb.filter((u) => !ma.includes(u));
+  if (!added.length) return null;
+  const jobs = [];
+  added.forEach((u) => {
+    if (u === b.o) return;
+    const n = s16(b.m[u] && b.m[u].n);
+    jobs.push(push(b.o, 'party', (L) => ({ title: L.partyT, body: n + L.partyJoin }), 'lfg', u).catch(() => null));
+  });
+  if (ma.length < partySize(b) && mb.length >= partySize(b)) {
+    mb.forEach((u) => { if (!added.includes(u)) jobs.push(push(u, 'party', (L) => ({ title: L.partyFull, body: L.partyFullB }), 'lfg', added[0]).catch(() => null)); });
+  }
+  return Promise.all(jobs);
+});
+// 💬 сообщение в чате пати — остальным участникам
+exports.onPartyMsg = fn.firestore.document('pmsg/{id}').onCreate(async (s) => {
+  const d = s.data();
+  const p = await db.doc('party/' + d.p).get();
+  if (!p.exists) return null;
+  return Promise.all(members(p.data()).filter((u) => u !== d.uid).map((u) =>
+    push(u, 'party', (L) => ({ title: '🎮 ' + s16(d.n), body: preview(d.m, L) }), 'chat', d.uid).catch(() => null)));
+});
+
+// ⭐ новая оценка тиммейта
+exports.onEndo = fn.firestore.document('endo/{id}').onCreate(async (s) => {
+  const d = s.data();
+  const n = await nickOf(d.from);
+  const k = (Array.isArray(d.k) ? d.k : []).filter((x) => ['good', 'skill', 'fun'].includes(x));
+  return push(d.to, 'friend', (L) => ({ title: L.endoT, body: n + L.endoB + (k.length ? ': ' + k.map((x) => L[x]).join(', ') : '') }), 'me', d.from);
 });
 
 // 🛡️ новая заявка в закрытый клан — главе

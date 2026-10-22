@@ -364,6 +364,100 @@ service cloud.firestore {
       allow delete: if signedIn() && request.auth.uid == uid;
     }
 
+    // Игровые аккаунты в профиле (Steam, Riot ID, ранги…): читают все, меняет только владелец
+    match /accs/{uid} {
+      function okA(k) { return !(k in d().a) || (d().a[k] is string && d().a[k].size() > 0 && d().a[k].size() <= 32); }
+      allow read: if true;
+      allow create, update: if signedIn() && request.auth.uid == uid
+        && d().keys().hasOnly(['a', 't'])
+        && d().a is map && d().a.size() <= 16
+        && d().a.keys().hasOnly(['steam', 'riot', 'epic', 'bnet', 'psn', 'xbox', 'sw', 'ea', 'mc', 'rbx', 'ds', 'cs', 'val', 'dota', 'lol'])
+        && okA('steam') && okA('riot') && okA('epic') && okA('bnet') && okA('psn') && okA('xbox') && okA('sw') && okA('ea')
+        && okA('mc') && okA('rbx') && okA('ds') && okA('cs') && okA('val') && okA('dota') && okA('lol')
+        && d().t == request.time
+        && notBanned();
+      allow delete: if signedIn() && (request.auth.uid == uid || isAdmin());
+    }
+
+    // Репутация: оценка тиммейта, id = кто_кого. Одна на пару, можно изменить или снять
+    match /endo/{id} {
+      allow read: if true;
+      allow create, update: if signedIn()
+        && d().keys().hasOnly(['from', 'to', 'k', 't'])
+        && d().from == request.auth.uid
+        && d().to is string && d().to != d().from && d().to.size() <= 64
+        && id == d().from + '_' + d().to
+        && d().k is list && d().k.size() >= 1 && d().k.size() <= 3
+        && d().k.hasOnly(['good', 'skill', 'fun'])
+        && d().k.toSet().size() == d().k.size()
+        && d().t == request.time
+        && notBanned() && !blockedBy(d().to);
+      allow delete: if signedIn() && (resource.data.from == request.auth.uid || resource.data.to == request.auth.uid || isAdmin());
+    }
+
+    // Пати-лобби: id = создатель. Игроки сами занимают свободные места и выходят, создатель может убрать игрока
+    match /party/{id} {
+      function old() { return resource.data; }
+      function me() { return request.auth.uid; }
+      function mem(m, u) {
+        return m[u] is map && m[u].keys().hasOnly(['n', 'av', 'c', 'j'])
+          && m[u].n is string && m[u].n.size() <= 16
+          && (!('av' in m[u]) || m[u].av is int) && (!('c' in m[u]) || m[u].c is int) && (!('j' in m[u]) || m[u].j is int);
+      }
+      allow read: if true;
+      // создатель: создать или изменить своё пати (сам всегда внутри, чужих добавить не может)
+      allow create, update: if signedIn() && id == me()
+        && d().keys().hasOnly(['o', 'n', 'game', 'text', 'sz', 'h', 'mic', 'm', 't', 'u'])
+        && d().o == me()
+        && d().n is string && d().n.size() <= 16
+        && d().game is string && d().game.size() <= 20
+        && d().text is string && d().text.size() <= 80
+        && d().sz in [2, 3, 4, 5, 6, 10]
+        && d().h in [1, 3, 6]
+        && d().mic is bool
+        && d().m is map && me() in d().m && d().m.size() <= d().sz
+        && mem(d().m, me())
+        && d().u == request.time
+        && ((resource == null && d().t == request.time)
+            || (resource != null
+                && (d().t == old().t || d().t == request.time)
+                && d().m.diff(old().get('m', {})).addedKeys().hasOnly([me()])
+                && d().m.diff(old().get('m', {})).changedKeys().hasOnly([me()])))
+        && notBanned();
+      // игрок: занять свободное место или выйти
+      allow update: if signedIn() && id != me()
+        && d().diff(old()).affectedKeys().hasOnly(['m', 'u'])
+        && d().u == request.time
+        && d().m is map
+        && d().m.diff(old().m).affectedKeys().hasOnly([me()])
+        && (
+          (!(me() in old().m) && me() in d().m && mem(d().m, me())
+            && d().m.size() <= old().sz
+            && old().t > request.time - duration.value(old().h, 'h')
+            && notBanned() && !blockedBy(old().o))
+          ||
+          (me() in old().m && !(me() in d().m))
+        );
+      allow delete: if signedIn() && (id == me() || isAdmin() || old().t < request.time - duration.value(7, 'h'));
+    }
+
+    // Чат пати: пишут только участники пати; хранится до 1 дня
+    match /pmsg/{id} {
+      allow read: if signedIn();
+      allow create: if signedIn()
+        && d().keys().hasOnly(['p', 'uid', 'n', 'c', 'm', 't'])
+        && d().uid == request.auth.uid
+        && d().p is string && d().p.size() <= 64
+        && request.auth.uid in get(/databases/$(database)/documents/party/$(d().p)).data.m
+        && d().n is string && d().n.size() <= 16
+        && d().m is string && d().m.size() > 0 && d().m.size() <= 200
+        && d().t == request.time
+        && notBanned();
+      allow update: if false;
+      allow delete: if signedIn() && (resource.data.uid == request.auth.uid || resource.data.p == request.auth.uid || isAdmin()
+        || resource.data.t < request.time - duration.value(1, 'd'));
+    }
+
     // Подписка на пуш-уведомления: видит и меняет только сам игрок (сервер читает в обход правил)
     match /push/{uid} {
       allow read, delete: if signedIn() && request.auth.uid == uid;

@@ -26,6 +26,12 @@ GG Zone — место для геймеров, где можно найти к�
 🎮 НАХОДИ ТИММЕЙТОВ
 Объявление «Ищу тиммейта» с платформой, микрофоном, языком и рангом. Фильтр по играм, кнопка «Я в деле!» в один клик и уведомления, когда кто-то ищет команду в твою любимую игру. Видно, кто сейчас в сети.
 
+🎮 ПАТИ-ЛОББИ
+Собери пати на 2–10 игроков: тиммейты занимают свободные места, у пати свой чат. Зови друзей одним нажатием — когда все в сборе, приложение сообщит.
+
+⭐ РЕПУТАЦИЯ И ИГРОВЫЕ АККАУНТЫ
+Оценивай тиммейтов после игры: «Надёжный», «Скилл», «Весёлый». Добавь в профиль Steam, Riot ID, PSN, Xbox, Discord и ранги — их копируют одним нажатием.
+
 🛡️ КЛАНЫ И ВОЙНЫ НЕДЕЛИ
 Создай клан с тегом и эмблемой, приглашай друзей прямо в приложении, общайся в клановом чате. Опыт участников идёт в копилку клана — сражайтесь за первое место в недельной войне кланов.
 
@@ -67,6 +73,12 @@ GG Zone is a place for gamers to find a team, build a clan and have fun with fri
 🎮 FIND TEAMMATES
 “Looking for a teammate” posts with platform, mic, language and rank. Game filters, one-tap “I’m in!” and alerts when someone looks for players in your favourite game. See who is online right now.
 
+🎮 PARTY LOBBIES
+Start a party for 2–10 players: teammates take the free slots and get a party chat. Invite friends in one tap — the app tells you when everyone is in.
+
+⭐ REPUTATION & GAME ACCOUNTS
+Rate teammates after a match: Reliable, Skilled, Fun. Add Steam, Riot ID, PSN, Xbox, Discord and your ranks to your profile — others copy them in one tap.
+
 🛡️ CLANS & WEEKLY WARS
 Create a clan with a tag and emblem, invite friends in the app and chat with your clan. Members’ XP goes to the clan — fight for first place in the weekly clan war.
 
@@ -106,6 +118,8 @@ Najdi spoluhráče, založ klan, sbírej medaile a hraj s přáteli!
 GG Zone je místo pro hráče, kde najdeš tým, založíš klan a zabavíš se s přáteli.
 
 🎮 HLEDEJ SPOLUHRÁČE — inzeráty s platformou, mikrofonem, jazykem a rankem, filtr podle her, „Jdu do toho!“ jedním klepnutím a upozornění na tvé oblíbené hry.
+🎮 PARTY LOBBY — party pro 2–10 hráčů s volnými místy a vlastním chatem, pozvánky přátelům jedním klepnutím.
+⭐ REPUTACE A HERNÍ ÚČTY — hodnocení spoluhráčů (Spolehlivý, Skill, Zábavný) a Steam, Riot ID, PSN, Xbox, Discord a ranky v profilu.
 🛡️ KLANY A TÝDENNÍ VÁLKY — klan s tagem a znakem, pozvánky přátelům, klanový chat a týdenní válka klanů.
 💬 PŘÁTELÉ A CHAT — veřejný chat, soukromé zprávy, nálepky, žádosti o přátelství a stav „Hraju…“.
 🏅 36 MEDAILÍ A SEZÓNY — bronzové, stříbrné, zlaté a legendární medaile, tajné úspěchy, denní úkoly a denní dárek.
@@ -136,7 +150,7 @@ GG Zone je nezávislý fanouškovský projekt a není spojen s vývojáři zmín
 - Собираются ли данные: «Да». Шифруются при передаче: «Да». Пользователь может запросить удаление: «Да» (ссылка выше).
 - Личная информация: **имя** и **адрес эл. почты** — необязательно (только при входе через Google), для «Функциональность приложения» и «Управление аккаунтом». Не передаются третьим лицам.
 - Сообщения: **другие сообщения в приложении** (чаты, личные сообщения) — для «Функциональность приложения». Хранятся ограниченное время (см. политику).
-- Действия в приложении: **другой контент, созданный пользователем** (ник, «Обо мне», объявления, кланы, рекорды, жалобы) — для «Функциональность приложения».
+- Действия в приложении: **другой контент, созданный пользователем** (ник, «Обо мне», игровые аккаунты, объявления, пати, оценки тиммейтов, кланы, рекорды, жалобы) — для «Функциональность приложения».
 - Фото и видео: **фотографии** — только если игрок сам загрузил картинку-баннер; хранится в его профиле и видна другим игрокам.
 - Идентификаторы: **ID пользователя** (идентификатор аккаунта Firebase) — для «Функциональность приложения» и «Управление аккаунтом».
 - Местоположение, контакты, финансы, здоровье: **не собираются**.
