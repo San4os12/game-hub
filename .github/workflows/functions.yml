@@ -16,7 +16,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
       - name: Проверка ключа
         id: key
         env:
@@ -34,7 +34,10 @@ jobs:
           printf '%s' "$SA" > "$RUNNER_TEMP/sa.json"
           export GOOGLE_APPLICATION_CREDENTIALS="$RUNNER_TEMP/sa.json"
           set -o pipefail
-          npx -y firebase-tools@13 deploy --only functions --project game-hub-f93c4 --force --non-interactive 2>&1 | tee "$RUNNER_TEMP/deploy.txt"
+          # включить нужные сервисы Google Cloud (первый раз)
+          gcloud auth activate-service-account --key-file="$RUNNER_TEMP/sa.json" --quiet 2>&1 | tee -a "$RUNNER_TEMP/deploy.txt" || true
+          gcloud services enable cloudbilling.googleapis.com pubsub.googleapis.com cloudscheduler.googleapis.com eventarc.googleapis.com run.googleapis.com --project game-hub-f93c4 --quiet 2>&1 | tee -a "$RUNNER_TEMP/deploy.txt" || true
+          npx -y firebase-tools@13 deploy --only functions --project game-hub-f93c4 --force --non-interactive 2>&1 | tee -a "$RUNNER_TEMP/deploy.txt"
       - name: Сохранить лог ошибки (ветка ci-logs)
         if: failure() && steps.key.outputs.skip != '1'
         run: |
