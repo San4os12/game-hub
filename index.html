@@ -2141,19 +2141,7 @@ function rClts(){var b=$('clts');if(!b)return;b.innerHTML='';[['m','ct_mem'],['x
 
 /* ===== Баннеры и рамки ===== */
 var BANNERS=[
- ['url(banners/b01.webp) center/cover',1],['url(banners/b02.webp) center/cover',1],['url(banners/b03.webp) center/cover',1],['url(banners/b04.webp) center/cover',1],['url(banners/b05.webp) center/cover',1],['url(banners/b06.webp) center/cover',1],['url(banners/b07.webp) center/cover',2],['url(banners/b08.webp) center/cover',2],['url(banners/b09.webp) center/cover',3],['url(banners/b10.webp) center/cover',3],['url(banners/b11.webp) center/cover',3],['url(banners/b12.webp) center/cover',4],['url(banners/b13.webp) center/cover',5],['url(banners/b14.webp) center/cover',6],
- ['url(banners/castle.svg) center/cover',1],['url(banners/peaks.svg) center/cover',1],['url(banners/blocks.svg) center/cover',1],
- ['url(banners/city.svg) center/cover',3],['url(banners/nebula.svg) center/cover',5],
- ['linear-gradient(135deg,var(--accent),color-mix(in srgb,var(--accent) 40%,#000))',1],
- ['linear-gradient(135deg,#ff7e5f,#feb47b)',1],['linear-gradient(135deg,#00f5a0,#00d9f5)',1],['linear-gradient(135deg,#2193b0,#6dd5ed)',1],
- ['linear-gradient(135deg,#134e5e,#71b280)',1],['linear-gradient(135deg,#f12711,#f5af19)',3],
- ['radial-gradient(circle at 20% 30%,#fff 1px,transparent 1.5px) 0 0/22px 22px,radial-gradient(circle at 70% 60%,#cfd8ff 1px,transparent 1.5px) 0 0/31px 31px,linear-gradient(135deg,#0f0c29,#302b63,#24243e)',3],
- ['repeating-linear-gradient(90deg,rgba(0,255,255,.25) 0 1px,transparent 1px 22px),repeating-linear-gradient(0deg,rgba(255,0,255,.25) 0 1px,transparent 1px 22px),linear-gradient(135deg,#1a0033,#3a0ca3)',5],
- ['conic-gradient(from 45deg,#3c2a1e 25%,#5b8c2a 0 50%,#3c2a1e 0 75%,#5b8c2a 0) 0 0/24px 24px',5],
- ['linear-gradient(135deg,#7f00ff,#e100ff,#00ffcc)',8],['linear-gradient(135deg,#fc00ff,#00dbde)',10],
- ['linear-gradient(120deg,#000 0%,#1f1f1f 40%,#ff2d55 40.5%,#ff2d55 44%,#1f1f1f 44.5%)',12],
- ['linear-gradient(135deg,#bf953f,#fcf6ba,#b38728,#fbf5b7,#aa771c)',20],
- ['radial-gradient(circle at 30% 40%,rgba(255,255,255,.9) 0 2px,transparent 3px) 0 0/40px 40px,linear-gradient(135deg,#e0eafc,#a1c4fd,#c2e9fb)',30]];
+ ['url(banners/b01.webp) center/cover',1],['url(banners/b02.webp) center/cover',1],['url(banners/b03.webp) center/cover',1],['url(banners/b04.webp) center/cover',1],['url(banners/b05.webp) center/cover',1],['url(banners/b06.webp) center/cover',1],['url(banners/b07.webp) center/cover',2],['url(banners/b08.webp) center/cover',2],['url(banners/b09.webp) center/cover',3],['url(banners/b10.webp) center/cover',3],['url(banners/b11.webp) center/cover',3],['url(banners/b12.webp) center/cover',4],['url(banners/b13.webp) center/cover',5],['url(banners/b14.webp) center/cover',6]];
 var FRAMES=[[0,1],[1,5],[2,10],[6,15],[3,20],[5,25],[4,30]];
 function bnCss(i){var b=BANNERS[(typeof i==='number'&&i>=0&&i<BANNERS.length)?i:0];return b[0];}
 function frm(node,p){var f=p&&typeof p.fr==='number'?p.fr:0;if(f>0&&f<=6&&p&&lvl(p.xp)>=(FRAMES.filter(function(x){return x[0]===f;})[0]||[0,999])[1])node.classList.add('fr'+f);return node;}
