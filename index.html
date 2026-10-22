@@ -2502,7 +2502,7 @@ function rApp(){var i=$('appi'),b=$('appb');b.innerHTML='';
   var standalone=window.matchMedia&&matchMedia('(display-mode: standalone)').matches||navigator.standalone;
   if(standalone){i.textContent=t('app_done');return;}
   var ios=/iPad|iPhone|iPod/.test(navigator.userAgent);i.textContent=ios?t('app_ios'):t('app_and');
-  if(!ios&&!ld('hub.twa',0)){var tb=el('button','g w','📱 '+t(TST?'bt_in_t':'bt_join'));tb.type='button';tb.onclick=openBeta;b.appendChild(tb);}
+  if(!ld('hub.twa',0)){var tb=el('button','g w','📱 '+t(TST?'bt_in_t':'bt_join'));tb.type='button';tb.onclick=openBeta;b.appendChild(tb);}
   if(instEv){var x=el('button','w',t('app_btn'));x.type='button';x.onclick=function(){instEv.prompt();instEv.userChoice.then(function(){instEv=null;rApp();});};b.appendChild(x);}}
 
 /* ===== Скрытые игроки ===== */
@@ -2597,7 +2597,7 @@ function msgMenu(o){var sb=$('sbody');sb.innerHTML='';
 
 /* ===== Модерация (только админ) ===== */
 var MDR=[],MDB=[],modOn=false;
-function startMod(){if(modOn)return;modOn=true;startMdTs();lazy('mod',loadStats);rMdSt();
+function startMod(){if(modOn)return;modOn=true;startMdTs();rBeta();lazy('mod',loadStats);rMdSt();
   FB.fs.collection('reports').orderBy('t','desc').limit(60).onSnapshot(function(s){MDR=[];s.forEach(function(d){var x=d.data();x.id=d.id;MDR.push(x);});BADGE.mod=MDR.length;buildDrawer();rMod();},function(){});
   FB.fs.collection('bans').limit(60).onSnapshot(function(s){MDB=[];s.forEach(function(d){var x=d.data();x.id=d.id;MDB.push(x);});rMod();},function(){});}
 function banUser(uid,days,why){var until=days<0?new Date(Date.UTC(2100,0,1)):new Date(Date.now()+days*864e5);
@@ -2987,7 +2987,7 @@ function startBeta(){if(!FB)return;
   FB.fs.collection('testers').doc(FB.uid).get().then(function(s){TST=s.exists?s.data():null;TSTOK=true;rBeta();rApp();},function(){TSTOK=true;rBeta();});
   if(BETA_OPEN){BETA_OPEN=false;setTimeout(openBeta,700);}}
 function rBeta(){var b=$('hmbeta');if(!b)return;b.innerHTML='';
-  var hide=ISTWA||!TSTOK||(!TST&&(ld('hub.betax',0)||IOS));b.hidden=!!hide;if(hide)return;
+  var hide=ISTWA||!TSTOK||(!TST&&(ld('hub.betax',0)||(IOS&&!ADMIN)));b.hidden=!!hide;if(hide)return;
   var h=el('div','bt-h');h.appendChild(el('span','bt-i','📱'));var x=el('div');x.appendChild(el('b',null,t(TST?'bt_in_t':'bt_t')));
   x.appendChild(el('small',null,t(TST?(CFG.test?'bt_in_go':'bt_in_wait'):'bt_s')));h.appendChild(x);
   if(!TST){var cl=el('button','x','×');cl.type='button';cl.setAttribute('aria-label',t('bt_hide'));cl.onclick=function(){sv('hub.betax',1);rBeta();};h.appendChild(cl);}
