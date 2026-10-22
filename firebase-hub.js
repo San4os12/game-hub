@@ -67,7 +67,7 @@
         c: (mine.c >= 0 && mine.c < 32 && mine.c % 1 === 0) ? mine.c : 0,
         vote: str(mine.vote, 40), t: FV.serverTimestamp(),
         av: int(mine.av, 0, 199), fav: str(mine.fav, 60),
-        cl: str(mine.cl, 24), ct: str(mine.ct, 4), xp: int(mine.xp, 0, 9999999), ach: int(mine.ach, 0, 1048575),
+        cl: str(mine.cl, 24), ct: str(mine.ct, 4), xp: int(mine.xp, 0, 9999999), ach: int(mine.ach, 0, 1099511627775),
         sd: int(mine.sd, 0, 9999), br: int(mine.br, 0, 99999), ba: int(mine.ba, 0, 999),
         bn: int(mine.bn, 0, 40), fr: int(mine.fr, 0, 10), bio: str(mine.bio, 120)
       };
