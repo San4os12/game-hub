@@ -651,6 +651,59 @@ button.w:not(.g):not(.danger):not(:disabled),.mrow button:not(.g),#fqb,#ba,#va,#
 .live{box-shadow:0 0 0 1px color-mix(in srgb,var(--ok) 25%,transparent),0 0 16px -6px var(--ok)}
 .tab.on .tic{background:color-mix(in srgb,var(--accent) 22%,transparent);box-shadow:0 0 14px -4px var(--accent)}
 .pb{background:var(--btnbg,var(--accent))}
+/* ===== Палитры по реальным цветам игр ===== */
+/* Minecraft: трава #5B8731, листва #83A344, земля #79553A, коренная порода #3A2E22, цвета чата §a #55FF55, §e #FFFF55, §7 #AAAAAA */
+:root[data-game=minecraft]{--bg:#2a2017;--card:#4a3726;--ink:#ffffff;--muted:#c8c8c8;--accent:#5b8731;--ai:#fff;--line:#1c140c;--ok:#55ff55;--warn:#ffff55;--bc:#1c140c;
+  --btnbg:linear-gradient(180deg,#6a9a3a,#5b8731 50%,#3c6a20)}
+:root[data-game=minecraft] .tab.on .tic{background:rgba(85,255,85,.16)}
+:root[data-game=minecraft] button:not(.g):not(.tab):not(.avb):not(.sw2){text-shadow:2px 2px 0 rgba(0,0,0,.45)}
+/* Roblox: холст #191A1F, кобальт #335FFF, успех #39C582, предупреждение #F2BA2A */
+:root[data-game=roblox]{--bg:#191a1f;--card:#232527;--ink:#ffffff;--muted:#bdbebe;--accent:#335fff;--ai:#fff;--line:#393b3d;--ok:#39c582;--warn:#f2ba2a;
+  --btnbg:linear-gradient(180deg,#4f76ff,#335fff 55%,#2246d6)}
+:root[data-game=roblox] body{border-top:0;background:radial-gradient(900px 480px at 100% -10%,rgba(51,95,255,.16),transparent) fixed,#191a1f}
+/* CS 1.6: классический интерфейс VGUI — олива #4C5844 / #3E4637, текст #D8DED3, выделение #C4B550, HUD #FFA000 */
+:root[data-game=cs16]{--bg:#3e4637;--card:#4c5844;--ink:#dee5d7;--muted:#bcc5ad;--accent:#c4b550;--ai:#292c21;--line:#292c21;--ok:#a7d36c;--warn:#ffa000;--bc:#292c21}
+:root[data-game=cs16] :is(.box,.item,.live,button,input,select,textarea,.dr){border-color:#8c9284 #292c21 #292c21 #8c9284}
+:root[data-game=cs16] button{background:#4c5844;color:#dee5d7}
+:root[data-game=cs16] button:is(.w,#fqb,#ba,#va,#lfgb):not(.g),:root[data-game=cs16] .mrow button:not(.g){color:#fff;background:#5a6851}
+:root[data-game=cs16] :is(button.on,.mi.on){background:#3e4637;color:#c4b550;border-color:#292c21 #8c9284 #8c9284 #292c21}
+:root[data-game=cs16] :is(input,select,textarea){background:#3e4637;border-color:#292c21 #8c9284 #8c9284 #292c21}
+:root[data-game=cs16] #mi .mi::before{color:#c4b550}
+:root[data-game=cs16] .pb{background:#c4b550}
+/* CS:GO: сторона T #DE9B35, сторона CT #5D79AE */
+:root[data-game=csgo]{--accent:#de9b35;--warn:#de9b35;--ok:#7f9ad0;--btnbg:linear-gradient(180deg,#eab05a,#de9b35 55%,#b87a22)}
+/* Fortnite: жёлтый #FCFD00, синий #27C2FF, лобби #1B90DD → #5FCEEA, редкости #A05EC5 / #FF8A00 */
+:root[data-game=fortnite]{--bg:#0e1218;--card:rgba(24,29,39,.86);--ink:#ffffff;--muted:#c3cad5;--accent:#fcfd00;--ai:#0e1218;--line:rgba(255,255,255,.14);--ok:#5dd48a;--warn:#ffd700;
+  --btnbg:linear-gradient(180deg,#fdfe5c,#fcfd00 50%,#ccd000);--btnsh:0 4px 0 #06090d}
+:root[data-game=fortnite] body{background:linear-gradient(180deg,#0b3d91 0%,#1b90dd 62%,#5fceea 100%) fixed}
+:root[data-game=fortnite] .onb{background:linear-gradient(180deg,#0b3d91,#1b90dd 62%,#5fceea)}
+:root[data-game=fortnite] body.chatopen .chv{background:linear-gradient(180deg,#0b3d91,#1b90dd)}
+:root[data-game=fortnite] .box .item{background:rgba(6,9,13,.42)}
+:root[data-game=fortnite] button{box-shadow:0 4px 0 #06090d}
+:root[data-game=fortnite] :is(h1,h2){text-shadow:0 3px 0 #06090d}
+:root[data-game=fortnite] .hexl{background:linear-gradient(#c17ee0,#a05ec5)}
+/* Valorant: #0F1923, поверхности #1A242E / #212D39, красный #FF4655 → #D62836, кость #ECE8E1 */
+:root[data-game=valorant]{--bg:#0f1923;--card:#1a242e;--ink:#ece8e1;--muted:#9aa6b1;--accent:#ff4655;--ai:#fff;--line:rgba(236,232,225,.15);--ok:#22c55e;--warn:#ff4655;
+  --btnbg:linear-gradient(180deg,#ff5866,#ff4655 50%,#d62836)}
+:root[data-game=valorant] .box .item{background:#212d39}
+/* GTA: закат Вайс-Сити (розовый → оранжевый → фиолетовый), деньги #72CC72 */
+:root[data-game=gta]{--bg:#120c1e;--card:rgba(30,19,43,.88);--ink:#fff4f8;--muted:#cdb3d2;--accent:#ff5c8a;--ai:#24060f;--line:#3c2852;--ok:#72cc72;--warn:#ffb347;
+  --btnbg:linear-gradient(90deg,#ff5c8a,#ff8a5c 60%,#ffb347);--btnsh:0 8px 22px -10px rgba(255,92,138,.8)}
+:root[data-game=gta] body{background:linear-gradient(180deg,#120c1e 0%,#2a1240 50%,#6b2346 82%,#c2475a 105%) fixed}
+:root[data-game=gta] .onb{background:linear-gradient(180deg,#120c1e,#2a1240 50%,#6b2346)}
+/* Dota 2: красный #BF2E1A, Radiant #92A525, Dire #C23C2A, золото интерфейса */
+:root[data-game=dota]{--accent:#bf2e1a;--ok:#92a525;--warn:#d8b05e}
+:root[data-game=dota] button{background:linear-gradient(180deg,#d4432c,#bf2e1a 50%,#8a1f10)}
+/* Genshin: панели #3B4255, кремовые кнопки #ECE5D8, золото #D3BC8E */
+:root[data-game=genshin]{--bg:#1d2232;--card:rgba(59,66,85,.62);--ink:#ece5d8;--muted:#bfc5d3;--accent:#d3bc8e;--ai:#3b4255;--line:rgba(211,188,142,.38);--ok:#a5c83b;--warn:#d3bc8e;
+  --btnbg:linear-gradient(180deg,#f6f1e7,#ece5d8);--btnsh:0 4px 14px -6px rgba(0,0,0,.6)}
+:root[data-game=genshin] body{background:linear-gradient(180deg,#1d2232 0%,#2f3a55 55%,#4a5f86 100%) fixed}
+:root[data-game=genshin] .onb{background:linear-gradient(180deg,#1d2232,#2f3a55 55%,#4a5f86)}
+:root[data-game=genshin] body.chatopen .chv{background:linear-gradient(180deg,#1d2232,#2f3a55)}
+:root[data-game=genshin] button:not(.g):not(.mi):not(.tab):not(.avb):not(.sw2){border:2px solid #d3bc8e}
+:root[data-game=genshin] .box{box-shadow:0 0 18px rgba(211,188,142,.12)}
+/* Sky: свет свечей и пастельный закат */
+:root[data-game=sky]{--accent:#ffcf73;--warn:#ffe0a3;--btnbg:linear-gradient(180deg,#ffe2a6,#ffcf73 55%,#f2b350);--btnsh:0 6px 20px -8px rgba(255,207,115,.8)}
 /* ===== Плавность ===== */
 :root{--ez:cubic-bezier(.22,1,.36,1);--ez2:cubic-bezier(.34,1.4,.64,1)}
 html.thx,html.thx *{transition:background-color .45s ease,color .45s ease,border-color .45s ease,box-shadow .45s ease!important}
@@ -1191,7 +1244,7 @@ cs5:['Сыграть соревновательный матч','Play a competit
 var L={ru:0,en:1,cs:2},lang=ld('hub.lang',null)||autoLang(),game=ld('hub.game','minecraft'),cur=(location.hash||'').slice(1);
 if(!(lang in L))lang='ru';
 function t(k){var a=T[k];return a?a[L[lang]]:k;}
-var GAMES={minecraft:{n:'Minecraft',c:'#5b8c2a',s:'mc'},roblox:{n:'Roblox',c:'#00a2ff',s:'rb'},sky:{n:'Sky',c:'#f6c667',s:'sk'},cs16:{n:'CS 1.6',c:'#ffb000',s:'cs'},csgo:{n:'CS:GO',c:'#de9b35',s:'cs'},cs2:{n:'CS2',c:'#4aa3ff',s:'cs'},fortnite:{n:'Fortnite',c:'#9d4dff',s:'fn'},valorant:{n:'Valorant',c:'#ff4655',s:'va'},gta:{n:'GTA',c:'#2fbf71',s:'gt'},dota:{n:'Dota 2',c:'#c23c2a',s:'do'},genshin:{n:'Genshin',c:'#e9c46a',s:'gi'},souls:{n:'Dark Souls',c:'#d9622b',s:'ds'},elden:{n:'Elden Ring',c:'#c9a227',s:'er'},neon:{n:'Dark Neon',c:'#22e584',s:'st',x:1},cyber:{n:'Cyberpunk',c:'#fcee0a',s:'st',x:1},synth:{n:'Synthwave',c:'#ff3df2',s:'st',x:1},sakura:{n:'Sakura',c:'#ff8fb8',s:'st',x:1},ocean:{n:'Deep Ocean',c:'#1fd1c1',s:'st',x:1},blood:{n:'Blood',c:'#e01e37',s:'st',x:1},matrix:{n:'Matrix',c:'#00ff66',s:'st',x:1},frost:{n:'Frost',c:'#8fd3ff',s:'st',x:1},royal:{n:'Royal Gold',c:'#d4af37',s:'st',x:1},vapor:{n:'Vaporwave',c:'#b967ff',s:'st',x:1}};
+var GAMES={minecraft:{n:'Minecraft',c:'#5b8731',s:'mc'},roblox:{n:'Roblox',c:'#335fff',s:'rb'},sky:{n:'Sky',c:'#f6c667',s:'sk'},cs16:{n:'CS 1.6',c:'#c4b550',s:'cs'},csgo:{n:'CS:GO',c:'#de9b35',s:'cs'},cs2:{n:'CS2',c:'#4aa3ff',s:'cs'},fortnite:{n:'Fortnite',c:'#1b90dd',s:'fn'},valorant:{n:'Valorant',c:'#ff4655',s:'va'},gta:{n:'GTA',c:'#ff5c8a',s:'gt'},dota:{n:'Dota 2',c:'#bf2e1a',s:'do'},genshin:{n:'Genshin',c:'#d3bc8e',s:'gi'},souls:{n:'Dark Souls',c:'#d9622b',s:'ds'},elden:{n:'Elden Ring',c:'#c9a227',s:'er'},neon:{n:'Dark Neon',c:'#22e584',s:'st',x:1},cyber:{n:'Cyberpunk',c:'#fcee0a',s:'st',x:1},synth:{n:'Synthwave',c:'#ff3df2',s:'st',x:1},sakura:{n:'Sakura',c:'#ff8fb8',s:'st',x:1},ocean:{n:'Deep Ocean',c:'#1fd1c1',s:'st',x:1},blood:{n:'Blood',c:'#e01e37',s:'st',x:1},matrix:{n:'Matrix',c:'#00ff66',s:'st',x:1},frost:{n:'Frost',c:'#8fd3ff',s:'st',x:1},royal:{n:'Royal Gold',c:'#d4af37',s:'st',x:1},vapor:{n:'Vaporwave',c:'#b967ff',s:'st',x:1}};
 if(!GAMES[game])game='minecraft';
 var IC={
 menu:'<path d="M4 6h16M4 12h16M4 18h16"/>',flag:'<path d="M5 21V4"/><path d="M5 4h11l-2 4 2 4H5"/>',trophy:'<path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0z"/><path d="M17 5h3v2a3 3 0 0 1-3 3M7 5H4v2a3 3 0 0 0 3 3"/>',edit:'<path d="M4 20h4L19 9l-4-4L4 16z"/><path d="M14 6l4 4"/>',image:'<rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="9" cy="10" r="2"/><path d="M21 16l-5-5-9 8"/>',upload:'<path d="M12 16V4M7 9l5-5 5 5"/><path d="M4 16v3a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-3"/>',chat:'<path d="M4 5h16v11H9l-5 4z"/><path d="M8 9h8M8 12h5"/>',back:'<path d="M15 5l-7 7 7 7"/>',home:'<path d="M3 11 12 4l9 7"/><path d="M5 10v10h5v-6h4v6h5V10"/>',x:'<path d="M6 6l12 12M18 6 6 18"/>',
