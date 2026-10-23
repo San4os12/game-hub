@@ -1134,7 +1134,7 @@ svg.emi{width:1.15em;height:1.15em;vertical-align:-.2em;margin-right:.35em;flex:
 .pcs .pch{display:block;font-size:11px;line-height:1.25;color:var(--muted)}
 @media (hover:hover){.pcs:not(.lk):hover{background:rgba(255,255,255,.04)!important}}
 .pcs:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
-.pro.pcol{border:1px solid color-mix(in srgb,var(--pc) 40%,transparent)!important;box-shadow:0 0 0 1px color-mix(in srgb,var(--pc) 8%,transparent),0 12px 40px -14px color-mix(in srgb,var(--pc) 55%,transparent)!important}
+.pro.pcol{border:1px solid color-mix(in srgb,var(--pc) 40%,transparent)!important;box-shadow:0 8px 22px -12px color-mix(in srgb,var(--pc) 50%,transparent)!important}
 .pro.pcol .pro-av .pav:not([class*=fr]),:root[data-game] .pro.pcol .pro-av .pav:not([class*=fr]){box-shadow:0 0 0 2px var(--card),0 0 0 4px var(--pc)!important}
 :root[data-game] #hm1 .hero .pav{box-shadow:0 0 0 2px var(--card),0 0 0 4px var(--pc,var(--accent))}
 /* ===== Главная: раскладка, «В сети», задания, лента клана ===== */
@@ -1173,10 +1173,12 @@ svg.emi{width:1.15em;height:1.15em;vertical-align:-.2em;margin-right:.35em;flex:
 .qa{grid-template-columns:repeat(3,minmax(0,1fr))}
 .empty .ei svg.ei-i{width:26px;height:26px;color:var(--muted)}
 /* подарок доступен: пульсация обводки и покачивание иконки */
-@keyframes giftRing{0%,100%{box-shadow:0 0 0 0 color-mix(in srgb,var(--reward,var(--accent)) 0%,transparent)}50%{box-shadow:0 0 0 4px color-mix(in srgb,var(--reward,var(--accent)) 22%,transparent)}}
+@keyframes giftRing{0%,100%{opacity:0}50%{opacity:1}}
 @keyframes giftWob{0%,70%,100%{transform:none}76%{transform:rotate(-12deg) scale(1.06)}82%{transform:rotate(10deg) scale(1.06)}88%{transform:rotate(-6deg)}94%{transform:rotate(3deg)}}
-#hmchest.rdy{animation:giftRing 2.4s ease-in-out infinite;border-color:color-mix(in srgb,var(--reward,var(--accent)) 45%,transparent)!important}
-:root[data-game] #hmchest.rdy .gfi{animation:giftWob 2.4s ease-in-out infinite!important}
+#hmchest{position:relative}
+#hmchest.rdy{border-color:color-mix(in srgb,var(--reward,var(--accent)) 45%,transparent)!important}
+:root[data-game] #hmchest.rdy::after{content:'';display:block;position:absolute;inset:-1px;border-radius:inherit;pointer-events:none;box-shadow:0 0 0 4px color-mix(in srgb,var(--reward,var(--accent)) 22%,transparent);opacity:0;animation:giftRing 2.4s ease-in-out infinite;will-change:opacity}
+:root[data-game] #hmchest.rdy .gfi{animation:giftWob 2.4s ease-in-out infinite!important;will-change:transform}
 /* нажатие: scale(.97) за 150 мс; наведение — лёгкое осветление */
 button,.item.click,.op,.hq,.hcf-r{transition:transform .15s ease,background-color .2s ease,border-color .2s ease,color .2s ease,filter .2s ease}
 button:active:not(:disabled),.item.click:active,.hq:active,.hcf-r:active,#hmonb .op:active{transform:scale(.97)!important}
@@ -1197,7 +1199,7 @@ button:active:not(:disabled),.item.click:active,.hq:active,.hcf-r:active,#hmonb 
   .hcol{display:block}
   #s-home .hcol>*{break-inside:avoid}
 }
-@media (prefers-reduced-motion:reduce){#hmchest.rdy,#hmchest .gfi,#s-home .hcol>*{animation:none!important}}
+@media (prefers-reduced-motion:reduce){#hmchest.rdy::after,#hmchest .gfi,#s-home .hcol>*{animation:none!important}}
 /* установка приложения */
 #hminst{display:flex;align-items:center;padding:0;overflow:hidden}
 .inst-p{margin-top:14px;padding:12px 14px;border:1px solid var(--line);border-radius:14px}
@@ -1210,6 +1212,10 @@ details.inst-p[open]>summary::after{transform:rotate(-135deg)}
 .inst-s{list-style:none;margin:10px 0 0;padding:0;display:grid;gap:8px}
 .inst-s li{display:flex;align-items:center;gap:12px;font-size:14px;line-height:1.35}
 .inst-s .nf-i{width:36px;height:36px}.inst-s .nf-i svg.i{width:18px;height:18px}
+/* свечения без анимации — меньше нагрузка на телефон */
+.hex.r3:not(.lk),.ach.r3:not(.off) .amd.img{animation:none!important;filter:drop-shadow(0 0 8px rgba(199,125,255,.75))}
+.ach.r3 .amd{animation:none!important;box-shadow:0 0 0 3px #3b1460,0 0 0 5px rgba(199,125,255,.8),0 0 12px rgba(199,125,255,.6)}
+.avd .odot,#chl .bdg,.pro-dot,.dot,.pav[class*=fr]{animation:none!important}
 /* ===== Четыре расцветки: отличаются только цветами ===== */
 :root[data-game=frost]{--bg:#0A0F16;--card:#121A24;--card-hover:#18222F;--border:rgba(140,180,220,.10);--accent:#4AA3FF;--accent-hover:#6BB6FF;--glow:rgba(74,163,255,.25);--reward:#E4A84B;--on-reward:#1A1205}
 :root[data-game=royal]{--bg:#0E0D0B;--card:#1A1814;--card-hover:#221F1A;--accent:#D4AF37;--accent-hover:#E6C350;--glow:rgba(212,175,55,.22);--ai:#14110A}
