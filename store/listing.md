@@ -48,8 +48,8 @@ GG Zone — место для геймеров, где можно найти к�
 🖼️ ТВОЙ ПРОФИЛЬ
 Баннер-обложка (готовый или своя картинка), рамки аватарки за уровни, «Обо мне» и любимые игры.
 
-🎨 24 СТИЛЯ ОФОРМЛЕНИЯ
-14 игровых тем в цветах любимых игр и 10 особых: Dark Neon, Cyberpunk, Synthwave, Sakura, Matrix и другие.
+🎨 25 СТИЛЕЙ ОФОРМЛЕНИЯ
+Спокойный Minimal по умолчанию, 14 игровых тем в цветах любимых игр и 10 особых: Dark Neon, Cyberpunk, Synthwave, Sakura, Matrix и другие.
 
 🛡️ БЕЗОПАСНОЕ ОБЩЕНИЕ
 Правила сообщества, жалобы, блокировка игроков, фильтр мата и модерация.
@@ -95,8 +95,8 @@ Real-time tic-tac-toe and rock-paper-scissors. Reaction test, aim trainer and cl
 🖼️ YOUR PROFILE
 Cover banner (ready-made or your own picture), avatar frames for levels, “About me” and favourite games.
 
-🎨 24 STYLES
-14 game themes in the colours of popular games and 10 special styles: Dark Neon, Cyberpunk, Synthwave, Sakura, Matrix and more.
+🎨 25 STYLES
+A calm Minimal look by default, 14 game themes in the colours of popular games and 10 special styles: Dark Neon, Cyberpunk, Synthwave, Sakura, Matrix and more.
 
 🛡️ SAFE COMMUNITY
 Community rules, reports, blocking, profanity filter and moderation.
@@ -126,7 +126,7 @@ GG Zone je místo pro hráče, kde najdeš tým, založíš klan a zabavíš se 
 🏅 36 MEDAILÍ A SEZÓNY — bronzové, stříbrné, zlaté a legendární medaile, tajné úspěchy, denní úkoly a denní dárek.
 ⚔️ MINIHRY — piškvorky a kámen-nůžky-papír v reálném čase, test reakce, aim trenér a test klikání.
 🖼️ TVŮJ PROFIL — banner, rámečky avatara, „O mně“ a oblíbené hry.
-🎨 24 STYLŮ — 14 herních témat a 10 speciálních (Dark Neon, Synthwave, Matrix…).
+🎨 25 STYLŮ — klidný Minimal jako výchozí, 14 herních témat a 10 speciálních (Dark Neon, Synthwave, Matrix…).
 🛡️ BEZPEČNÁ KOMUNITA — pravidla, nahlášení, blokování, filtr sprostých slov a moderace.
 
 Zdarma, bez reklam a bez povinné registrace. Jazyky: čeština, angličtina, ruština.
