@@ -1,6 +1,6 @@
-/* GG Zone — серверная часть: пуш-уведомления (версия 2026-10-23b).
+/* GG Zone — серверная часть: пуш-уведомления (версия 2026-10-23c).
    Срабатывает на новые документы в Firestore и шлёт пуш получателю через Firebase Cloud Messaging.
-   Учитывает: настройки пушей игрока, чёрный список, язык. */
+   Учитывает: настройки пушей игрока, чёрный список, «без звука» для чатов и людей, «не беспокоить», язык. */
 const functions = require('firebase-functions/v1');
 const admin = require('firebase-admin');
 
@@ -56,15 +56,19 @@ async function nickOf(uid) {
   try { const p = await db.doc('presence/' + uid).get(); return p.exists ? s16(p.data().nick) : '…'; } catch (e) { return '…'; }
 }
 
-/* kind: dm | friend | game | lfg | party | clan | gift ; build(L) => {title, body} */
-async function push(to, kind, build, sec, from) {
+/* kind: dm | friend | game | lfg | party | clan | gift ; build(L) => {title, body} ; chat — id чата (party), который можно выключить */
+async function push(to, kind, build, sec, from, chat) {
   if (!to || to === from) return null;
   const snap = await db.doc('push/' + to).get();
   if (!snap.exists) return null;
   const d = snap.data();
   const tokens = (Array.isArray(d.tokens) ? d.tokens : []).filter((t) => typeof t === 'string' && t.length > 20).slice(-10);
   if (!tokens.length) return null;
-  if (d.prefs && d.prefs[kind] === false) return null;
+  const P = d.prefs || {};
+  if (P[kind] === false) return null;
+  if (typeof P.dnd === 'number' && Date.now() < P.dnd) return null; // «не беспокоить»
+  const mu = Array.isArray(P.mu) ? P.mu : [];
+  if ((from && mu.includes(from)) || (chat && mu.includes(chat))) return null; // «без звука»
   if (await isBlocked(to, from)) return null;
   const L = TXT[d.lang] || TXT.ru;
   const m = build(L);
@@ -149,7 +153,7 @@ exports.onPartyMsg = fn.firestore.document('pmsg/{id}').onCreate(async (s) => {
   const p = await db.doc('party/' + d.p).get();
   if (!p.exists) return null;
   return Promise.all(members(p.data()).filter((u) => u !== d.uid).map((u) =>
-    push(u, 'party', (L) => ({ title: '🎮 ' + s16(d.n), body: preview(d.m, L) }), 'chat', d.uid).catch(() => null)));
+    push(u, 'party', (L) => ({ title: '🎮 ' + s16(d.n), body: preview(d.m, L) }), 'chat', d.uid, 'party').catch(() => null)));
 });
 
 // ⭐ новая оценка тиммейта
