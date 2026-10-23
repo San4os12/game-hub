@@ -1305,6 +1305,8 @@ svg.emi{width:1.15em;height:1.15em;vertical-align:-.2em;margin-right:.35em;flex:
 @media (max-width:380px){:root[data-game=min] .metb button{padding:0 10px;font-size:14px}}
 .qmc{break-inside:avoid;-webkit-column-break-inside:avoid;display:flow-root}
 :root[data-game=min] .rk.rk3{color:var(--text);font-weight:600}
+:root[data-game=min] .pty-ok{background:var(--card-hover);color:var(--text);border:0}
+:root[data-game=min] .pty-ok svg.emi{color:var(--accent)}
 .pubav svg.i{width:22px;height:22px;color:var(--ink)}
 :root[data-game=min] .pubav{background:var(--card-hover);border-color:transparent}
 </style>
@@ -3425,7 +3427,7 @@ function openNotif(){var sb=$('sbody');dmWith=null;dmList=null;sb.innerHTML='';s
 
 /* ===== Иконки вместо эмодзи в элементах интерфейса (тексты людей не трогаем) ===== */
 var EMRE=new RegExp('('+Object.keys(EMI).sort(function(a,b){return b.length-a.length;}).map(function(k){return k.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');}).join('|')+')\uFE0F?','g');
-var EMOK='.chl small,.lfleft,.nws-l li,.emk,.rk,.qm-r small,.rpu-i,.pro-sub,.strk,button,a.btnlink,.chip,.hchip,h2,.bh,.dh,.ds,.mg,.mi,.muted,.empty,label,.pv-note,.bt-ok,.box>b,.sysm,.pill,.toast,.rws,.rwt,.qm-s,.bt-x,.nwi,.nwc small,.set-h,.lchk span,th,.mdt';
+var EMOK='.pty-ok,.chl small,.lfleft,.nws-l li,.emk,.rk,.qm-r small,.rpu-i,.pro-sub,.strk,button,a.btnlink,.chip,.hchip,h2,.bh,.dh,.ds,.mg,.mi,.muted,.empty,label,.pv-note,.bt-ok,.box>b,.sysm,.pill,.toast,.rws,.rwt,.qm-s,.bt-x,.nwi,.nwc small,.set-h,.lchk span,th,.mdt';
 var EMNO='.bub,.pav,.ach,.achr,.hex,.xog,.rpsb,.rpsv,.avr,.stkp,.em,.cle,.cldesc,input,textarea,select,option,.rwi,.nws-e,.gid-e,.gidc i,.wav,[data-raw]';
 function emiNode(tn){var p=tn.parentElement,v=tn.nodeValue;if(!p||!v||v.length>400)return;if(p.classList.contains('rk')){var mn={'🥇':'1','🥈':'2','🥉':'3'}[v.trim()];if(mn&&document.documentElement.dataset.game==='min'){p.textContent=mn;p.classList.add('rk3');}return;}EMRE.lastIndex=0;if(!EMRE.test(v))return;if(!p.closest(EMOK)||p.closest(EMNO))return;
   var f=document.createDocumentFragment(),last=0,m;EMRE.lastIndex=0;
