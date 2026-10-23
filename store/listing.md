@@ -48,15 +48,15 @@ GG Zone — место для геймеров, где можно найти к�
 🖼️ ТВОЙ ПРОФИЛЬ
 Баннер-обложка (готовый или своя картинка), рамки аватарки за уровни, «Обо мне» и любимые игры.
 
-🎨 25 СТИЛЕЙ ОФОРМЛЕНИЯ
-Спокойный Minimal по умолчанию, 14 игровых тем в цветах любимых игр и 10 особых: Dark Neon, Cyberpunk, Synthwave, Sakura, Matrix и другие.
+🎨 4 РАСЦВЕТКИ
+4 расцветки приложения (Blood, Frost, Royal, Violet) и цвета профиля за уровни и медали.
 
 🛡️ БЕЗОПАСНОЕ ОБЩЕНИЕ
 Правила сообщества, жалобы, блокировка игроков, фильтр мата и модерация.
 
 Бесплатно, без рекламы и без обязательной регистрации. Вход через Google по желанию — чтобы прогресс был на всех устройствах. Языки: русский, английский, чешский.
 
-GG Zone — независимый фанатский проект и не связан с разработчиками упомянутых игр.
+GG Zone — независимый проект и не связан с разработчиками игр.
 
 ---
 
@@ -95,15 +95,15 @@ Real-time tic-tac-toe and rock-paper-scissors. Reaction test, aim trainer and cl
 🖼️ YOUR PROFILE
 Cover banner (ready-made or your own picture), avatar frames for levels, “About me” and favourite games.
 
-🎨 25 STYLES
-A calm Minimal look by default, 14 game themes in the colours of popular games and 10 special styles: Dark Neon, Cyberpunk, Synthwave, Sakura, Matrix and more.
+🎨 4 COLOR THEMES
+4 app color themes (Blood, Frost, Royal, Violet) and profile colours unlocked with levels and medals.
 
 🛡️ SAFE COMMUNITY
 Community rules, reports, blocking, profanity filter and moderation.
 
 Free, no ads, no sign-up required. Optional Google sign-in keeps your progress on all devices. Languages: English, Russian, Czech.
 
-GG Zone is an independent fan project and is not affiliated with the developers of the games mentioned.
+GG Zone is an independent project and is not affiliated with any game developers.
 
 ---
 
@@ -126,12 +126,12 @@ GG Zone je místo pro hráče, kde najdeš tým, založíš klan a zabavíš se 
 🏅 36 MEDAILÍ A SEZÓNY — bronzové, stříbrné, zlaté a legendární medaile, tajné úspěchy, denní úkoly a denní dárek.
 ⚔️ MINIHRY — piškvorky a kámen-nůžky-papír v reálném čase, test reakce, aim trenér a test klikání.
 🖼️ TVŮJ PROFIL — banner, rámečky avatara, „O mně“ a oblíbené hry.
-🎨 25 STYLŮ — klidný Minimal jako výchozí, 14 herních témat a 10 speciálních (Dark Neon, Synthwave, Matrix…).
+🎨 4 BAREVNÁ TÉMATA — Blood, Frost, Royal a Violet, k tomu barvy profilu za úrovně a medaile.
 🛡️ BEZPEČNÁ KOMUNITA — pravidla, nahlášení, blokování, filtr sprostých slov a moderace.
 
 Zdarma, bez reklam a bez povinné registrace. Jazyky: čeština, angličtina, ruština.
 
-GG Zone je nezávislý fanouškovský projekt a není spojen s vývojáři zmíněných her.
+GG Zone je nezávislý projekt a není spojen s vývojáři her.
 
 ---
 

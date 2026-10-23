@@ -6,30 +6,145 @@
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
-  "display_override": ["standalone", "minimal-ui"],
+  "display_override": [
+    "standalone",
+    "minimal-ui"
+  ],
   "orientation": "portrait",
-  "background_color": "#1a1446",
-  "theme_color": "#2b1d12",
+  "background_color": "#0D0F14",
+  "theme_color": "#0D0F14",
   "lang": "ru",
   "dir": "ltr",
-  "categories": ["social", "entertainment"],
+  "categories": [
+    "social",
+    "entertainment"
+  ],
   "prefer_related_applications": false,
-  "launch_handler": { "client_mode": "focus-existing" },
+  "launch_handler": {
+    "client_mode": "focus-existing"
+  },
   "icons": [
-    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
-    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
-    { "src": "icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icon-maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
   ],
   "screenshots": [
-    { "src": "store/01-home.png", "sizes": "1080x1920", "type": "image/png", "form_factor": "narrow", "label": "Главная" },
-    { "src": "store/02-clan.png", "sizes": "1080x1920", "type": "image/png", "form_factor": "narrow", "label": "Кланы" },
-    { "src": "store/03-minigames.png", "sizes": "1080x1920", "type": "image/png", "form_factor": "narrow", "label": "Мини-игры" },
-    { "src": "store/04-profile.png", "sizes": "1080x1920", "type": "image/png", "form_factor": "narrow", "label": "Профиль" }
+    {
+      "src": "store/01-home.png",
+      "sizes": "1080x1920",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "Главная"
+    },
+    {
+      "src": "store/02-chat.png",
+      "sizes": "1080x1920",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "Общий чат"
+    },
+    {
+      "src": "store/03-clan.png",
+      "sizes": "1080x1920",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "Кланы"
+    },
+    {
+      "src": "store/04-minigames.png",
+      "sizes": "1080x1920",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "Мини-игры"
+    },
+    {
+      "src": "store/05-messages.png",
+      "sizes": "1080x1920",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "Личные сообщения"
+    },
+    {
+      "src": "store/06-profile.png",
+      "sizes": "1080x1920",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "Профиль"
+    },
+    {
+      "src": "store/07-progress.png",
+      "sizes": "1080x1920",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "Прогресс"
+    },
+    {
+      "src": "store/08-teammates.png",
+      "sizes": "1080x1920",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "Тиммейты и пати"
+    }
   ],
   "shortcuts": [
-    { "name": "Тиммейты", "short_name": "Тиммейты", "url": "./#lfg", "icons": [{ "src": "icon-192.png", "sizes": "192x192" }] },
-    { "name": "Мини-игры", "short_name": "Мини-игры", "url": "./#xo", "icons": [{ "src": "icon-192.png", "sizes": "192x192" }] },
-    { "name": "Клан", "short_name": "Клан", "url": "./#clan", "icons": [{ "src": "icon-192.png", "sizes": "192x192" }] },
-    { "name": "Профиль", "short_name": "Профиль", "url": "./#me", "icons": [{ "src": "icon-192.png", "sizes": "192x192" }] }
+    {
+      "name": "Тиммейты",
+      "short_name": "Тиммейты",
+      "url": "./#lfg",
+      "icons": [
+        {
+          "src": "icon-192.png",
+          "sizes": "192x192"
+        }
+      ]
+    },
+    {
+      "name": "Мини-игры",
+      "short_name": "Мини-игры",
+      "url": "./#xo",
+      "icons": [
+        {
+          "src": "icon-192.png",
+          "sizes": "192x192"
+        }
+      ]
+    },
+    {
+      "name": "Клан",
+      "short_name": "Клан",
+      "url": "./#clan",
+      "icons": [
+        {
+          "src": "icon-192.png",
+          "sizes": "192x192"
+        }
+      ]
+    },
+    {
+      "name": "Профиль",
+      "short_name": "Профиль",
+      "url": "./#me",
+      "icons": [
+        {
+          "src": "icon-192.png",
+          "sizes": "192x192"
+        }
+      ]
+    }
   ]
 }
