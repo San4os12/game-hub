@@ -4,6 +4,8 @@ service cloud.firestore {
 
     function signedIn() { return request.auth != null; }
     function d() { return request.resource.data; }
+    // цвет профиля: только значения из списка (20…33 — 14 цветов)
+    function okC(x) { return x is int && x >= 20 && x <= 33; }
     // админы: документ admins/{uid} создаётся вручную в консоли Firebase
     function isAdmin() { return signedIn() && exists(/databases/$(database)/documents/admins/$(request.auth.uid)); }
     // бан: bans/{uid} с полем until
@@ -21,7 +23,7 @@ service cloud.firestore {
     match /presence/{uid} {
       allow read: if true;
       allow write: if signedIn() && request.auth.uid == uid
-        && d().keys().hasOnly(['nick', 'nl', 'st', 'game', 'c', 'vote', 't', 'av', 'fav', 'sd', 'br', 'ba', 'cl', 'ct', 'xp', 'ach', 'bn', 'fr', 'bio', 'pg', 'ps'])
+        && d().keys().hasOnly(['nick', 'nl', 'st', 'game', 'c', 'vote', 't', 'av', 'fav', 'sd', 'br', 'ba', 'cl', 'ct', 'xp', 'ach', 'bn', 'fr', 'bio', 'pg', 'ps']) && (!('c' in d()) || okC(d().c))
         && d().nick is string && d().nick.size() <= 16
         && d().vote is string && d().vote.size() <= 40
         && (!('fav' in d()) || (d().fav is string && d().fav.size() <= 60))
@@ -40,7 +42,7 @@ service cloud.firestore {
     match /messages/{id} {
       allow read: if true;
       allow create: if signedIn()
-        && d().keys().hasOnly(['topic', 'uid', 'n', 'm', 'c', 't'])
+        && d().keys().hasOnly(['topic', 'uid', 'n', 'm', 'c', 't']) && (!('c' in d()) || okC(d().c))
         && d().uid == request.auth.uid
         && d().topic in ['chat', 'ping']
         && d().n is string && d().n.size() <= 16
@@ -62,7 +64,7 @@ service cloud.firestore {
     match /scores/{uid} {
       allow read: if true;
       allow write: if signedIn() && request.auth.uid == uid
-        && d().keys().hasOnly(['nick', 'c', 'av', 'r', 'a', 's', 'sx', 't'])
+        && d().keys().hasOnly(['nick', 'c', 'av', 'r', 'a', 's', 'sx', 't']) && (!('c' in d()) || okC(d().c))
         && (!('t' in d()) || d().t == request.time)
         && d().nick is string && d().nick.size() <= 16
         && d().r is int && (d().r == 0 || (d().r >= 100 && d().r <= 5000))
@@ -80,7 +82,7 @@ service cloud.firestore {
     match /lfg/{uid} {
       allow read: if true;
       allow create, update: if signedIn() && request.auth.uid == uid
-        && d().keys().hasOnly(['nick', 'c', 'av', 'game', 'text', 't', 'pl', 'mic', 'lang', 'rank', 'need', 'h'])
+        && d().keys().hasOnly(['nick', 'c', 'av', 'game', 'text', 't', 'pl', 'mic', 'lang', 'rank', 'need', 'h']) && (!('c' in d()) || okC(d().c))
         && d().nick is string && d().nick.size() <= 16
         && d().game is string && d().game.size() <= 20
         && d().text is string && d().text.size() > 0 && d().text.size() <= 120
@@ -100,7 +102,7 @@ service cloud.firestore {
       allow read: if signedIn()
         && (request.auth.uid == resource.data.from || request.auth.uid == resource.data.to);
       allow create: if signedIn()
-        && d().keys().hasOnly(['from', 'to', 'n', 'c', 'm', 't'])
+        && d().keys().hasOnly(['from', 'to', 'n', 'c', 'm', 't']) && (!('c' in d()) || okC(d().c))
         && d().from == request.auth.uid
         && d().to is string && d().to != d().from
         && d().n is string && d().n.size() <= 16
@@ -202,7 +204,7 @@ service cloud.firestore {
     match /clanmsg/{id} {
       allow read: if signedIn();
       allow create: if signedIn()
-        && d().keys().hasOnly(['clan', 'uid', 'n', 'c', 'm', 't'])
+        && d().keys().hasOnly(['clan', 'uid', 'n', 'c', 'm', 't']) && (!('c' in d()) || okC(d().c))
         && d().uid == request.auth.uid
         && d().clan is string
         && request.auth.uid in get(/databases/$(database)/documents/clans/$(d().clan)).data.members
@@ -340,7 +342,7 @@ service cloud.firestore {
     match /lfgr/{id} {
       allow read: if true;
       allow create: if signedIn()
-        && d().keys().hasOnly(['to', 'from', 'n', 'av', 'c', 't'])
+        && d().keys().hasOnly(['to', 'from', 'n', 'av', 'c', 't']) && (!('c' in d()) || okC(d().c))
         && d().from == request.auth.uid
         && d().to is string && d().to != d().from
         && id == d().to + '_' + d().from
@@ -402,7 +404,7 @@ service cloud.firestore {
       function mem(m, u) {
         return m[u] is map && m[u].keys().hasOnly(['n', 'av', 'c', 'j'])
           && m[u].n is string && m[u].n.size() <= 16
-          && (!('av' in m[u]) || m[u].av is int) && (!('c' in m[u]) || m[u].c is int) && (!('j' in m[u]) || m[u].j is int);
+          && (!('av' in m[u]) || m[u].av is int) && (!('c' in m[u]) || okC(m[u].c)) && (!('j' in m[u]) || m[u].j is int);
       }
       allow read: if true;
       // создатель: создать или изменить своё пати (сам всегда внутри, чужих добавить не может)
@@ -445,7 +447,7 @@ service cloud.firestore {
     match /pmsg/{id} {
       allow read: if signedIn();
       allow create: if signedIn()
-        && d().keys().hasOnly(['p', 'uid', 'n', 'c', 'm', 't'])
+        && d().keys().hasOnly(['p', 'uid', 'n', 'c', 'm', 't']) && (!('c' in d()) || okC(d().c))
         && d().uid == request.auth.uid
         && d().p is string && d().p.size() <= 64
         && request.auth.uid in get(/databases/$(database)/documents/party/$(d().p)).data.m

@@ -5,7 +5,7 @@ name: Deploy Cloud Functions
 on:
   push:
     branches: [main]
-    paths: ['functions/**', 'firebase.json', '.github/workflows/functions.yml']
+    paths: ['functions/**', 'firestore.rules', 'firebase.json', '.github/workflows/functions.yml']
   workflow_dispatch:
 jobs:
   deploy:
@@ -38,6 +38,16 @@ jobs:
           gcloud auth activate-service-account --key-file="$RUNNER_TEMP/sa.json" --quiet 2>&1 | tee -a "$RUNNER_TEMP/deploy.txt" || true
           gcloud services enable cloudbilling.googleapis.com pubsub.googleapis.com cloudscheduler.googleapis.com eventarc.googleapis.com run.googleapis.com --project game-hub-f93c4 --quiet 2>&1 | tee -a "$RUNNER_TEMP/deploy.txt" || true
           npx -y firebase-tools@13 deploy --only functions --project game-hub-f93c4 --force --non-interactive 2>&1 | tee -a "$RUNNER_TEMP/deploy.txt"
+      - name: Правила Firestore
+        if: steps.key.outputs.skip != '1'
+        env:
+          SA: ${{ secrets.FIREBASE_SA || secrets.GGKEY }}
+        run: |
+          printf '%s' "$SA" > "$RUNNER_TEMP/sa.json"
+          export GOOGLE_APPLICATION_CREDENTIALS="$RUNNER_TEMP/sa.json"
+          set -o pipefail
+          echo "=== firestore rules ===" >> "$RUNNER_TEMP/deploy.txt"
+          npx -y firebase-tools@13 deploy --only firestore:rules --project game-hub-f93c4 --force --non-interactive 2>&1 | tee -a "$RUNNER_TEMP/deploy.txt"
       - name: Сохранить лог ошибки (ветка ci-logs)
         if: failure() && steps.key.outputs.skip != '1'
         run: |
