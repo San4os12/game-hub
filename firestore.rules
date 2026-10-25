@@ -64,13 +64,19 @@ service cloud.firestore {
     match /scores/{uid} {
       allow read: if true;
       allow write: if signedIn() && request.auth.uid == uid
-        && d().keys().hasOnly(['nick', 'c', 'av', 'r', 'a', 's', 'sx', 't']) && (!('c' in d()) || okC(d().c))
+        && d().keys().hasOnly(['nick', 'c', 'av', 'r', 'a', 's', 'sx', 'w', 'wx', 't']) && (!('c' in d()) || okC(d().c))
         && (!('t' in d()) || d().t == request.time)
         && d().nick is string && d().nick.size() <= 16
         && d().r is int && (d().r == 0 || (d().r >= 100 && d().r <= 5000))
         && d().a is int && d().a >= 0 && d().a <= 60
         && (!('s' in d()) || (d().s is string && d().s.size() <= 8))
         && (!('sx' in d()) || (d().sx is int && d().sx >= 0 && d().sx <= 1000000))
+        && (!('w' in d()) || (d().w is string && d().w.size() <= 8))
+        && (!('wx' in d()) || (d().wx is int && d().wx >= 0 && d().wx <= 1000000))
+        // защита от накрутки недели
+        && (!('wx' in d()) || d().wx <= 3000 || isAdmin()
+            || (resource != null && resource.data.get('w', '') == d().get('w', '')
+                && d().wx <= resource.data.get('wx', 0) + 1000 + (request.time.toMillis() - resource.data.get('t', request.time).toMillis()) / 2000))
         // защита от накрутки сезона
         && (!('sx' in d()) || d().sx <= 3000 || isAdmin()
             || (resource != null && resource.data.get('s', '') == d().get('s', '')
@@ -503,9 +509,48 @@ service cloud.firestore {
       allow create: if signedIn() && request.auth.uid == uid
         && d().keys().hasOnly(['t', 'l', 'dv', 'pw', 'tw', 's']) && okJ() && okS() && d().t == request.time;
       allow update: if signedIn() && request.auth.uid == uid
-        && d().diff(resource.data).affectedKeys().hasOnly(['l', 'dv', 'pw', 'tw', 'a1', 'a2', 'a3', 'a4', 'a5'])
-        && okJ() && okS() && okF();
+        && d().diff(resource.data).affectedKeys().hasOnly(['l', 'dv', 'pw', 'tw', 'a1', 'a2', 'a3', 'a4', 'a5', 'ta', 'td'])
+        && okJ() && okS() && okF()
+        && (!('ta' in d()) || (d().ta is string && d().ta.size() <= 10))
+        && (!('td' in d()) || (d().td is int && d().td >= 0 && d().td <= resource.data.get('td', 0) + 1));
       allow delete: if signedIn() && (request.auth.uid == uid || isAdmin());
+    }
+
+    // Сборы на время: id = создатель. Остальные могут только записаться/выписаться сами
+    match /meet/{id} {
+      function ent(e) {
+        return e is map && e.keys().hasOnly(['n', 'av', 'c']) && e.n is string && e.n.size() <= 16
+          && (!('av' in e) || e.av is int) && (!('c' in e) || okC(e.c));
+      }
+      allow read: if true;
+      allow create, update: if signedIn() && id == request.auth.uid
+        && d().keys().hasOnly(['o', 'n', 'c', 'av', 'g', 'at', 'rp', 'y', 't', 'rm', 'st', 'pm'])
+        && d().o == id && d().n is string && d().n.size() <= 16 && d().g is string && d().g.size() <= 20
+        && d().at is timestamp && d().at > request.time - duration.value(3, 'h') && d().at < request.time + duration.value(8, 'd')
+        && d().rp is bool && d().y is map && d().y.size() <= 30 && ent(d().y[id])
+        && (!('c' in d()) || okC(d().c)) && (!('av' in d()) || d().av is int)
+        && d().t == request.time;
+      allow update: if signedIn() && id != request.auth.uid
+        && d().diff(resource.data).affectedKeys().hasOnly(['y'])
+        && d().y.diff(resource.data.y).affectedKeys().hasOnly([request.auth.uid])
+        && d().y.size() <= 30
+        && (!(request.auth.uid in d().y) || ent(d().y[request.auth.uid]));
+      allow delete: if signedIn() && (id == request.auth.uid || isAdmin());
+    }
+
+    // Когда игрок вернулся в приложение — по этому сервер шлёт «друг в сети». Читает только сервер
+    match /seen/{uid} {
+      allow read: if false;
+      allow create, update: if signedIn() && request.auth.uid == uid
+        && d().keys().hasOnly(['t', 'n']) && d().t == request.time
+        && ((resource == null && !('n' in d())) || (resource != null && d().get('n', null) == resource.data.get('n', null)));
+    }
+
+    // Напоминание тестеру от админа (сервер отправит пуш и удалит)
+    match /nudge/{id} {
+      allow read: if false;
+      allow create: if isAdmin() && d().keys().hasOnly(['to', 'from', 'k', 't'])
+        && d().from == request.auth.uid && d().to is string && d().to.size() <= 40 && d().k in ['test'] && d().t == request.time;
     }
 
     // Подписка на пуш-уведомления: видит и меняет только сам игрок (сервер читает в обход правил)
