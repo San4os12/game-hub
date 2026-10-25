@@ -1,4 +1,4 @@
-/* GG Zone — серверная часть: пуш-уведомления (версия 2026-10-23c).
+/* GG Zone — серверная часть: пуш-уведомления (версия 2026-10-25).
    Срабатывает на новые документы в Firestore и шлёт пуш получателю через Firebase Cloud Messaging.
    Учитывает: настройки пушей игрока, чёрный список, «без звука» для чатов и людей, «не беспокоить», язык. */
 const functions = require('firebase-functions/v1');
@@ -15,7 +15,7 @@ const TXT = {
     friendOk: 'Новый друг', friendOkB: ' принял(а) твою заявку', xo: ' вызывает тебя в крестики-нолики', rps: ' вызывает тебя в камень-ножницы-бумагу',
     turn: 'Твой ход', turnB: 'Партия против ', lfg: ' откликнулся на твоё объявление', lfgT: '🙋 Тиммейт нашёлся',
     clanReq: 'Новая заявка в клан', clanReqB: 'Кто-то хочет вступить в ', gift: '🎁 Подарок дня ждёт', giftB: 'Открой его, пока не наступила полночь!', game: 'Вызов',
-    partyInv: '🎮 Приглашение в пати', partyT: '🎮 Пати', partyJoin: ' теперь в твоём пати', partyFull: '🔥 Пати собрано!', partyFullB: 'Все в сборе — заходите в игру',
+    partyInv: '🎮 Приглашение в пати', partyT: '🎮 Пати', goT: '🚀 Заходим в игру!', goB: 'Пати стартует — открой GG Zone', partyJoin: ' теперь в твоём пати', partyFull: '🔥 Пати собрано!', partyFullB: 'Все в сборе — заходите в игру',
     endoT: '⭐ Новая оценка', endoB: ' оценил(а) тебя как тиммейта', good: '🤝 Надёжный', skill: '🎯 Скилл', fun: '😄 Весёлый'
   },
   en: {
@@ -23,7 +23,7 @@ const TXT = {
     friendOk: 'New friend', friendOkB: ' accepted your request', xo: ' challenges you to tic-tac-toe', rps: ' challenges you to rock-paper-scissors',
     turn: 'Your turn', turnB: 'Match against ', lfg: ' responded to your post', lfgT: '🙋 Teammate found',
     clanReq: 'New clan request', clanReqB: 'Someone wants to join ', gift: '🎁 Your daily gift is waiting', giftB: 'Open it before midnight!', game: 'Challenge',
-    partyInv: '🎮 Party invite', partyT: '🎮 Party', partyJoin: ' joined your party', partyFull: '🔥 Party is full!', partyFullB: 'Everyone is here — jump into the game',
+    partyInv: '🎮 Party invite', partyT: '🎮 Party', goT: '🚀 Jumping into the game!', goB: 'Your party is starting — open GG Zone', partyJoin: ' joined your party', partyFull: '🔥 Party is full!', partyFullB: 'Everyone is here — jump into the game',
     endoT: '⭐ New rating', endoB: ' rated you as a teammate', good: '🤝 Reliable', skill: '🎯 Skilled', fun: '😄 Fun'
   },
   cs: {
@@ -31,7 +31,7 @@ const TXT = {
     friendOk: 'Nový přítel', friendOkB: ' přijal(a) tvou žádost', xo: ' tě vyzývá na piškvorky', rps: ' tě vyzývá na kámen-nůžky-papír',
     turn: 'Jsi na tahu', turnB: 'Hra proti ', lfg: ' reagoval na tvůj inzerát', lfgT: '🙋 Spoluhráč nalezen',
     clanReq: 'Nová žádost do klanu', clanReqB: 'Někdo chce vstoupit do ', gift: '🎁 Denní dárek čeká', giftB: 'Otevři ho do půlnoci!', game: 'Výzva',
-    partyInv: '🎮 Pozvánka do party', partyT: '🎮 Party', partyJoin: ' je teď v tvé party', partyFull: '🔥 Party je plná!', partyFullB: 'Všichni jsou tu — hurá do hry',
+    partyInv: '🎮 Pozvánka do party', partyT: '🎮 Party', goT: '🚀 Jdeme do hry!', goB: 'Party startuje — otevři GG Zone', partyJoin: ' je teď v tvé party', partyFull: '🔥 Party je plná!', partyFullB: 'Všichni jsou tu — hurá do hry',
     endoT: '⭐ Nové hodnocení', endoB: ' tě ohodnotil(a) jako spoluhráče', good: '🤝 Spolehlivý', skill: '🎯 Skill', fun: '😄 Zábavný'
   }
 };
@@ -135,8 +135,11 @@ const partySize = (p) => ([2, 3, 4, 5, 6, 10].includes(p && p.sz) ? p.sz : 5);
 exports.onPartyUpdate = fn.firestore.document('party/{id}').onUpdate((ch) => {
   const a = ch.before.data(), b = ch.after.data(), ma = members(a), mb = members(b);
   const added = mb.filter((u) => !ma.includes(u));
-  if (!added.length) return null;
   const jobs = [];
+  // лидер нажал «Погнали!» — всем остальным
+  const gta = a.gt && a.gt.toMillis ? a.gt.toMillis() : 0, gtb = b.gt && b.gt.toMillis ? b.gt.toMillis() : 0;
+  if (gtb && gtb !== gta) mb.forEach((u) => { if (u !== b.o) jobs.push(push(u, 'party', (L) => ({ title: L.goT, body: L.goB }), 'lfg', b.o, 'party').catch(() => null)); });
+  if (!added.length) return Promise.all(jobs);
   added.forEach((u) => {
     if (u === b.o) return;
     const n = s16(b.m[u] && b.m[u].n);

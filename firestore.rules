@@ -402,14 +402,17 @@ service cloud.firestore {
       function old() { return resource.data; }
       function me() { return request.auth.uid; }
       function mem(m, u) {
-        return m[u] is map && m[u].keys().hasOnly(['n', 'av', 'c', 'j'])
+        return m[u] is map && m[u].keys().hasOnly(['n', 'av', 'c', 'j', 'r'])
+          && (!('r' in m[u]) || m[u].r is bool)
           && m[u].n is string && m[u].n.size() <= 16
           && (!('av' in m[u]) || m[u].av is int) && (!('c' in m[u]) || okC(m[u].c)) && (!('j' in m[u]) || m[u].j is int);
       }
       allow read: if true;
       // создатель: создать или изменить своё пати (сам всегда внутри, чужих добавить не может)
       allow create, update: if signedIn() && id == me()
-        && d().keys().hasOnly(['o', 'n', 'game', 'text', 'sz', 'h', 'mic', 'm', 't', 'u'])
+        && d().keys().hasOnly(['o', 'n', 'game', 'text', 'sz', 'h', 'mic', 'm', 't', 'u', 'go', 'gt'])
+        && (!('go' in d()) || (d().go is string && d().go.size() <= 160))
+        && (!('gt' in d()) || d().gt == request.time || (resource != null && 'gt' in old() && d().gt == old().gt))
         && d().o == me()
         && d().n is string && d().n.size() <= 16
         && d().game is string && d().game.size() <= 20
@@ -439,6 +442,8 @@ service cloud.firestore {
             && notBanned() && !blockedBy(old().o))
           ||
           (me() in old().m && !(me() in d().m))
+          ||
+          (me() in old().m && me() in d().m && mem(d().m, me()) && d().m.size() == old().m.size())
         );
       allow delete: if signedIn() && (id == me() || isAdmin() || old().t < request.time - duration.value(7, 'h'));
     }
