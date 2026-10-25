@@ -492,11 +492,19 @@ service cloud.firestore {
       function okJ() {
         return d().l in ['ru', 'en', 'cs'] && d().dv in ['a', 'i', 'd'] && d().pw is bool && d().tw is bool;
       }
+      // откуда пришёл (короткая метка) и шаги новичка — только «true»
+      function okS() { return !('s' in d()) || (d().s is string && d().s.size() <= 8); }
+      function okF() {
+        return (!('a1' in d()) || d().a1 == true) && (!('a2' in d()) || d().a2 == true)
+          && (!('a3' in d()) || d().a3 == true) && (!('a4' in d()) || d().a4 == true)
+          && (!('a5' in d()) || d().a5 == true);
+      }
       allow read: if isAdmin();
       allow create: if signedIn() && request.auth.uid == uid
-        && d().keys().hasOnly(['t', 'l', 'dv', 'pw', 'tw']) && okJ() && d().t == request.time;
+        && d().keys().hasOnly(['t', 'l', 'dv', 'pw', 'tw', 's']) && okJ() && okS() && d().t == request.time;
       allow update: if signedIn() && request.auth.uid == uid
-        && d().diff(resource.data).affectedKeys().hasOnly(['l', 'dv', 'pw', 'tw']) && okJ();
+        && d().diff(resource.data).affectedKeys().hasOnly(['l', 'dv', 'pw', 'tw', 'a1', 'a2', 'a3', 'a4', 'a5'])
+        && okJ() && okS() && okF();
       allow delete: if signedIn() && (request.auth.uid == uid || isAdmin());
     }
 
