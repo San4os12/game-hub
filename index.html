@@ -1947,7 +1947,7 @@ rx.onclick=function(){
   if(state==='idle'){state='wait';rxCol('#c0392b');setRx('r_wait');$('rt').textContent='';
     tm=setTimeout(function(){state='go';rxCol('#1f9d63');setRx('r_go');t0=Date.now();replay(rx,'rxgo');},1000+Math.random()*2500);}
   else if(state==='wait'){clearTimeout(tm);state='idle';rxCol('');setRx('r_early');}
-  else{var m=Date.now()-t0;state='idle';rxCol('');if(m<100){setRx('r_fast');return;}setRx('r_again',m);replay(rx,'popin');quest('react');$('rt').textContent=m+t('ms');
+  else{var m=Math.round(Date.now()-t0);state='idle';rxCol('');if(m<100){setRx('r_fast');return;}setRx('r_again',m);replay(rx,'popin');quest('react');$('rt').textContent=m+t('ms');
     if(best&&best-m===1)bump('ms1');
     if(!best||m<best){var hadBest=!!best;best=m;sv('hub.best',best);onStats();if(hadBest)confetti(70);}rbest();}};
 
