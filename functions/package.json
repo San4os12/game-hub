@@ -1,7 +1,7 @@
 {
   "name": "gg-zone-functions",
   "private": true,
-  "description": "Пуш-уведомления GG Zone",
+  "description": "Пуш-уведомления GG Squad",
   "main": "index.js",
   "engines": { "node": "22" },
   "dependencies": {

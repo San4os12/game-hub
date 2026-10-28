@@ -1,4 +1,4 @@
-# GG Zone — материалы для Google Play
+# GG Squad — материалы для Google Play
 
 Картинки лежат в этой же папке:
 - `icon-512.png` — значок приложения 512×512
@@ -16,13 +16,13 @@
 ## Русский (основной язык)
 
 **Название (до 30 символов)**
-GG Zone: тиммейты и кланы
+GG Squad: тиммейты и кланы
 
 **Краткое описание (до 80 символов)**
 Находи тиммейтов, собирай клан, открывай медали и играй с друзьями!
 
 **Полное описание**
-GG Zone — место для геймеров, где можно найти команду, собрать клан и весело провести время с друзьями.
+GG Squad — место для геймеров, где можно найти команду, собрать клан и весело провести время с друзьями.
 
 🎮 НАХОДИ ТИММЕЙТОВ
 Объявление «Ищу тиммейта» с платформой, микрофоном, языком и рангом. Фильтр по играм, кнопка «Я в деле!» в один клик и уведомления, когда кто-то ищет команду в твою любимую игру. Видно, кто сейчас в сети.
@@ -56,20 +56,20 @@ GG Zone — место для геймеров, где можно найти к�
 
 Бесплатно, без рекламы и без обязательной регистрации. Вход через Google по желанию — чтобы прогресс был на всех устройствах. Языки: русский, английский, чешский.
 
-GG Zone — независимый проект и не связан с разработчиками игр.
+GG Squad — независимый проект и не связан с разработчиками игр.
 
 ---
 
 ## English
 
 **Title (≤30)**
-GG Zone: teammates & clans
+GG Squad: teammates & clans
 
 **Short description (≤80)**
 Find teammates, build a clan, unlock medals and play with friends!
 
 **Full description**
-GG Zone is a place for gamers to find a team, build a clan and have fun with friends.
+GG Squad is a place for gamers to find a team, build a clan and have fun with friends.
 
 🎮 FIND TEAMMATES
 “Looking for a teammate” posts with platform, mic, language and rank. Game filters, one-tap “I’m in!” and alerts when someone looks for players in your favourite game. See who is online right now.
@@ -103,20 +103,20 @@ Community rules, reports, blocking, profanity filter and moderation.
 
 Free, no ads, no sign-up required. Optional Google sign-in keeps your progress on all devices. Languages: English, Russian, Czech.
 
-GG Zone is an independent project and is not affiliated with any game developers.
+GG Squad is an independent project and is not affiliated with any game developers.
 
 ---
 
 ## Čeština
 
 **Název (≤30)**
-GG Zone: spoluhráči a klany
+GG Squad: spoluhráči a klany
 
 **Krátký popis (≤80)**
 Najdi spoluhráče, založ klan, sbírej medaile a hraj s přáteli!
 
 **Úplný popis**
-GG Zone je místo pro hráče, kde najdeš tým, založíš klan a zabavíš se s přáteli.
+GG Squad je místo pro hráče, kde najdeš tým, založíš klan a zabavíš se s přáteli.
 
 🎮 HLEDEJ SPOLUHRÁČE — inzeráty s platformou, mikrofonem, jazykem a rankem, filtr podle her, „Jdu do toho!“ jedním klepnutím a upozornění na tvé oblíbené hry.
 🎮 PARTY LOBBY — party pro 2–10 hráčů s volnými místy a vlastním chatem, pozvánky přátelům jedním klepnutím.
@@ -131,7 +131,7 @@ GG Zone je místo pro hráče, kde najdeš tým, založíš klan a zabavíš se 
 
 Zdarma, bez reklam a bez povinné registrace. Jazyky: čeština, angličtina, ruština.
 
-GG Zone je nezávislý projekt a není spojen s vývojáři her.
+GG Squad je nezávislý projekt a není spojen s vývojáři her.
 
 ---
 

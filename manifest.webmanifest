@@ -1,7 +1,7 @@
 {
   "id": "/game-hub/",
-  "name": "GG Zone",
-  "short_name": "GG Zone",
+  "name": "GG Squad",
+  "short_name": "GG Squad",
   "description": "Тиммейты, кланы, мини-игры и рекорды для геймеров",
   "start_url": "./",
   "scope": "./",

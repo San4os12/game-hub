@@ -1,4 +1,4 @@
-/* GG Zone — серверная часть: пуш-уведомления, сборы, топ недели (версия 2026-10-25b).
+/* GG Squad — серверная часть: пуш-уведомления, сборы, топ недели (версия 2026-10-25b).
    Срабатывает на новые документы в Firestore и шлёт пуш получателю через Firebase Cloud Messaging.
    Учитывает: настройки пушей игрока, чёрный список, «без звука» для чатов и людей, «не беспокоить», язык. */
 const functions = require('firebase-functions/v1');
@@ -15,30 +15,30 @@ const TXT = {
     friendOk: 'Новый друг', friendOkB: ' принял(а) твою заявку', xo: ' вызывает тебя в крестики-нолики', rps: ' вызывает тебя в камень-ножницы-бумагу',
     turn: 'Твой ход', turnB: 'Партия против ', lfg: ' откликнулся на твоё объявление', lfgT: '🙋 Тиммейт нашёлся',
     clanReq: 'Новая заявка в клан', clanReqB: 'Кто-то хочет вступить в ', gift: '🎁 Подарок дня ждёт', giftB: 'Открой его, пока не наступила полночь!', game: 'Вызов',
-    partyInv: '🎮 Приглашение в пати', partyT: '🎮 Пати', goT: '🚀 Заходим в игру!', goB: 'Пати стартует — открой GG Zone', partyJoin: ' теперь в твоём пати', partyFull: '🔥 Пати собрано!', partyFullB: 'Все в сборе — заходите в игру',
+    partyInv: '🎮 Приглашение в пати', partyT: '🎮 Пати', goT: '🚀 Заходим в игру!', goB: 'Пати стартует — открой GG Squad', partyJoin: ' теперь в твоём пати', partyFull: '🔥 Пати собрано!', partyFullB: 'Все в сборе — заходите в игру',
     endoT: '⭐ Новая оценка', endoB: ' оценил(а) тебя как тиммейта', good: '🤝 Надёжный', skill: '🎯 Скилл', fun: '😄 Весёлый',
-    mtSoonT: '⏰ Через 10 минут: {g}', mtSoonB: 'Сбор в {t} — заходи в GG Zone', mtGoT: '🎮 Сбор начался!', mtGoB: 'Ты в пати {g} — открывай GG Zone', mtPt: 'Сбор в {t}',
-    onT: '🟢 Друг в сети', onB: ' зашёл в GG Zone', wtT: '🏆 Ты в топе недели!', wtB: '{n}-е место по опыту — значок уже в профиле', ndT: '👋 GG Zone ждёт тебя', ndB: 'Открой приложение из Google Play — так засчитается тест'
+    mtSoonT: '⏰ Через 10 минут: {g}', mtSoonB: 'Сбор в {t} — заходи в GG Squad', mtGoT: '🎮 Сбор начался!', mtGoB: 'Ты в пати {g} — открывай GG Squad', mtPt: 'Сбор в {t}',
+    onT: '🟢 Друг в сети', onB: ' зашёл в GG Squad', wtT: '🏆 Ты в топе недели!', wtB: '{n}-е место по опыту — значок уже в профиле', ndT: '👋 GG Squad ждёт тебя', ndB: 'Открой приложение из Google Play — так засчитается тест'
   },
   en: {
     sticker: '🦊 Sticker', clanInv: '🛡️ Clan invitation', friendReq: 'Friend request', friendReqB: ' wants to add you as a friend',
     friendOk: 'New friend', friendOkB: ' accepted your request', xo: ' challenges you to tic-tac-toe', rps: ' challenges you to rock-paper-scissors',
     turn: 'Your turn', turnB: 'Match against ', lfg: ' responded to your post', lfgT: '🙋 Teammate found',
     clanReq: 'New clan request', clanReqB: 'Someone wants to join ', gift: '🎁 Your daily gift is waiting', giftB: 'Open it before midnight!', game: 'Challenge',
-    partyInv: '🎮 Party invite', partyT: '🎮 Party', goT: '🚀 Jumping into the game!', goB: 'Your party is starting — open GG Zone', partyJoin: ' joined your party', partyFull: '🔥 Party is full!', partyFullB: 'Everyone is here — jump into the game',
+    partyInv: '🎮 Party invite', partyT: '🎮 Party', goT: '🚀 Jumping into the game!', goB: 'Your party is starting — open GG Squad', partyJoin: ' joined your party', partyFull: '🔥 Party is full!', partyFullB: 'Everyone is here — jump into the game',
     endoT: '⭐ New rating', endoB: ' rated you as a teammate', good: '🤝 Reliable', skill: '🎯 Skilled', fun: '😄 Fun',
-    mtSoonT: '⏰ In 10 minutes: {g}', mtSoonB: 'Game night at {t} — open GG Zone', mtGoT: '🎮 Game night started!', mtGoB: 'You’re in the {g} party — open GG Zone', mtPt: 'Game night at {t}',
-    onT: '🟢 Friend online', onB: ' just opened GG Zone', wtT: '🏆 You made the weekly top!', wtB: 'Place #{n} by XP — the badge is on your profile', ndT: '👋 GG Zone misses you', ndB: 'Open the app from Google Play so your test day counts'
+    mtSoonT: '⏰ In 10 minutes: {g}', mtSoonB: 'Game night at {t} — open GG Squad', mtGoT: '🎮 Game night started!', mtGoB: 'You’re in the {g} party — open GG Squad', mtPt: 'Game night at {t}',
+    onT: '🟢 Friend online', onB: ' just opened GG Squad', wtT: '🏆 You made the weekly top!', wtB: 'Place #{n} by XP — the badge is on your profile', ndT: '👋 GG Squad misses you', ndB: 'Open the app from Google Play so your test day counts'
   },
   cs: {
     sticker: '🦊 Nálepka', clanInv: '🛡️ Pozvánka do klanu', friendReq: 'Žádost o přátelství', friendReqB: ' si tě chce přidat do přátel',
     friendOk: 'Nový přítel', friendOkB: ' přijal(a) tvou žádost', xo: ' tě vyzývá na piškvorky', rps: ' tě vyzývá na kámen-nůžky-papír',
     turn: 'Jsi na tahu', turnB: 'Hra proti ', lfg: ' reagoval na tvůj inzerát', lfgT: '🙋 Spoluhráč nalezen',
     clanReq: 'Nová žádost do klanu', clanReqB: 'Někdo chce vstoupit do ', gift: '🎁 Denní dárek čeká', giftB: 'Otevři ho do půlnoci!', game: 'Výzva',
-    partyInv: '🎮 Pozvánka do party', partyT: '🎮 Party', goT: '🚀 Jdeme do hry!', goB: 'Party startuje — otevři GG Zone', partyJoin: ' je teď v tvé party', partyFull: '🔥 Party je plná!', partyFullB: 'Všichni jsou tu — hurá do hry',
+    partyInv: '🎮 Pozvánka do party', partyT: '🎮 Party', goT: '🚀 Jdeme do hry!', goB: 'Party startuje — otevři GG Squad', partyJoin: ' je teď v tvé party', partyFull: '🔥 Party je plná!', partyFullB: 'Všichni jsou tu — hurá do hry',
     endoT: '⭐ Nové hodnocení', endoB: ' tě ohodnotil(a) jako spoluhráče', good: '🤝 Spolehlivý', skill: '🎯 Skill', fun: '😄 Zábavný',
-    mtSoonT: '⏰ Za 10 minut: {g}', mtSoonB: 'Sraz v {t} — otevři GG Zone', mtGoT: '🎮 Sraz začal!', mtGoB: 'Jsi v party {g} — otevři GG Zone', mtPt: 'Sraz v {t}',
-    onT: '🟢 Kamarád je online', onB: ' právě otevřel GG Zone', wtT: '🏆 Jsi v top týdne!', wtB: '{n}. místo podle XP — odznak máš v profilu', ndT: '👋 GG Zone na tebe čeká', ndB: 'Otevři aplikaci z Google Play, ať se ti test počítá'
+    mtSoonT: '⏰ Za 10 minut: {g}', mtSoonB: 'Sraz v {t} — otevři GG Squad', mtGoT: '🎮 Sraz začal!', mtGoB: 'Jsi v party {g} — otevři GG Squad', mtPt: 'Sraz v {t}',
+    onT: '🟢 Kamarád je online', onB: ' právě otevřel GG Squad', wtT: '🏆 Jsi v top týdne!', wtB: '{n}. místo podle XP — odznak máš v profilu', ndT: '👋 GG Squad na tebe čeká', ndB: 'Otevři aplikaci z Google Play, ať se ti test počítá'
   }
 };
 
@@ -197,7 +197,7 @@ exports.giftReminder = fn.pubsub.schedule('0 19 * * *').timeZone('Europe/Prague'
 // ===== Сборы на время: напоминание за 10 минут и пати в момент старта (каждую минуту) =====
 const SZ = [2, 3, 4, 5, 6, 10];
 const hm = (ms) => new Date(ms).toLocaleTimeString('ru-RU', { timeZone: 'Europe/Prague', hour: '2-digit', minute: '2-digit' });
-const gName = (m) => (typeof m.g === 'string' && m.g && m.g !== '—' ? m.g.slice(0, 20) : 'GG Zone');
+const gName = (m) => (typeof m.g === 'string' && m.g && m.g !== '—' ? m.g.slice(0, 20) : 'GG Squad');
 const okc = (c) => (Number.isInteger(c) && c >= 20 && c <= 33 ? c : 20);
 function going(m) { const y = m.y && typeof m.y === 'object' ? m.y : {}; return Object.keys(y).filter((u) => y[u] && typeof y[u] === 'object'); }
 
@@ -213,7 +213,7 @@ async function meetStart(doc, m, at) {
     const sz = SZ.find((x) => x >= Math.max(2, ids.length)) || 10, mm = {};
     ids.slice(0, sz).forEach((u, i) => { mm[u] = ent(u, i); });
     added = Object.keys(mm);
-    await ref.set({ o: m.o, n: s16(m.n), game: gName(m) === 'GG Zone' ? '—' : gName(m), text: TXT.ru.mtPt.replace('{t}', hm(at)), sz, h: 3, mic: false, m: mm,
+    await ref.set({ o: m.o, n: s16(m.n), game: gName(m) === 'GG Squad' ? '—' : gName(m), text: TXT.ru.mtPt.replace('{t}', hm(at)), sz, h: 3, mic: false, m: mm,
       t: admin.firestore.FieldValue.serverTimestamp(), u: admin.firestore.FieldValue.serverTimestamp() });
   } else {
     const have = Object.keys(p.m), sz = SZ.includes(p.sz) ? p.sz : 5, u = { u: admin.firestore.FieldValue.serverTimestamp() };
