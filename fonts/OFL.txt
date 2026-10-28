@@ -1,5 +1,5 @@
 GG Zone Display — изменённая версия шрифта Tektur (Copyright 2023 The Tektur Project Authors, https://github.com/hyvyys/Tektur).
-Изменения: строчная «д» в русском начертании, оставлены латиница и кириллица, переименовано семейство.
+Изменения: строчная «д» в русском начертании, цифра «4» с диагональю (чтобы не путалась с «Ч»), оставлены латиница и кириллица, переименовано семейство.
 Распространяется по лицензии SIL Open Font License 1.1 (текст ниже).
 
 Copyright 2023 The Tektur Project Authors (https://www.github.com/hyvyys/Tektur)
