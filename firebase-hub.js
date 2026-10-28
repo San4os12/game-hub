@@ -163,7 +163,7 @@
         if (m.topic === 'ping' && ms(m.t) < loadedAt - PING_MS) return;
         var cbs = topicCbs[m.topic] || [];
         var msg = { topic: m.topic, peer: m.uid, by: m.uid, isMe: m.uid === me, sameTab: m.uid === me,
-          kind: 'viewer', guest: false, data: { n: str(m.n, 16), m: str(m.m, 200), c: m.c, t: ms(m.t), id: m.__id } };
+          kind: 'viewer', guest: false, data: { n: str(m.n, 16), m: str(m.m, 200), c: m.c, t: ms(m.t), id: m.__id, rp: m.rp } };
         cbs.forEach(function (f) { try { f(msg); } catch (e) {} });
       });
     }, function () {});
@@ -184,10 +184,12 @@
       },
       emit: function (topic, data) {
         data = data || {};
-        return fs.collection('messages').add({
+        var doc = {
           topic: topic, uid: me, n: str(data.n, 16), m: str(data.m, 200),
           c: (data.c >= 0 && data.c < 32 && data.c % 1 === 0) ? data.c : 0, t: FV.serverTimestamp()
-        }).then(function () {});
+        };
+        if (data.rp && typeof data.rp.i === 'string') doc.rp = { i: str(data.rp.i, 40), n: str(data.rp.n, 16), m: str(data.rp.m, 80) };
+        return fs.collection('messages').add(doc).then(function () {});
       },
       on: function (topic, f) { (topicCbs[topic] = topicCbs[topic] || []).push(f); return function () { topicCbs[topic] = topicCbs[topic].filter(function (x) { return x !== f; }); }; },
       connected: function () { return connected; },
