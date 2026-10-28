@@ -547,6 +547,15 @@ service cloud.firestore {
     }
 
     // Напоминание тестеру от админа (сервер отправит пуш и удалит)
+    // «Просмотрено» в личке: r прочитал переписку с o. Видят только эти двое.
+    match /dmread/{id} {
+      allow read: if signedIn() && (request.auth.uid == resource.data.r || request.auth.uid == resource.data.o);
+      allow create, update: if signedIn() && d().keys().hasOnly(['r', 'o', 't'])
+        && d().r == request.auth.uid && d().o is string && d().o.size() > 0 && d().o.size() <= 40 && d().o != d().r
+        && id == d().r + '_' + d().o && d().t == request.time;
+      allow delete: if signedIn() && (request.auth.uid == resource.data.r || request.auth.uid == resource.data.o);
+    }
+
     match /nudge/{id} {
       allow read: if false;
       allow create: if isAdmin() && d().keys().hasOnly(['to', 'from', 'k', 't'])
