@@ -1617,7 +1617,7 @@ details.inst-p[open]>summary::after{transform:rotate(-135deg)}
 .bkf{grid-template-columns:repeat(4,minmax(0,1fr))!important;margin-bottom:6px}
 .bkf button{display:flex;align-items:center;justify-content:center;gap:5px;white-space:nowrap;font-size:13px;padding:0 4px}
 .bkf .lfn,.achf .lfn{background:var(--card-hover);color:var(--ink)}
-@media (max-width:420px){.bkf .lfn{display:none}}
+@media (max-width:480px){.bkf .lfn{display:none}}
 .bkr{display:flex;align-items:center;gap:12px;margin-top:6px}.bkr .t{flex:1;min-width:0}.bkr .t b{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .bks{flex:none;min-height:34px;padding:0 12px;margin:0;font-size:12.5px;font-weight:700;background:transparent!important;border:1px solid currentColor!important}
 .bks.s-play{color:#3ddc84!important}.bks.s-want{color:var(--accent)!important}.bks.s-done{color:#E4B94B!important}
@@ -1830,7 +1830,12 @@ button.vti .vth b{color:var(--ink)}
 .pkc.spin .pkc-t b{opacity:.65;filter:blur(.4px)}
 .pkc.done{animation:pkPop .35s var(--ez2)}
 @keyframes pkPop{0%{transform:scale(.97)}60%{transform:scale(1.02)}100%{transform:none}}
-@media (max-width:399px){.pkc{flex-wrap:wrap}.pkc-r{flex:1 1 100%;justify-content:center}}
+.pkc{flex-wrap:wrap}.pkc-r{flex:1 1 100%!important;justify-content:center;width:100%}
+.pkc-t .pkc-l{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pkc-t b{word-break:normal!important;overflow-wrap:break-word!important;display:-webkit-box!important;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.pkc-t .pkc-l{line-height:16px!important}.pkc-t b{line-height:24px!important}.pkc-t small{line-height:18px!important}
+.pkc-t{min-height:82px;display:flex;flex-direction:column;justify-content:center}
+.pkc-r:hover{border-color:var(--accent)!important;color:var(--ink)!important}
 .toast.act{display:flex;align-items:center;gap:12px;pointer-events:auto;white-space:nowrap}.toast.act>span{white-space:nowrap}
 .toast .tact{min-height:32px;padding:0 12px;margin:0;font-size:13px;background:transparent!important;color:var(--accent)!important;border:1px solid currentColor!important;box-shadow:none!important;clip-path:none!important}
 @media (prefers-reduced-motion:reduce){.bkr.hl,.pkc.done{animation:none}}
