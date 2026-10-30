@@ -1691,9 +1691,10 @@ details.inst-p[open]>summary::after{transform:rotate(-135deg)}
 .pty-rs{flex:none;display:inline-flex;align-items:center;gap:5px}.pty-rs svg.i{width:13px;height:13px}
 .pty-h .lfleft,.lfh .lfleft{flex:none;white-space:nowrap}
 .lfh .t small{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.lfh .t small.lfsub{display:flex;gap:4px;min-width:0}.lfsub .lfg-g{min-width:0;overflow:hidden;text-overflow:ellipsis}.lfsub .lfg-a{flex:none}
 .ptfull{display:inline-flex;align-items:center;min-height:40px;padding:0 4px;color:var(--muted);font-size:13px;font-weight:600;white-space:nowrap}
 .invc .ptfull{min-height:0;padding:6px 0 0}
-.netoff{flex-wrap:wrap}.netoff>button{margin:10px 0 0;min-height:42px;padding:0 18px}
+.empty.fx.netoff{flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:16px}.netoff>button{margin:4px 0 0;min-height:42px;padding:0 18px}
 @media (max-width:1023px){.lff{-webkit-mask-image:linear-gradient(90deg,#000 calc(100% - 40px),transparent);mask-image:linear-gradient(90deg,#000 calc(100% - 40px),transparent);padding-right:32px}}
 @media (min-width:1024px){.lff{flex-wrap:wrap;overflow:visible}
   #lfpl{display:flex;flex-wrap:nowrap;gap:4px}#lfpl button{flex:1 1 auto;padding:6px 5px;min-width:0;font-size:12px;gap:4px;letter-spacing:0}#lfpl button svg.i{width:14px;height:14px}
@@ -1913,7 +1914,7 @@ details.inst-p[open]>summary::after{transform:rotate(-135deg)}
           <div class="lfr"><span class="lfl" data-i="lf_dur"></span><div class="seg2" id="ptdu"></div></div>
           <div class="lfr2"><label class="lchk"><input type="checkbox" id="ptmic"><span>🎙️ <span data-i="lf_mic"></span></span></label></div>
         </div>
-        <input id="ptt" data-p="pt_ph" maxlength="80" style="width:100%">
+        <textarea id="ptt" data-p="pt_ph" maxlength="80" style="width:100%;min-height:70px"></textarea>
         <button class="w" id="ptb" type="button" data-i="pt_create"></button></div>
        </div>
       <div class="box lflist"><div class="frbh" id="ptlh"></div><div id="ptl"></div></div>
@@ -2747,7 +2748,7 @@ function rLfg(){
   list.forEach(function(x){var me=x.id===FB.uid,r=el('div','lfc'+(me?' mine':'')),rs=lfgResp(x),joined=rs.some(function(q){return q.from===FB.uid;});
     var hd=el('div','lfh');hd.appendChild(avDot(x.av,x.id));
     var c=el('div','t'),nb=el('b',null,s16(x.nick)||'…');nb.style.color=col(x.c);c.appendChild(nb);
-    c.appendChild(el('small',null,(x.game&&x.game!=='—'?'🎮 '+String(x.game).slice(0,20)+' · ':'')+(isOnline(x.id)||me?t('ff_online'):ago(tms(x.t)))));hd.appendChild(c);
+    var on_=isOnline(x.id)||me,hasG=x.game&&x.game!=='—';if(hasG||!on_){var sm=el('small','lfsub');if(hasG)sm.appendChild(el('span','lfg-g','🎮 '+String(x.game).slice(0,20)));if(!on_)sm.appendChild(el('span','lfg-a',(hasG?'· ':'')+ago(tms(x.t))));c.appendChild(sm);}hd.appendChild(c);
     var tl=el('span','lfleft','⏳ '+fmtLeft(lfgLeft(x)));hd.appendChild(tl);
     if(me){var d=el('button','x','×');d.type='button';d.setAttribute('aria-label',t('md_del'));d.onclick=function(e){e.stopPropagation();clearMyLfr();FB.fs.collection('lfg').doc(FB.uid).delete().catch(function(){});};hd.appendChild(d);}
     hd.onclick=function(){if(!me)showProfile(x.id);};r.appendChild(hd);
