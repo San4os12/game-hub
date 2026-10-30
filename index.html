@@ -1735,7 +1735,7 @@ details.inst-p[open]>summary::after{transform:rotate(-135deg)}
 .frsk .t b{width:110px;margin-bottom:6px}.frsk .t small{width:70px;height:9px}
 .frsk .skav{background:rgba(255,255,255,.06)!important;font-size:0!important}.frsk .fra{visibility:hidden}
 /* «Чаты» */
-body.rwtop .rw{top:calc(64px + env(safe-area-inset-top,0px));bottom:auto!important;transform:translate(-50%,calc(-100% - 90px))}
+body.rwtop .rw{top:var(--rwt,calc(64px + env(safe-area-inset-top,0px)));bottom:auto!important;transform:translate(-50%,calc(-100% - 90px))}
 body.rwtop .rw.on{transform:translate(-50%,0)}
 @media (min-width:1024px){body.rwtop .rw{top:80px;right:28px;left:auto;transform:translate(0,calc(-100% - 100px))}body.rwtop .rw.on{transform:none}
   #chin:focus,:root[data-game] #chin:focus{border-color:rgba(255,255,255,.38)!important;box-shadow:0 0 0 3px rgba(255,255,255,.07)!important;outline:none!important}}
@@ -2948,7 +2948,7 @@ function rAccIn(a){a.innerHTML='';if(FB&&a.id==='acc2'){var idb=el('div','uid',t
 /* ===== Карточка награды XP ===== */
 var rwQ=[],rwT=null,rwBusy=false;
 function reward(n,icon,title,sub){rwQ.push({n:n,icon:icon,title:title,sub:sub,after:prof.xp||0});if(!rwBusy)rwNext();}
-function rwNext(){var it=rwQ.shift(),e=$('rw');if(!it){rwBusy=false;e.classList.remove('on');return;}rwBusy=true;document.body.classList.toggle('rwtop',typeof cur!=='undefined'&&cur==='chat');
+function rwNext(){var it=rwQ.shift(),e=$('rw');if(!it){rwBusy=false;e.classList.remove('on');return;}rwBusy=true;var rwc=typeof cur!=='undefined'&&cur==='chat';document.body.classList.toggle('rwtop',rwc);if(rwc){try{var hh=document.body.classList.contains('chatopen')?document.querySelector('#chv .chh'):document.querySelector('.top');var hb=hh?hh.getBoundingClientRect().bottom:56;document.documentElement.style.setProperty('--rwt',Math.round(Math.max(8,hb)+8)+'px');}catch(_){}}
   var after=it.after,before=Math.max(0,after-it.n),lb=lvl(before),la=lvl(after),up=la>lb;
   e.className='rw'+(up?' lvl':'');e.innerHTML='';
   var rwi=el('div','rwi',(up||/^ach\//.test(it.icon))?'':it.icon);if(up){rwi.classList.add('fox');rwi.appendChild(fox('levelup'));}if(!up&&/^ach\//.test(it.icon)){var ri=document.createElement('img');ri.src=it.icon;ri.alt='';rwi.appendChild(ri);rwi.classList.add('img');}e.appendChild(rwi);var b=el('div','rwb');
