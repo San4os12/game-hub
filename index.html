@@ -1896,14 +1896,23 @@ input.tgl:focus-visible,:root[data-game] input.tgl:focus-visible{outline:2px sol
 .onbdots{display:flex;gap:8px}.onbdots i{width:8px;height:8px;border-radius:50%;background:var(--line);transition:background-color var(--t-fast,.15s),scale var(--t-fast,.15s)}
 .onbdots i.done{background:color-mix(in srgb,var(--accent) 55%,var(--line))}.onbdots i.on{background:var(--accent);scale:1.25}
 .srt{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.onbsw{flex:1 0 auto;display:flex;flex-direction:column}
 .onbst{flex:1 0 auto}
 .onbact{position:sticky;bottom:0;z-index:2;display:grid;gap:8px;margin:14px -18px 0;padding:14px 18px calc(12px + env(safe-area-inset-bottom,0px));background:linear-gradient(to top,var(--bg) 70%,color-mix(in srgb,var(--bg) 0%,transparent))}
 .onbact button{margin:0!important}
-@media (min-width:1000px){.onbact{position:static;background:none;margin:18px 0 0;padding:0}}
+@media (min-width:768px){.onbact{position:static;background:none;margin:18px 0 0;padding:0}
+  .onbtop{margin-top:auto}.onbact{margin-bottom:auto}.onbsw{flex:none}.onbst{flex:none}.onbsw.wanim{overflow:hidden}}
+@media (max-width:767px) and (max-height:700px){.onbc{padding-top:calc(10px + env(safe-area-inset-top,0px))}.onbtop{min-height:30px;margin-bottom:0}
+  .onbh{margin-bottom:2px}.onbh .onbf{width:96px;height:96px}.onbt{margin:2px 0 4px!important}.onbs{margin:0 0 6px;font-size:14px}
+  .onbl{margin:0 0 2px}.onbl li{padding:3px 0;font-size:14px}.onbact{margin-top:8px;padding-top:10px}
+  .onbst[data-st="1"] .ds{margin-top:8px}}
 .onb .wsel{position:relative}
 .onb .wsel.on{border-color:var(--accent)!important;background:color-mix(in srgb,var(--accent) 14%,var(--card))!important;color:var(--ink)!important;box-shadow:none!important}
-.onb .wsel .wchk{position:absolute;top:-7px;right:-7px;width:20px;height:20px;display:grid;place-items:center;border-radius:50%;background:var(--accent);color:var(--ai)}
-.onb .wsel .wchk svg.i{width:12px;height:12px;stroke-width:3}
+.onb .wsel{display:inline-flex;align-items:center;gap:8px}
+.onb .wsel .wchk{position:static;flex:none;width:18px;height:18px;display:grid;place-items:center;border-radius:50%;background:var(--accent);color:var(--ai,#fff)}
+#onb .wsel .wchk svg.i{width:11px;height:11px;margin:0;stroke-width:3.4;color:var(--ai,#fff)}
+#onb #wgame .wsel{display:flex;justify-content:flex-start}#onb #wgame .wsel .wchk{margin-left:auto}
+#onb #wlang .wsel{justify-content:center}
 .onb .wsel:not(.on):hover{border-color:color-mix(in srgb,var(--accent) 45%,var(--line))!important}
 .onb #wlang .wsel,.onb #wgame .wsel{overflow:visible}
 .wavg{display:grid!important;grid-template-columns:repeat(var(--wc,8),minmax(0,1fr));gap:6px;margin-top:10px}
@@ -2294,6 +2303,7 @@ button:active:not(:disabled):not(#cpsb):not(.xog button){scale:.97}
 <div class="onb" id="onb" hidden role="dialog" aria-modal="true">
   <div class="onbc">
     <div class="onbtop"><button class="g ib onbback" id="wback" type="button" hidden></button><div class="onbdots" id="wdots" aria-hidden="true"><i></i><i></i><i></i></div><span class="srt" id="wsr" aria-live="polite"></span></div>
+    <div class="onbsw" id="wsw">
     <div class="onbst" data-st="1">
       <div class="onbh" id="wpics"></div>
       <h1 class="onbt" data-i="w_title"></h1>
@@ -2309,6 +2319,7 @@ button:active:not(:disabled):not(#cpsb):not(.xog button){scale:.97}
       <div class="ds" data-i="w_mygames"></div><div class="muted" id="wglc"></div><div class="wgl" id="wgl"></div>
       <div class="ds" data-i="w_game"></div><div class="grid" id="wgame"></div>
       <label class="rulc"><input type="checkbox" id="wrc" class="cbx"><span><span data-i="ru_acc1"></span> <a href="rules.html" target="_blank" rel="noopener" data-i="ru_link"></a></span></label>
+    </div>
     </div>
     <div class="onbact">
       <button class="w" id="wnext" type="button" data-i="w_next"></button>
@@ -5203,12 +5214,13 @@ function rOnb(){
 var WST=1,GENNICK='';
 function wChk(){var c=el('span','wchk');c.appendChild(ico('check'));return c;}
 function wAvCols(){if(innerWidth>=1000)return 8;var w=Math.min(innerWidth,640)-36;return Math.max(6,Math.min(8,Math.floor((w+6)/48)));}
-function wStep(n,dir){n=Math.max(1,Math.min(3,n));var prev=WST;WST=n;var o=$('onb');
+function wStep(n,dir){n=Math.max(1,Math.min(3,n));var prev=WST;WST=n;var o=$('onb'),sw=$('wsw'),h0=sw.offsetHeight;
   Array.prototype.forEach.call(o.querySelectorAll('.onbst'),function(e){var on=+e.dataset.st===n;e.hidden=!on;e.classList.remove('win','wback2');if(on&&prev!==n&&mOK()){void e.offsetWidth;e.classList.add(dir<0?'wback2':'win');}});
   Array.prototype.forEach.call($('wdots').children,function(d,i){d.className=i<n?(i===n-1?'on':'done'):'';});
   $('wsr').textContent=t('w_step').replace('{n}',n);var bk=$('wback');bk.hidden=n===1;bk.setAttribute('aria-label',t('w_back'));if(!bk.firstChild)bk.appendChild(ico('chl'));
   $('wnext').hidden=n===3;$('wgo').hidden=n!==3;$('wlog').hidden=n!==1;
-  try{o.scrollTo(0,0);}catch(e){o.scrollTop=0;}if(n===2)wNickHint();}
+  try{o.scrollTo(0,0);}catch(e){o.scrollTop=0;}if(n===2)wNickHint();
+  if(prev!==n&&innerWidth>=768&&mOK()&&sw.animate){var h1=sw.offsetHeight;if(Math.abs(h1-h0)>2){sw.classList.add('wanim');var an=sw.animate([{height:h0+'px'},{height:h1+'px'}],{duration:260,easing:'cubic-bezier(.2,.8,.2,1)'});an.onfinish=an.oncancel=function(){sw.classList.remove('wanim');};}}}
 function wNickHint(){var i=$('wnick');i.placeholder=t('w_nick_ph').replace('{n}',GENNICK||'Player1234');}
 function wNickOk(){var v=$('wnick').value.replace(/\s+/g,' ').trim(),er=$('wnerr');if(v&&v.length<2){er.textContent=t('w_nick_short');er.hidden=false;$('wnick').classList.add('bad');return false;}er.hidden=true;$('wnick').classList.remove('bad');return true;}
 function openOnb(){$('onb').hidden=false;GENNICK=/^Player\d{4}$/.test(prof.nick||'')?prof.nick:'';$('wnick').value=prof.nick||'';document.body.style.overflow='hidden';WST=1;rOnb();wStep(1,1);wgoSt();}
@@ -5217,12 +5229,12 @@ $('wback').onclick=function(){wStep(WST-1,-1);};
 $('wnick').addEventListener('focus',function(){var i=$('wnick');if(GENNICK&&i.value===GENNICK)setTimeout(function(){try{i.select();}catch(e){}},0);});
 $('wnick').addEventListener('input',function(){if(!$('wnerr').hidden)wNickOk();});
 $('wnick').addEventListener('keydown',function(e){if(e.key==='Enter'){e.preventDefault();$('wnext').click();}});
-document.addEventListener('keydown',function(e){if(e.key==='Escape'&&!$('onb').hidden&&WST>1&&innerWidth>=1000){e.preventDefault();e.stopImmediatePropagation();wStep(WST-1,-1);}},true);
+document.addEventListener('keydown',function(e){if(e.key==='Escape'&&!$('onb').hidden&&WST>1&&innerWidth>=768){e.preventDefault();e.stopImmediatePropagation();wStep(WST-1,-1);}},true);
 window.addEventListener('resize',function(){if(!$('onb').hidden&&!WAVALL)rOnb();});
 function closeOnb(){$('onb').hidden=true;document.body.style.overflow='';sv('hub.onb',1);}
 function wgoSt(){var g=$('wgo');if(g){g.classList.toggle('off',!$('wrc').checked);g.setAttribute('aria-disabled',$('wrc').checked?'false':'true');}}
 $('wrc').onchange=function(){if($('wrc').checked)document.querySelector('#onb .rulc').classList.remove('need');wgoSt();};wgoSt();
-$('wgo').onclick=function(){if(!$('wrc').checked){var rl=document.querySelector('#onb .rulc');rl.classList.remove('need');void rl.offsetWidth;rl.classList.add('need');try{rl.scrollIntoView({block:'center',behavior:'smooth'});}catch(e){}toast(t('w_rules_need'));return;}sv('hub.rules',1);setTimeout(function(){if(typeof refJoin==='function')refJoin();},1500);var n=$('wnick').value.trim().slice(0,16);if(n){prof.nick=n;$('fnick').value=n;}sv('hub.prof',prof);
+$('wgo').onclick=function(){if(!$('wrc').checked){var rl=document.querySelector('#onb .rulc');rl.classList.remove('need');void rl.offsetWidth;rl.classList.add('need');try{rl.scrollIntoView({block:'center',behavior:'smooth'});}catch(e){}toast(t('w_rules_need'));return;}sv('hub.rules',1);setTimeout(function(){if(typeof refJoin==='function')refJoin();},1500);var n=$('wnick').value.replace(/\s+/g,' ').trim().slice(0,16);if(!n)n=prof.nick||GENNICK||('Player'+Math.floor(1000+Math.random()*9000));prof.nick=n;$('fnick').value=n;sv('hub.prof',prof);
   closeOnb();sv('hub.lang',lang);onStats();rAv();show(INV?'clan':PINV?'lfg':'home');if(INV)toast(t('w_hi')+(prof.nick||'')+'! 🎮');else if(!PINV)STHI=true;fun('a1');pushProf();
   if(!INV&&!PINV)setTimeout(startWhenFree,900);};
 $('wlog').onclick=function(){closeOnb();sv('hub.lang',lang);show(INV?'clan':'home');login();};
