@@ -2633,10 +2633,10 @@ function buildDrawer(){
   rPal();
 }
 function rPal(){var w=$('setpal');if(!w)return;w.innerHTML='';w.setAttribute('aria-label',t('m_style'));
-  Object.keys(GAMES).forEach(function(k){var G=GAMES[k],on=game===k,b=el('button','pal'+(on?' on':''));b.type='button';b.setAttribute('role','radio');b.setAttribute('aria-checked',String(on));
+  Object.keys(GAMES).forEach(function(k){var G=GAMES[k],on=palCur()===k,b=el('button','pal'+(on?' on':''));b.type='button';b.setAttribute('role','radio');b.setAttribute('aria-checked',String(on));
     b.style.setProperty('--pbg',G.bg);b.style.setProperty('--pac',G.c);b.style.setProperty('--pon',G.on);
     var pv=el('span','pv');pv.appendChild(el('i'));pv.appendChild(ico('check'));b.appendChild(pv);b.appendChild(el('span',null,G.n));
-    b.onclick=function(){if(game!==k){applyGame(k);toast(t('pal_set')+G.n);}};w.appendChild(b);});}
+    b.onclick=function(){if(palCur()!==k){applyGame(k);rPal();toast(t('pal_set')+G.n);}};w.appendChild(b);});}
 function hdr(){
   var s=SEC.filter(function(x){return x[0]===cur;})[0],h=$('cur');
   h.innerHTML='';h.appendChild(ico(s[1]));var ht=el('span',null,t(cur==='pedit'&&innerWidth<480?'pedit_s':cur));h.appendChild(ht);if(typeof HDC!=='undefined'){if(HDC!==null&&HDC!==cur)ht.classList.add('tin');HDC=cur;}
@@ -5209,7 +5209,7 @@ function rOnb(){
   var mb=$('wavm');mb.hidden=WAVALL;mb.textContent=t('w_avall')+' · '+AVORDER.length;mb.onclick=function(){WAVALL=true;rOnb();};
   rWgl();
   var wg=$('wgame');wg.innerHTML='';
-  Object.keys(GAMES).forEach(function(k){var on=game===k,b=el('button','mi wsel'+(on?' on':''));b.type='button';b.setAttribute('aria-pressed',String(on));var sw=el('i','sw');sw.style.background=GAMES[k].c;b.appendChild(sw);b.appendChild(el('span',null,GAMES[k].n));if(on)b.appendChild(wChk());
+  Object.keys(GAMES).forEach(function(k){var on=palCur()===k,b=el('button','mi wsel'+(on?' on':''));b.type='button';b.setAttribute('aria-pressed',String(on));var sw=el('i','sw');sw.style.background=GAMES[k].c;b.appendChild(sw);b.appendChild(el('span',null,GAMES[k].n));if(on)b.appendChild(wChk());
     b.onclick=function(){onbGame=k;applyGame(k);rOnb();};wg.appendChild(b);});}
 var WST=1,GENNICK='';
 function wChk(){var c=el('span','wchk');c.appendChild(ico('check'));return c;}
@@ -5251,7 +5251,8 @@ function applyLang(){
 function curGame(){return String((typeof prof!=='undefined'&&prof&&prof.fav)||'').split(',')[0].trim().slice(0,20);}
 function themeMeta(){try{var m=document.querySelector('meta[name=theme-color]');if(m)m.content=getComputedStyle(document.documentElement).getPropertyValue('--bg').trim()||'#000';}catch(e){}}
 var LPT={x:innerWidth/2,y:innerHeight/2};document.addEventListener('pointerdown',function(e){LPT={x:e.clientX,y:e.clientY};},{passive:true,capture:true});
-function applyGame(k){if(k!==game&&document.startViewTransition&&!(typeof RM!=='undefined'&&RM)&&!applyGame._vt){var de0=document.documentElement,r=Math.hypot(Math.max(LPT.x,innerWidth-LPT.x),Math.max(LPT.y,innerHeight-LPT.y));de0.style.setProperty('--vx',LPT.x+'px');de0.style.setProperty('--vy',LPT.y+'px');de0.style.setProperty('--vr',r+'px');applyGame._vt=1;try{document.startViewTransition(function(){applyGame(k);}).finished.finally(function(){applyGame._vt=0;});return;}catch(e){applyGame._vt=0;}}
+function palCur(){return applyGame._want||game;}
+function applyGame(k){applyGame._want=k;if(applyGame._vt===1)return;if(k!==game&&document.startViewTransition&&!(typeof RM!=='undefined'&&RM)&&!applyGame._vt){var de0=document.documentElement,r=Math.hypot(Math.max(LPT.x,innerWidth-LPT.x),Math.max(LPT.y,innerHeight-LPT.y));de0.style.setProperty('--vx',LPT.x+'px');de0.style.setProperty('--vy',LPT.y+'px');de0.style.setProperty('--vr',r+'px');applyGame._vt=1;try{document.startViewTransition(function(){applyGame._vt=2;applyGame(applyGame._want);}).finished.finally(function(){applyGame._vt=0;});return;}catch(e){applyGame._vt=0;}}
   try{var sts=ld('hub.styles',[]);if(sts.indexOf(k)<0){sts.push(k);sv('hub.styles',sts.slice(-40));}}catch(e){}
   var de=document.documentElement;if(!applyGame._vt)de.classList.add('thx');clearTimeout(applyGame._t);applyGame._t=setTimeout(function(){de.classList.remove('thx');},500);game=k;sv('hub.game',k);document.documentElement.dataset.game=k;setTimeout(themeMeta,0);loadSteps();updTitle();rGuide();buildDrawer();pushProf();try{rCol();rMe();rHome();rChats();}catch(e){}}
 
