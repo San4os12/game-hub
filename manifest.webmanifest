@@ -45,60 +45,60 @@
   ],
   "screenshots": [
     {
-      "src": "store/01-home.png",
+      "src": "store/pwa/01-lfg.webp",
       "sizes": "1080x1920",
-      "type": "image/png",
+      "type": "image/webp",
       "form_factor": "narrow",
-      "label": "Главная"
+      "label": "Найди, с кем играть"
     },
     {
-      "src": "store/02-chat.png",
+      "src": "store/pwa/02-party.webp",
       "sizes": "1080x1920",
-      "type": "image/png",
+      "type": "image/webp",
       "form_factor": "narrow",
-      "label": "Общий чат"
+      "label": "Собери пати за минуту"
     },
     {
-      "src": "store/03-clan.png",
+      "src": "store/pwa/03-clan.webp",
       "sizes": "1080x1920",
-      "type": "image/png",
+      "type": "image/webp",
       "form_factor": "narrow",
-      "label": "Кланы"
+      "label": "Свой клан и рекорды"
     },
     {
-      "src": "store/04-minigames.png",
+      "src": "store/pwa/04-chats.webp",
       "sizes": "1080x1920",
-      "type": "image/png",
+      "type": "image/webp",
       "form_factor": "narrow",
-      "label": "Мини-игры"
+      "label": "Друзья и чаты в одном месте"
     },
     {
-      "src": "store/05-messages.png",
+      "src": "store/pwa/05-progress.webp",
       "sizes": "1080x1920",
-      "type": "image/png",
+      "type": "image/webp",
       "form_factor": "narrow",
-      "label": "Личные сообщения"
+      "label": "Уровни и 36 достижений"
     },
     {
-      "src": "store/06-profile.png",
+      "src": "store/pwa/06-minigames.webp",
       "sizes": "1080x1920",
-      "type": "image/png",
+      "type": "image/webp",
       "form_factor": "narrow",
-      "label": "Профиль"
+      "label": "Мини-игры с друзьями"
     },
     {
-      "src": "store/07-progress.png",
+      "src": "store/pwa/07-profile.webp",
       "sizes": "1080x1920",
-      "type": "image/png",
+      "type": "image/webp",
       "form_factor": "narrow",
-      "label": "Прогресс"
+      "label": "Профиль в твоём стиле"
     },
     {
-      "src": "store/08-teammates.png",
+      "src": "store/pwa/08-themes.webp",
       "sizes": "1080x1920",
-      "type": "image/png",
+      "type": "image/webp",
       "form_factor": "narrow",
-      "label": "Тиммейты и пати"
+      "label": "4 расцветки на выбор"
     }
   ],
   "shortcuts": [
