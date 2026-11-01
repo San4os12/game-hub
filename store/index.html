@@ -1,0 +1,258 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>GG Squad — материалы для Google Play</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap">
+<style>
+/* Шрифт заголовков приложения (GG Zone Display — изменённый Tektur). Чешские буквы с диакритикой берём из исходного Tektur: тот же рисунок. */
+@font-face{font-family:'GGHead';src:url(../fonts/ggzone-display.woff?v=2) format('woff');font-weight:500 800;unicode-range:U+0000-00FF,U+0400-045F,U+0490-0491,U+2010-2044,U+20AC,U+2116,U+2122}
+@font-face{font-family:'GGHead';src:url(assets/tektur-ext.woff) format('woff');font-weight:400 900;unicode-range:U+0100-017F}
+:root{--bg:#0D0F14;--card:#151821;--line:rgba(255,255,255,.08);--ink:#F2F3F5;--muted:#8A8F9C;--acc:#E8323F;--on:#fff}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 Inter,system-ui,sans-serif}
+body{padding:0 16px 60px}
+.wrap{max-width:1180px;margin:0 auto}
+header{position:sticky;top:0;z-index:5;background:color-mix(in srgb,var(--bg) 92%,transparent);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--line);margin:0 -16px 24px;padding:14px 16px}
+.hd{max-width:1180px;margin:0 auto;display:flex;flex-wrap:wrap;align-items:center;gap:12px 20px}
+h1{margin:0;font:800 22px/1.2 'GGHead',Inter,sans-serif;letter-spacing:.3px}
+h1 small{display:block;font:500 13px Inter,sans-serif;color:var(--muted);letter-spacing:0}
+.ctl{display:flex;flex-wrap:wrap;gap:10px;margin-left:auto;align-items:center}
+.seg{display:flex;gap:6px}
+.seg button,.btn{font:700 14px Inter,sans-serif;color:var(--ink);background:var(--card);border:1px solid var(--line);min-height:40px;padding:0 14px;cursor:pointer;display:inline-flex;align-items:center;gap:8px;clip-path:polygon(0 0,calc(100% - 10px) 0,100% 10px,100% 100%,10px 100%,0 calc(100% - 10px))}
+.seg button.on{border-color:var(--acc);background:color-mix(in srgb,var(--acc) 16%,var(--card))}
+.seg button i{width:12px;height:12px;border-radius:50%;display:inline-block}
+.btn{text-decoration:none}
+.btn.pri{background:var(--acc);color:var(--on);border-color:var(--acc)}
+.btn:hover,.seg button:hover{border-color:color-mix(in srgb,var(--acc) 55%,var(--line))}
+.btn:focus-visible,.seg button:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
+h2{font:800 18px/1.3 'GGHead',Inter,sans-serif;margin:36px 0 6px;letter-spacing:.3px}
+.note{color:var(--muted);margin:0 0 16px;max-width:760px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:18px}
+.card{background:var(--card);border:1px solid var(--line);padding:12px;display:flex;flex-direction:column;gap:10px}
+.card canvas,.card img.prev{width:100%;height:auto;display:block;background:#000}
+.card .meta{display:flex;justify-content:space-between;gap:8px;font-size:13px;color:var(--muted)}
+.card b{color:var(--ink);font-weight:700}
+.wide{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:18px}
+.icons{display:flex;flex-wrap:wrap;align-items:flex-end;gap:18px}
+.icons figure{margin:0;text-align:center;font-size:12px;color:var(--muted)}
+.icons img{display:block;margin:0 auto 6px}
+.ok{color:#3ddc84;font-weight:700}
+.where{margin:0;padding-left:20px;max-width:860px}
+.where li{margin:4px 0}
+code{font-size:13px;background:rgba(255,255,255,.06);padding:1px 6px}
+#busy{position:fixed;left:50%;bottom:20px;transform:translateX(-50%);background:var(--acc);color:var(--on);padding:10px 16px;font-weight:700;display:none;z-index:9}
+@media (max-width:640px){header{position:static}.ctl{margin-left:0}.grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.card{padding:8px}.card .meta{flex-direction:column;gap:2px}}
+</style>
+</head>
+<body>
+<header><div class="hd">
+  <h1>GG Squad · Google Play<small id="sub">Материалы для страницы в магазине</small></h1>
+  <div class="ctl">
+    <div class="seg" id="lang"></div>
+    <div class="seg" id="pal"></div>
+    <button class="btn pri" id="all" type="button">Скачать всё</button>
+  </div>
+</div></header>
+<main class="wrap">
+  <h2 id="h_shots"></h2>
+  <p class="note" id="n_shots"></p>
+  <div class="grid" id="shots"></div>
+
+  <h2 id="h_fg"></h2>
+  <p class="note" id="n_fg"></p>
+  <div class="wide">
+    <div class="card" id="fgc"></div>
+    <div class="card" id="ogc"></div>
+  </div>
+
+  <h2 id="h_icon"></h2>
+  <div class="card">
+    <div class="icons" id="icons"></div>
+    <div id="icheck"></div>
+  </div>
+
+  <h2 id="h_where"></h2>
+  <ol class="where" id="where"></ol>
+</main>
+<div id="busy"></div>
+<script>
+(function(){
+var PAL={blood:{n:'Blood',c:'#E8323F',bg:'#0D0F14',on:'#fff'},frost:{n:'Frost',c:'#4AA3FF',bg:'#0A0F16',on:'#fff'},royal:{n:'Royal',c:'#D4AF37',bg:'#0E0D0B',on:'#14110A'},violet:{n:'Violet',c:'#A66BFF',bg:'#100D16',on:'#fff'}};
+var SH=[
+ {k:'lfg',  s:['lfg'],        t:['Найди, с кем играть','Find someone to play with','Najdi s kým hrát']},
+ {k:'party',s:['party'],      t:['Собери пати за минуту','Build a party in a minute','Sestav partu za minutu']},
+ {k:'clan', s:['clan'],       t:['Свой клан и рекорды','Your clan, your records','Vlastní klan a rekordy']},
+ {k:'chats',s:['chat','friends'],t:['Друзья и чаты в одном месте','Friends and chats in one place','Přátelé a chaty na jednom místě']},
+ {k:'progress',s:['prog'],    t:['Уровни и 36 достижений','Levels and 36 achievements','Úrovně a 36 úspěchů']},
+ {k:'minigames',s:['xo','react'],t:['Мини-игры с друзьями','Mini-games with friends','Minihry s přáteli']},
+ {k:'profile',s:['me'],       t:['Профиль в твоём стиле','A profile in your style','Profil ve tvém stylu']},
+ {k:'themes',s:'PALS',        t:['4 расцветки на выбор','Pick from 4 color themes','4 barevná témata']}
+];
+var SUBT=['Найди, с кем играть прямо сейчас','Find someone to play with right now','Najdi, s kým hrát, hned teď'];
+var UI={
+ sub:['Материалы для страницы в магазине','Store listing assets','Materiály pro obchod'],
+ all:['Скачать всё','Download all','Stáhnout vše'],
+ dl:['Скачать PNG','Download PNG','Stáhnout PNG'],
+ h_shots:['Скриншоты телефона · 1080×1920','Phone screenshots · 1080×1920','Snímky obrazovky · 1080×1920'],
+ n_shots:['8 кадров, PNG без прозрачности. Экраны — настоящее приложение с демонстрационными данными (ники и числа выдуманы для показа). Язык и расцветка переключаются сверху.','8 frames, PNG without transparency. Screens are the real app with demo data (nicknames and numbers are made up for display). Switch language and color theme at the top.','8 snímků, PNG bez průhlednosti. Obrazovky jsou skutečná aplikace s ukázkovými daty (přezdívky a čísla jsou smyšlené). Jazyk a barvy přepneš nahoře.'],
+ h_fg:['Feature graphic и превью ссылки','Feature graphic and link preview','Feature graphic a náhled odkazu'],
+ n_fg:['Feature graphic 1024×500 — для Google Play. Превью 1200×630 — для Telegram, Discord, WhatsApp (готовый файл уже лежит в корне сайта как og.png). Пунктир — безопасная зона 50 px, на скачанной картинке его нет.','Feature graphic 1024×500 is for Google Play. The 1200×630 preview is for Telegram, Discord, WhatsApp (already saved at the site root as og.png). The dashed line is the 50 px safe zone; it is not in the downloaded file.','Feature graphic 1024×500 je pro Google Play. Náhled 1200×630 je pro Telegram, Discord, WhatsApp (už je v kořeni webu jako og.png). Čárkovaná čára je bezpečná zóna 50 px, ve staženém souboru není.'],
+ h_icon:['Иконка 512×512','Icon 512×512','Ikona 512×512'],
+ h_where:['Что куда загружать','Where to upload what','Co kam nahrát']
+};
+var WHERE=[
+ ['<b>Play Console → Рост → Страница приложения в Google Play → Основная страница.</b>','<b>Play Console → Grow → Store presence → Main store listing.</b>','<b>Play Console → Růst → Prezentace v obchodě → Hlavní záznam v obchodě.</b>'],
+ ['«Значок приложения» — <code>icon-512.png</code> (из корня сайта, 512×512).','“App icon” — <code>icon-512.png</code> (site root, 512×512).','„Ikona aplikace“ — <code>icon-512.png</code> (kořen webu, 512×512).'],
+ ['«Графический баннер» — <code>gg-squad_feature_…png</code> (1024×500).','“Feature graphic” — <code>gg-squad_feature_…png</code> (1024×500).','„Hlavní obrázek“ — <code>gg-squad_feature_…png</code> (1024×500).'],
+ ['«Скриншоты телефона» — 8 файлов <code>gg-squad_…_1-lfg.png</code> … <code>_8-themes.png</code> по порядку.','“Phone screenshots” — the 8 files <code>gg-squad_…_1-lfg.png</code> … <code>_8-themes.png</code>, in order.','„Snímky obrazovky telefonu“ — 8 souborů <code>gg-squad_…_1-lfg.png</code> … <code>_8-themes.png</code> v pořadí.'],
+ ['Для английского и чешского перевода страницы — переключи язык сверху, скачай кадры и загрузи их в «Переводы» этой же страницы.','For the English and Czech listing translations, switch the language at the top, download the frames and upload them under “Translations” on the same page.','Pro anglický a český překlad záznamu přepni jazyk nahoře, stáhni snímky a nahraj je v „Překlady“ na stejné stránce.'],
+ ['Превью ссылки менять не нужно: <code>og.png</code> уже лежит в корне сайта и прописан в index.html.','The link preview needs no action: <code>og.png</code> is already at the site root and set in index.html.','Náhled odkazu není potřeba měnit: <code>og.png</code> už je v kořeni webu a je nastaven v index.html.']
+];
+var L=0,LG=['ru','en','cs'],P='blood';
+try{var q=new URLSearchParams(location.search);if(q.get('lang')&&LG.indexOf(q.get('lang'))>=0)L=LG.indexOf(q.get('lang'));if(q.get('pal')&&PAL[q.get('pal')])P=q.get('pal');}catch(e){}
+function $(i){return document.getElementById(i);}
+function el(t,c,x){var e=document.createElement(t);if(c)e.className=c;if(x!=null)e.textContent=x;return e;}
+
+/* ---------- картинки ---------- */
+var IMG={};
+function img(src){if(!IMG[src])IMG[src]=new Promise(function(ok,no){var i=new Image();i.onload=function(){ok(i);};i.onerror=function(){no(new Error(src));};i.src=src;});return IMG[src];}
+function shot(name,pal){return img('shots/'+LG[L]+'_'+(pal||P)+'_'+name+'.webp');}
+
+/* ---------- рисование ---------- */
+function rr(c,x,y,w,h,r){c.beginPath();c.moveTo(x+r,y);c.arcTo(x+w,y,x+w,y+h,r);c.arcTo(x+w,y+h,x,y+h,r);c.arcTo(x,y+h,x,y,r);c.arcTo(x,y,x+w,y,r);c.closePath();}
+function hexA(h,a){var n=parseInt(h.slice(1),16);return 'rgba('+(n>>16&255)+','+(n>>8&255)+','+(n&255)+','+a+')';}
+function bgPaint(c,W,H,pal,gx,gy,gr){var p=PAL[pal];c.fillStyle=p.bg;c.fillRect(0,0,W,H);
+  var g=c.createRadialGradient(gx,gy,0,gx,gy,gr);g.addColorStop(0,hexA(p.c,.34));g.addColorStop(.55,hexA(p.c,.10));g.addColorStop(1,hexA(p.c,0));c.fillStyle=g;c.fillRect(0,0,W,H);
+  var g2=c.createRadialGradient(W*.15,H*.08,0,W*.15,H*.08,Math.max(W,H)*.5);g2.addColorStop(0,'rgba(120,140,220,.07)');g2.addColorStop(1,'rgba(120,140,220,0)');c.fillStyle=g2;c.fillRect(0,0,W,H);
+  var v=c.createRadialGradient(W/2,H/2,Math.min(W,H)*.35,W/2,H/2,Math.max(W,H)*.75);v.addColorStop(0,'rgba(0,0,0,0)');v.addColorStop(1,'rgba(0,0,0,.45)');c.fillStyle=v;c.fillRect(0,0,W,H);}
+/* экран: 780×1512 приложение + 88 статус-бар = 780×1600 */
+var SW=780,SHH=1600,STAT=88;
+function statusBar(c,w,pal){var k=w/SW,p=PAL[pal];c.fillStyle=p.bg;c.fillRect(0,0,w,STAT*k);
+  c.fillStyle='#F2F3F5';c.font='600 '+(30*k)+'px Inter,sans-serif';c.textBaseline='middle';c.textAlign='center';c.fillText('9:41',112*k,48*k);
+  var x=575*k;for(var i=0;i<4;i++){var h=(10+i*5)*k;rr(c,x+i*12*k,(58*k)-h,8*k,h,2*k);c.fill();}
+  c.lineWidth=5*k;c.strokeStyle='#F2F3F5';c.lineCap='round';[22,13].forEach(function(r){c.beginPath();c.arc(648*k,60*k,r*k,Math.PI*1.25,Math.PI*1.75);c.stroke();});
+  c.beginPath();c.arc(648*k,57*k,4*k,0,Math.PI*2);c.fill();
+  c.lineWidth=2.5*k;c.strokeStyle='rgba(242,243,245,.6)';rr(c,682*k,36*k,50*k,24*k,7*k);c.stroke();rr(c,686*k,40*k,42*k,16*k,4*k);c.fill();rr(c,734*k,43*k,4*k,10*k,2*k);c.fillStyle='rgba(242,243,245,.6)';c.fill();
+  c.fillStyle='#000';rr(c,(SW/2-120)*k,18*k,240*k,64*k,32*k);c.fill();}
+function phone(c,im,cx,cy,w,rot,pal,glow){var p=PAL[pal],sh=w*SHH/SW,b=w*0.03,W2=w+2*b,H2=sh+2*b,R=w*0.13,ri=w*0.105;
+  c.save();c.translate(cx,cy);c.rotate((rot||0)*Math.PI/180);c.translate(-W2/2,-H2/2);
+  // свечение и тень
+  c.save();c.shadowColor=hexA(p.c,glow==null?.45:glow);c.shadowBlur=w*0.16;c.fillStyle='#111';rr(c,0,0,W2,H2,R);c.fill();c.restore();
+  c.save();c.shadowColor='rgba(0,0,0,.65)';c.shadowBlur=w*0.1;c.shadowOffsetY=w*0.05;c.fillStyle='#111';rr(c,0,0,W2,H2,R);c.fill();c.restore();
+  // титановая рамка
+  var g=c.createLinearGradient(0,0,W2,H2);g.addColorStop(0,'#8a8c94');g.addColorStop(.35,'#4a4c54');g.addColorStop(.7,'#6b6d75');g.addColorStop(1,'#3a3c42');
+  c.fillStyle=g;rr(c,0,0,W2,H2,R);c.fill();c.fillStyle='#050506';rr(c,w*0.008,w*0.008,W2-w*0.016,H2-w*0.016,R-w*0.008);c.fill();
+  // экран
+  c.save();c.translate(b,b);rr(c,0,0,w,sh,ri);c.clip();
+  c.fillStyle=p.bg;c.fillRect(0,0,w,sh);
+  c.drawImage(im,0,STAT*w/SW,w,w*im.height/im.width);
+  statusBar(c,w,pal);
+  // лёгкий блик по стеклу
+  var gl=c.createLinearGradient(0,0,w,sh);gl.addColorStop(0,'rgba(255,255,255,.07)');gl.addColorStop(.35,'rgba(255,255,255,0)');c.fillStyle=gl;c.fillRect(0,0,w,sh);
+  c.restore();c.restore();}
+function fitFont(c,txt,max,size,weight,fam){var s=size;do{c.font=weight+' '+s+'px '+fam;if(c.measureText(txt).width<=max)break;s-=2;}while(s>20);return s;}
+function wrap2(c,txt,max){var w=txt.split(' ');if(c.measureText(txt).width<=max||w.length<2)return [txt];var best=null,bw=1e9;
+  for(var i=1;i<w.length;i++){var a=w.slice(0,i).join(' '),b=w.slice(i).join(' '),m=Math.max(c.measureText(a).width,c.measureText(b).width);if(m<bw){bw=m;best=[a,b];}}return best;}
+function wrap(c,txt,max){var w=txt.split(' '),lines=[],cur='';w.forEach(function(x){var t=cur?cur+' '+x:x;if(c.measureText(t).width>max&&cur){lines.push(cur);cur=x;}else cur=t;});if(cur)lines.push(cur);return lines;}
+function title(c,W,txt,pal,y0){var p=PAL[pal],fam="'GGHead',Inter,sans-serif",size=104;c.textAlign='center';c.textBaseline='alphabetic';
+  var lines;for(;size>=60;size-=4){c.font='800 '+size+'px '+fam;lines=wrap2(c,txt,W-150);if(lines.length<=2&&lines.every(function(l){return c.measureText(l).width<=W-150;}))break;}
+  var lh=size*1.08,y=y0+size;c.fillStyle=p.c;c.shadowColor='rgba(0,0,0,.5)';c.shadowBlur=24;
+  lines.forEach(function(l,i){c.fillText(l,W/2,y+i*lh);});c.shadowBlur=0;
+  // короткая акцентная черта сверху, как у карточек приложения
+  c.fillStyle=p.c;c.fillRect(W/2-36,y0-36,72,6);
+  return y+(lines.length-1)*lh;}
+
+function drawShot(cv,i){var d=SH[i],c=cv.getContext('2d'),W=1080,H=1920,pal=P;cv.width=W;cv.height=H;
+  var need=d.s==='PALS'?['blood','frost','royal','violet'].map(function(k){return shot('home',k);}):d.s.map(function(n){return shot(n);});
+  return Promise.all(need).then(function(ims){
+    bgPaint(c,W,H,pal,W/2,1200,1100);
+    var ty=title(c,W,d.t[L],pal,150);
+    if(d.s==='PALS'){var ks=['blood','frost','royal','violet'],xs=[230,430,650,850],rots=[-7,-2.5,2.5,7],ys=[1060,1020,1020,1060],order=[0,3,1,2];
+      order.forEach(function(j){phone(c,ims[j],xs[j],ys[j],440,rots[j],ks[j],.35);});
+      // подписи расцветок
+      var y=1700,gap=24;c.font='700 40px Inter,sans-serif';var ws=ks.map(function(k){return c.measureText(PAL[k].n).width+86;}),tot=ws.reduce(function(a,b){return a+b;},0)+gap*3,x=(W-tot)/2;
+      ks.forEach(function(k,j){var w=ws[j];c.fillStyle='rgba(255,255,255,.06)';c.strokeStyle=hexA(PAL[k].c,.9);c.lineWidth=3;rr(c,x,y-38,w,76,14);c.fill();c.stroke();
+        c.fillStyle=PAL[k].c;c.beginPath();c.arc(x+34,y,12,0,Math.PI*2);c.fill();c.fillStyle='#F2F3F5';c.textAlign='left';c.textBaseline='middle';c.fillText(PAL[k].n,x+58,y+2);x+=w+gap;});
+      return;}
+    if(ims.length===1){var top1=ty+64,av1=H-top1-64,w1=Math.min(720,av1/1.03*SW/SHH);phone(c,ims[0],W/2,top1+av1/2,w1,0,pal);}
+    else{var top=ty+70,avail=H-top-50;phone(c,ims[1],752,top+avail/2+30,500,6,pal,.3);phone(c,ims[0],400,top+avail/2-10,610,-4,pal);}
+  });}
+
+function drawPromo(cv,W,H,safe){var c=cv.getContext('2d'),pal=P,p=PAL[pal];cv.width=W;cv.height=H;
+  return img('assets/fox-hello.webp').then(function(fox){
+    bgPaint(c,W,H,pal,W*.74,H*.55,H*.95);
+    // лиса справа, целиком внутри безопасной зоны
+    var m=50*W/1024,fh=H-2*m-4,fw=fh*fox.width/fox.height,fx=W-m-fw-W*0.01,fy=m+2;
+    c.save();c.shadowColor=hexA(p.c,.5);c.shadowBlur=60*W/1024;c.drawImage(fox,fx,fy,fw,fh);c.restore();
+    // текст слева
+    var k=W/1024,x=m+18*k,ty=H*0.43;
+    c.fillStyle=p.c;c.fillRect(x,ty-118*k,70*k,6*k);
+    c.textAlign='left';c.textBaseline='alphabetic';c.fillStyle='#F2F3F5';
+    var fs=fitFont(c,'GG Squad',fx-x-20*k,96*k,800,"'GGHead',Inter,sans-serif");c.font='800 '+fs+'px '+"'GGHead',Inter,sans-serif";c.shadowColor='rgba(0,0,0,.45)';c.shadowBlur=20*k;c.fillText('GG Squad',x,ty);c.shadowBlur=0;
+    c.font='600 '+(34*k)+'px Inter,sans-serif';c.fillStyle=p.c;var lines=wrap2(c,SUBT[L],fx-x-30*k);
+    lines.slice(0,2).forEach(function(l,i){c.fillText(l,x,ty+62*k+i*44*k);});
+    if(safe){c.setLineDash([8,6]);c.strokeStyle='rgba(255,255,255,.35)';c.lineWidth=2;c.strokeRect(m,m,W-2*m,H-2*m);c.setLineDash([]);}
+  });}
+
+/* ---------- PNG без прозрачности (24 бита, RGB) ---------- */
+var CRC=(function(){var t=new Uint32Array(256);for(var n=0;n<256;n++){var c=n;for(var k=0;k<8;k++)c=c&1?0xEDB88320^(c>>>1):c>>>1;t[n]=c>>>0;}return t;})();
+function crc(buf){var c=0xFFFFFFFF;for(var i=0;i<buf.length;i++)c=CRC[(c^buf[i])&255]^(c>>>8);return (c^0xFFFFFFFF)>>>0;}
+function chunk(type,data){var b=new Uint8Array(12+data.length),dv=new DataView(b.buffer);dv.setUint32(0,data.length);for(var i=0;i<4;i++)b[4+i]=type.charCodeAt(i);b.set(data,8);dv.setUint32(8+data.length,crc(b.subarray(4,8+data.length)));return b;}
+function deflate(raw){if(typeof CompressionStream==='undefined')return Promise.reject(new Error('no CompressionStream'));
+  var cs=new CompressionStream('deflate');var w=cs.writable.getWriter();w.write(raw);w.close();return new Response(cs.readable).arrayBuffer().then(function(a){return new Uint8Array(a);});}
+function pngRGB(cv){var W=cv.width,H=cv.height,d=cv.getContext('2d').getImageData(0,0,W,H).data,row=W*3+1,raw=new Uint8Array(row*H);
+  for(var y=0;y<H;y++){var o=y*row,s=y*W*4;raw[o]=1;/* фильтр Sub */
+    for(var x=0;x<W;x++){var i=s+x*4,j=o+1+x*3;if(x===0){raw[j]=d[i];raw[j+1]=d[i+1];raw[j+2]=d[i+2];}else{raw[j]=(d[i]-d[i-4])&255;raw[j+1]=(d[i+1]-d[i-3])&255;raw[j+2]=(d[i+2]-d[i-2])&255;}}}
+  return deflate(raw).then(function(z){var ih=new Uint8Array(13),dv=new DataView(ih.buffer);dv.setUint32(0,W);dv.setUint32(4,H);ih[8]=8;ih[9]=2;ih[10]=0;ih[11]=0;ih[12]=0;
+    var parts=[new Uint8Array([137,80,78,71,13,10,26,10]),chunk('IHDR',ih),chunk('IDAT',z),chunk('IEND',new Uint8Array(0))];return new Blob(parts,{type:'image/png'});});}
+function save(cv,name){busy(name);return pngRGB(cv).catch(function(){return new Promise(function(ok){cv.toBlob(ok,'image/png');});}).then(function(b){var a=document.createElement('a');a.href=URL.createObjectURL(b);a.download=name;document.body.appendChild(a);a.click();setTimeout(function(){URL.revokeObjectURL(a.href);a.remove();},4000);busy('');});}
+function busy(t){var b=$('busy');b.textContent=t?'⬇ '+t:'';b.style.display=t?'block':'none';}
+
+/* ---------- страница ---------- */
+var CVS=[],FG=null,OG=null;
+function fname(i){return 'gg-squad_'+LG[L]+'_'+P+'_'+(i+1)+'-'+SH[i].k+'.png';}
+function build(){
+  var sh=$('shots');sh.innerHTML='';CVS=[];
+  SH.forEach(function(d,i){var c=el('div','card'),cv=document.createElement('canvas');cv.width=1080;cv.height=1920;cv.setAttribute('aria-label',d.t[L]);c.appendChild(cv);
+    var m=el('div','meta');m.appendChild(el('b',null,(i+1)+'. '+d.t[L]));m.appendChild(el('span',null,'1080×1920'));c.appendChild(m);
+    var b=el('button','btn',UI.dl[L]);b.type='button';b.onclick=function(){save(cv,fname(i));};c.appendChild(b);sh.appendChild(c);CVS.push(cv);});
+  ['fgc','ogc'].forEach(function(id,j){var c=$(id);c.innerHTML='';var cv=document.createElement('canvas'),prev=document.createElement('canvas');
+    c.appendChild(prev);var m=el('div','meta');m.appendChild(el('b',null,j?'og.png':'Feature graphic'));m.appendChild(el('span',null,j?'1200×630':'1024×500'));c.appendChild(m);
+    var b=el('button','btn',UI.dl[L]);b.type='button';b.onclick=function(){save(cv,j?('og_'+LG[L]+'_'+P+'.png'):('gg-squad_feature_'+LG[L]+'_'+P+'.png'));};c.appendChild(b);
+    if(j){OG={cv:cv,prev:prev};}else{FG={cv:cv,prev:prev};}});
+  render();}
+function render(){
+  document.documentElement.lang=LG[L];var p=PAL[P];var r=document.documentElement.style;r.setProperty('--acc',p.c);r.setProperty('--on',p.on);r.setProperty('--bg',p.bg);
+  ['sub','h_shots','n_shots','h_fg','n_fg','h_icon','h_where'].forEach(function(k){$(k).textContent=UI[k][L];});$('all').textContent=UI.all[L];
+  $('where').innerHTML='';WHERE.forEach(function(w){var li=document.createElement('li');li.innerHTML=w[L];$('where').appendChild(li);});
+  segs();
+  var jobs=CVS.map(function(cv,i){return drawShot(cv,i);});
+  jobs.push(drawPromo(FG.cv,1024,500,false).then(function(){return drawPromo(FG.prev,1024,500,true);}));
+  jobs.push(drawPromo(OG.cv,1200,630,false).then(function(){return drawPromo(OG.prev,1200,630,true);}));
+  return Promise.all(jobs).then(function(){document.body.dataset.ready=LG[L]+'_'+P;}).catch(function(e){document.body.dataset.ready='error';console.error(e);});}
+function segs(){var l=$('lang');l.innerHTML='';LG.forEach(function(x,i){var b=el('button',i===L?'on':'',x.toUpperCase());b.type='button';b.setAttribute('aria-pressed',String(i===L));b.onclick=function(){L=i;build();};l.appendChild(b);});
+  var p=$('pal');p.innerHTML='';Object.keys(PAL).forEach(function(k){var b=el('button',k===P?'on':'');b.type='button';var d=el('i');d.style.background=PAL[k].c;b.appendChild(d);b.appendChild(document.createTextNode(PAL[k].n));b.setAttribute('aria-pressed',String(k===P));b.onclick=function(){P=k;render();};p.appendChild(b);});}
+function icons(){var w=$('icons');w.innerHTML='';
+  [[512,0,'512'],[192,0,'192'],[96,22,'96'],[48,11,'48']].forEach(function(z){var f=document.createElement('figure');var i=new Image();i.src='../icon-512.png';i.width=Math.min(z[0],192);i.height=Math.min(z[0],192);if(z[0]<=96){i.width=z[0];i.height=z[0];}
+    i.style.borderRadius=z[1]?Math.round(z[0]*0.2)+'px':'0';f.appendChild(i);f.appendChild(document.createTextNode(z[2]+(z[1]?[' · маска Google',' · Google mask',' · maska Google'][L]:'')));w.appendChild(f);});
+  var a=document.createElement('a');a.className='btn';a.href='../icon-512.png';a.download='icon-512.png';a.textContent=UI.dl[L];w.appendChild(a);
+  img('../icon-512.png').then(function(im){var c=document.createElement('canvas');c.width=im.width;c.height=im.height;var x=c.getContext('2d');x.drawImage(im,0,0);
+    var d=x.getImageData(0,0,c.width,c.height).data,opaque=true;for(var i=3;i<d.length;i+=4)if(d[i]<255){opaque=false;break;}
+    var corners=[[0,0],[c.width-1,0],[0,c.height-1],[c.width-1,c.height-1]].map(function(p){return x.getImageData(p[0],p[1],1,1).data[3];});
+    var ok=im.width===512&&im.height===512&&opaque&&corners.every(function(a){return a===255;});
+    $('icheck').innerHTML='<span class="'+(ok?'ok':'')+'">'+(ok?'✓ ':'✗ ')+'</span>'+[
+      ['512×512, без прозрачности, углы не скруглены и без тени — Google сам скругляет и добавляет тень. Лиса читается даже на 48 px.','512×512, no transparency, square corners, no shadow — Google rounds and shades it itself. The fox reads even at 48 px.','512×512, bez průhlednosti, rohy nezaoblené a bez stínu — Google je zaoblí a přidá stín sám. Liška je čitelná i při 48 px.'][L],
+    ][0];});}
+$('all').onclick=function(){var list=CVS.map(function(cv,i){return [cv,fname(i)];});list.push([FG.cv,'gg-squad_feature_'+LG[L]+'_'+P+'.png']);list.push([OG.cv,'og_'+LG[L]+'_'+P+'.png']);
+  (function next(k){if(k>=list.length)return;save(list[k][0],list[k][1]).then(function(){setTimeout(function(){next(k+1);},350);});})(0);};
+window.__store={save:save,pngRGB:pngRGB,setLang:function(i){L=i;build();},setPal:function(k){P=k;return render();},canvases:function(){return CVS;},fg:function(){return FG;},og:function(){return OG;}};
+Promise.all([document.fonts.load("800 100px 'GGHead'",'GG Squad АБВ'),document.fonts.load("800 100px 'GGHead'",'ŘČŠŽĚŮ'),document.fonts.load('600 34px Inter'),document.fonts.load('700 40px Inter')]).catch(function(){}).then(function(){build();icons();});
+})();
+</script>
+</body>
+</html>
