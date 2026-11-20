@@ -31,7 +31,7 @@ jobs:
         if: always()
         run: |
           mkdir -p "$RUNNER_TEMP/logs"
-          grep -v -i -E 'private_key|BEGIN PRIVATE|x-access-token' "$RUNNER_TEMP/build.txt" | tail -n 400 > "$RUNNER_TEMP/logs/build.txt" || true
+          grep -v -i -E 'private_key|BEGIN PRIVATE|x-access-token|add-mask|storepass|keypass' "$RUNNER_TEMP/build.txt" | tail -n 400 > "$RUNNER_TEMP/logs/build.txt" || true
           cd "$RUNNER_TEMP/logs"
           git init -q && git checkout -q -b ci-logs-android
           git config user.email "actions@github.com" && git config user.name "GitHub Actions"
