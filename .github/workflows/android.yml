@@ -1,0 +1,39 @@
+# Сборка Android-приложения GG Squad (.aab для Google Play).
+# Запускается при изменении android/** или вручную. Результат — релиз android-vN на GitHub.
+name: Android build
+on:
+  push:
+    branches: [main]
+    paths: ['android/**', '.github/workflows/android.yml']
+  workflow_dispatch:
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 17
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Сборка
+        env:
+          SA: ${{ secrets.GGKEY }}
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -o pipefail
+          bash android/build.sh 2>&1 | tee "$RUNNER_TEMP/build.txt"
+      - name: Лог в ветку ci-logs-android
+        if: always()
+        run: |
+          mkdir -p "$RUNNER_TEMP/logs"
+          grep -v -i -E 'private_key|BEGIN PRIVATE|x-access-token' "$RUNNER_TEMP/build.txt" | tail -n 400 > "$RUNNER_TEMP/logs/build.txt" || true
+          cd "$RUNNER_TEMP/logs"
+          git init -q && git checkout -q -b ci-logs-android
+          git config user.email "actions@github.com" && git config user.name "GitHub Actions"
+          git add build.txt && git commit -q -m "android build log $GITHUB_RUN_ID"
+          git push -q -f "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}.git" ci-logs-android
