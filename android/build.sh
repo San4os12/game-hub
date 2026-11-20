@@ -46,6 +46,7 @@ BW_CORE="$BW/node_modules/@bubblewrap/core" node android/gen.cjs "$P"
 echo "=== SDK 36 ==="
 cd "$P"
 sed -i -E 's/(compileSdkVersion|targetSdkVersion|compileSdk|targetSdk)( =)? [0-9]+/\1\2 36/; s/(minSdkVersion|minSdk)( =)? [0-9]+/\1\2 24/' app/build.gradle
+sed -i 's/jcenter()/mavenCentral()/g' build.gradle app/build.gradle settings.gradle 2>/dev/null || true
 grep -q suppressUnsupportedCompileSdk gradle.properties 2>/dev/null || echo 'android.suppressUnsupportedCompileSdk=36' >> gradle.properties
 SDKM=$(ls "$ANDROID_HOME"/cmdline-tools/*/bin/sdkmanager | head -1)
 "$SDKM" --install "platforms;android-36" "build-tools;36.0.0" >/dev/null 2>&1 || true
